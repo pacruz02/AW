@@ -78,4 +78,3 @@ CREATE TABLE reservas (
         ON UPDATE CASCADE,
     CONSTRAINT chk_fechas CHECK (fecha_fin >= fecha_inicio)
 );
-
