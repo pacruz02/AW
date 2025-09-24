@@ -1,0 +1,40 @@
+
+p {
+font-weight: bold;
+}
+a:hover, a:focus{
+    color:#2d9c1e;
+}
+h2::before{
+    content:"֎";
+}
+p::first-letter{
+    font-size: 3em;
+    font-style: italic;
+}
+::selection{
+    color: rgb(238, 106, 45);
+}
+.noticia{
+    background-color: #cad4f7;
+}
+/*
+¿Qué sucede si el icono decorativo aporta
+información importante y no solo estética?
+    Que en caso de usar lectores de pantalla,
+    se va a interpretar el icono como informarción
+    y se lo va a leer al usuario.
+
+¿Cómo ayudas a los usuarios que navegan con
+teclado a saber en qué enlace están?
+    Cambiando el estilo de a:focus.
+
+¿Qué problema existe si el único criterio para
+diferenciar noticias o enlaces es el color?
+    Que las personas con dificultades visuales
+    como el daltonismo no podrán diferencialos
+    correctamente.
+
+Luis Pérez
+Pablo Cruz
+*/
