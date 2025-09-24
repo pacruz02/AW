@@ -52,7 +52,45 @@
     <br>
     <a href="..\imagenes\vehiculos\tesla2.png" target="_blank"><img src="..\imagenes\vehiculos\tesla2.png" alt="" width="50"></a>
     <p>Ir a <a href="#vehiculos">vehiculos</a></p>
-    <h2 id="vehiculos">vehiculos</h2>
+    <section id="vehiculos">
+        <table>
+            <caption>vehiculos disponibles</caption>
+                <thead>
+                    <tr>
+                        <th scope ="col">Matricula</th>
+                        <th scope ="col">Marca</th>
+                        <th scope ="col">Autonomía (km)</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                </tbody>
+        </table>
+    </section>
+    <section id="reservas">
+        <form>
+            <label for="nombre">nombre</label>
+            <input type="text" placeholder="Escribe tu nombre">
+            <label for="email">email</label>
+            <input type="email" placeholder="ejemplo@ucm.es">
+            <select>
+                <option value="1">tesla</option>
+                <option value="1">BYD</option>
+                <option value="1">volvo</option>
+                <option value="1">VW</option>
+            </select>
+            <br>
+            <label for="dia">dia de inicio</label>
+            <input type="text" placeholder="lunes">
+            <label for="hora">hora de inicio</label>
+            <input type="text" placeholder="00:00">
+            <br>
+            <label for="dia">dia de fin</label>
+            <input type="text" placeholder="martes">
+            <label for="hora">hora de fin</label>
+            <input type="text" placeholder="00:00">
+        </form>
+    </section>
     <p>&euro; &copy;</p>
 </body>
 </html>
