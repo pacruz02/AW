@@ -1,0 +1,30 @@
+body{
+    background-color:white;
+    font-family: Helvetica;
+}
+
+h1{
+    font-size: 3em;
+}
+
+header{
+    background-color: black;
+    position: sticky;
+    top: 0;
+
+}
+
+.logo {
+    filter: invert(100%);
+    width: 50%;
+}
+
+nav ul{
+    list-style: none;
+    justify-items: left;
+}
+
+nav button{
+    color: white;
+    background-color: transparent;
+}
