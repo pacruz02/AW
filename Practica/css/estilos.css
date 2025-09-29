@@ -1,6 +1,8 @@
 body{
     background-color:white;
     font-family: Helvetica;
+    margin: 0px;
+    padding: 0px;
 }
 
 h1{
@@ -16,7 +18,7 @@ header{
 
 .logo {
     filter: invert(100%);
-    width: 50%;
+    width: 20%;
 }
 
 nav ul{
@@ -27,4 +29,13 @@ nav ul{
 nav button{
     color: white;
     background-color: transparent;
+}
+
+.cabecera{
+    box-sizing: border-box;
+    display: flex;
+}
+
+.head-list{
+    display: flex;
 }
