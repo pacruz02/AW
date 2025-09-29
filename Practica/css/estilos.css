@@ -29,6 +29,7 @@ nav ul{
 nav button{
     color: white;
     background-color: transparent;
+    border-style: none;
 }
 
 .cabecera{
