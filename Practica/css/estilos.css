@@ -1,44 +1,45 @@
-body{
-    background-color:white;
-    font-family: Helvetica;
-    margin: 0px;
-    padding: 0px;
-}
-
-h1{
-    font-size: 3em;
-}
-
 header{
+    display: flex;
     background-color: black;
     position: sticky;
     top: 0;
-
+    font-size: 4em;
+    justify-content: space-between;
+    padding: 2rem;
 }
 
 .logo {
     filter: invert(100%);
-    width: 20%;
 }
 
-nav ul{
-    list-style: none;
-    justify-items: left;
+nav{
+    display: flex;
+    align-items: center;
+    gap: 2rem;
 }
 
 nav button{
     color: white;
     background-color: transparent;
     border-style: none;
+    max-height: 4rem;
+    font-size: 1rem;
+    
 }
 
-.cabecera{
-    box-sizing: border-box;
-    display: flex;
+nav button:hover{
+    color: red;
 }
 
-.head-list{
-    display: flex;
+body{
+    background-color:white;
+    font-family: 'Quicksand', sans-serif;
+    margin: 0px;
+    padding: 0px;
+}
+
+h1{
+    font-size: 3em;
 }
 
 .contacto-form{
