@@ -22,14 +22,15 @@ nav button{
     color: white;
     background-color: transparent;
     border-style: none;
-    max-height: 4rem;
+    size: 3rem;
     font-size: 1rem;
-    
+    font-weight: 400;
 }
 
 nav button:hover{
-    color: red;
-}
+    /* color: #7289DA; */
+    /* transform: scale(1.05); subtle enlargement */
+    text-shadow: 0 0 0.2rem currentColor; /* gives “bolder” look */}
 
 body{
     background-color:white;
