@@ -4,21 +4,24 @@
     <meta charset="UTF-8" />
     <title>contacto</title>
     <link rel="stylesheet" href="..\css\estilos.css">
+    <link href="..\bootstrap-5.1.1-dist\css\bootstrap.min.css" rel="stylesheet" media="screen">
 </head>
 <!-- añadir headr -->
-<body class="contacto">
-    <div class="contacto-form">
-        <form">
-            <label for="nombre">Nombre</label>
-            <input type="text" placeholder="Escribe aquí..." required><br>
-            <label for="email">Email</label>
-            <input type="email" placeholder="Escribe aquí..." required><br>
-            <label for="mensaje">Mensaje</label>
-            <textarea type="text" placeholder="Escribe aquí..." required></textarea><br>
-            <input type="submit" name="Enviar">
-            <input type="reset" name="Limpiar"><br>
-        </form>
+<body>
+    <div class="container">
+            <form" role="form">
+                <div class="form-group">
+                    <label for="nombre">Nombre</label>
+                    <input type="text" placeholder="Escribe aquí..." required class="form-control"><br>
+                    <label for="email">Email</label>
+                    <input type="email" placeholder="Escribe aquí..." required class="form-control"><br>
+                    <label for="mensaje">Mensaje</label>
+                    <textarea type="text" placeholder="Escribe aquí..." class="form-control" required></textarea><br>
+                    <input type="submit" name="Enviar">
+                    <input type="reset" name="Limpiar"><br>
+                </div>
+            </form>
     </div>
 </body>
-<!-- añadir footer -->
+<!-- añadir footr -->
 </html>

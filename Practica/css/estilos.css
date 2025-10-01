@@ -44,17 +44,34 @@ nav button{
 .contacto-form{
     position: relative;
     color: white;
-    width: 40%;
-    height: 0%;
-    padding: 10px;
-    border: 5px solid gray;
-    margin: 15px;
+    width: 30%;
+    max-width: 600px;
+    border: 2px solid gray;
+    padding: 15px;
     background-color: black;
-
+    text-align: center;
 }
 
-.contacto {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.container{
+    background: black;
+    margin-top: 20px;
+    padding: 5px;
+}
+
+@media (min-width: 568px) {
+    .container {
+        width: 550px;
+    }
+}
+
+@media (min-width: 992px) {
+    .container {
+        width: 970px;
+    }
+}
+
+@media (min-width: 1200px) {
+    .container {
+        width: 1170px;
+    }
 }
