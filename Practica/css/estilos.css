@@ -8,6 +8,10 @@ header{
     padding: 2rem;
 }
 
+main{
+    padding: 5%;
+}
+
 .logo {
     filter: invert(100%);
 }

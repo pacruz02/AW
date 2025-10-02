@@ -11,117 +11,129 @@
     <link href="..\bootstrap-5.1.1-dist\css\bootstrap.min.css" rel="stylesheet" media="screen">
     <title>Gestión de Flota de Vehículos Eléctricos.</title>
 </head>
-<header>
-    <img src="..\imagenes\uNTER_logo.svg" alt="logo" class="logo">
-    <nav>
-        <button >Contacto</button>
-        <button >Menu</button>
-        <button >Log in</button>
-    </nav>
-</header>
+
 <body>
-    <h1>
-        üNTER
-    </h1>
-    <h2>
-        Plataforma de movilidad sostenible
-    </h2>
-    <p>
-        La plataforma web de <strong>gestión de flotas de vehículos eléctricos</strong> tiene como objetivo
-        ofrecer una solución <em>empresarial</em> completa para la administración y uso compartido de estos recursos.
-        Permite controlar la <strong>reserva</strong> y <strong>devolución</strong> de vehículos, gestionar
-        <strong>usuarios</strong> con distintos <em>roles</em> (empleados y administradores), y garantizar un uso
-        <em>eficiente</em> y <strong>sostenible</strong> de la movilidad corporativa. Además, incorpora
-        <strong>opciones de accesibilidad</strong> para un uso inclusivo y módulos de
-        <strong>estadísticas</strong> que facilitan la toma de decisiones estratégicas.
-    </p>
+    <header>
+        <img src="..\imagenes\uNTER_logo.svg" alt="logo" class="logo">
+        <nav>
+            <button aria-label="contacto" onclick="window.location.href='contacto.html'" accesskey="c">Contacto</button>
+            <button aria-label="menu">Menu</button>
+            <button aria-label="log in">Log in</button>
+        </nav>
+    </header>
+    <main>
+        <h1>
+            üNTER
+        </h1>
+        <h2>
+            Plataforma de movilidad sostenible
+        </h2>
+        <section id="sostenibilidad">
+            <p>
+                La plataforma web de <strong>gestión de flotas de vehículos eléctricos</strong> tiene como objetivo
+                ofrecer una solución <em>empresarial</em> completa para la administración y uso compartido de estos
+                recursos.
+                Permite controlar la <strong>reserva</strong> y <strong>devolución</strong> de vehículos, gestionar
+                <strong>usuarios</strong> con distintos <em>roles</em> (empleados y administradores), y garantizar un
+                uso
+                <em>eficiente</em> y <strong>sostenible</strong> de la movilidad corporativa. Además, incorpora
+                <strong>opciones de accesibilidad</strong> para un uso inclusivo y módulos de
+                <strong>estadísticas</strong> que facilitan la toma de decisiones estratégicas.
+            </p>
+        </section>
+        <h2>Beneficios de los vehículos eléctricos</h2>
+        <section id="beneficios">
+            <ol>
+                <li>Cero emisiones directas → No producen gases contaminantes al circular, lo que ayuda a reducir la
+                    contaminación del aire en ciudades.</li>
+                <li>Menor costo de operación → Gastan menos en “combustible” (electricidad frente a gasolina) y
+                    requieren
+                    menos
+                    mantenimiento (no tienen aceite ni tantas piezas móviles).</li>
+                <li>Conducción silenciosa y eficiente → Ofrecen una experiencia de manejo más suave, con aceleración
+                    inmediata y
+                    menos ruido.</li>
+            </ol>
+        </section>
+        <h2>Servicios principales</h2>
+        <section id="servicios">
+            <ul>
+                <li>Procesos de reserva y devolución de vehículos, con validaciones de autonomía y disponibilidad.</li>
+                <li>Gestión de usuarios con roles diferenciados (empleados y administradores).</li>
+                <li>Gestión de concesionarios</li>
+                <li>Gestión de vehículos</li>
+                <li>Gestión de reservas e histórico por usuario.</li>
+            </ul>
+        </section>
+        <dl>
+            <dt>HTML</dt>
+            <dd>Lenguaje de marcado para estructurar páginas web.</dd>
+            <dt>CSS</dt>
+            <dd>Lenguaje de estilos para dar formato al contenido.</dd>
+            <dt>JavaScript</dt>
+            <dd>Lenguaje de programación para añadir interactividad.</dd>
+        </dl>
 
-    <h2>Beneficios de los vehículos eléctricos</h2>
-    <ol>
-        <li>Cero emisiones directas → No producen gases contaminantes al circular, lo que ayuda a reducir la
-            contaminación del aire en ciudades.</li>
-        <li>Menor costo de operación → Gastan menos en “combustible” (electricidad frente a gasolina) y requieren menos
-            mantenimiento (no tienen aceite ni tantas piezas móviles).</li>
-        <li>Conducción silenciosa y eficiente → Ofrecen una experiencia de manejo más suave, con aceleración inmediata y
-            menos ruido.</li>
-    </ol>
-    <h2>Servicios principales</h2>
-    <ul>
-        <li>Procesos de reserva y devolución de vehículos, con validaciones de autonomía y disponibilidad.</li>
-        <li>Gestión de usuarios con roles diferenciados (empleados y administradores).</li>
-        <li>Gestión de concesionarios</li>
-        <li>Gestión de vehículos</li>
-        <li>Gestión de reservas e histórico por usuario.</li>
-    </ul>
+        <p>Visita la <a href="https://www.ucm.es/" target="_blank">UCM</a></p>
 
-    <dl>
-        <dt>HTML</dt>
-        <dd>Lenguaje de marcado para estructurar páginas web.</dd>
-        <dt>CSS</dt>
-        <dd>Lenguaje de estilos para dar formato al contenido.</dd>
-        <dt>JavaScript</dt>
-        <dd>Lenguaje de programación para añadir interactividad.</dd>
-    </dl>
+        <img src="..\imagenes\vehiculos\byd_seal1.png" alt="BYD Seal" width="200">
+        <br>
+        <a href="..\imagenes\vehiculos\tesla2.png" target="_blank"><img src="..\imagenes\vehiculos\tesla2.png"
+                alt="tesla" width="50"></a>
+        <p>Ir a <a href="#vehiculos" accesskey="v">vehiculos</a></p>
+        <section id="vehiculos">
+            <table>
+                <caption>vehiculos disponibles</caption>
+                <thead>
+                    <tr>
+                        <th scope="col">Matricula</th>
+                        <th scope="col">Marca</th>
+                        <th scope="col">Autonomía (km)</th>
+                    </tr>
+                </thead>
+                <tbody>
 
-    <p>Visita la <a href="https://www.ucm.es/" target="_blank">UCM</a></p>
-    <p><a href="contacto.html">Contacto</a></p>
-    <img src="..\imagenes\vehiculos\byd_seal1.png" alt="BYD Seal" width="200">
-    <br>
-    <a href="..\imagenes\vehiculos\tesla2.png" target="_blank"><img src="..\imagenes\vehiculos\tesla2.png" alt=""
-            width="50"></a>
-    <p>Ir a <a href="#vehiculos">vehiculos</a></p>
-    <section id="vehiculos">
-        <table>
-            <caption>vehiculos disponibles</caption>
-            <thead>
-                <tr>
-                    <th scope="col">Matricula</th>
-                    <th scope="col">Marca</th>
-                    <th scope="col">Autonomía (km)</th>
-                </tr>
-            </thead>
-            <tbody>
-
-            </tbody>
-        </table>
-    </section>
-    <section id="reservas">
-        <form>
-            <fieldset>
-                <legend>Datos personales</legend>
-                <label for="nombre">nombre</label>
-                <input type="text" placeholder="Escribe tu nombre" required>
-                <label for="email">email</label>
-                <input type="email" placeholder="ejemplo@ucm.es" required>
-                <label for="telefono">teléfono</label>
-                <input type="tel" placeholder="" pattern="[0-9]{9}">
-            </fieldset>
-            <br>
-            <fieldset>
-                <legend>Datos de reserva</legend>
-                <select required>
-                    <option value="1">tesla</option>
-                    <option value="2">BYD</option>
-                    <option value="3">volvo</option>
-                    <option value="4">VW</option>
-                </select><br>
-                <label for="dia">dia de inicio</label>
-                <input type="text" placeholder="lunes" required>
-                <label for="hora">hora de inicio</label>
-                <input type="text" placeholder="00:00" required>
+                </tbody>
+            </table>
+        </section>
+        <section id="reservas">
+            <form>
+                <fieldset>
+                    <legend>Datos personales</legend>
+                    <label for="nombre">nombre</label>
+                    <input type="text" placeholder="Escribe tu nombre" required>
+                    <label for="email">email</label>
+                    <input type="email" placeholder="ejemplo@ucm.es" required>
+                    <label for="telefono">teléfono</label>
+                    <input type="tel" placeholder="" pattern="[0-9]{9}">
+                </fieldset>
                 <br>
-                <label for="dia">dia de fin</label>
-                <input type="text" placeholder="martes" required>
-                <label for="hora">hora de fin</label>
-                <input type="text" placeholder="00:00" required><br>
-            </fieldset>
-            Terminos y condiciones <input type="checkbox" name="condiciones" required><br>
-            <input type="submit" name="Enviar">
-            <input type="reset" name="Limpiar"><br>
+                <fieldset>
+                    <legend>Datos de reserva</legend>
+                    <select required>
+                        <option value="1">tesla</option>
+                        <option value="2">BYD</option>
+                        <option value="3">volvo</option>
+                        <option value="4">VW</option>
+                    </select><br>
+                    <label for="dia">dia de inicio</label>
+                    <input type="text" placeholder="lunes" required>
+                    <label for="hora">hora de inicio</label>
+                    <input type="text" placeholder="00:00" required>
+                    <br>
+                    <label for="dia">dia de fin</label>
+                    <input type="text" placeholder="martes" required>
+                    <label for="hora">hora de fin</label>
+                    <input type="text" placeholder="00:00" required><br>
+                </fieldset>
+                <label for="terminos">Terminos y condiciones</label>
+                <input type="checkbox" name="condiciones" required><br>
+                <input type="submit" name="Enviar" aria-label="enviar">
+                <input type="reset" name="Limpiar" aria-label="limpiar"><br>
 
-        </form>
-    </section>
-    <p>&euro; &copy;</p>
+            </form>
+        </section>
+    </main>
 </body>
 
 </html>
