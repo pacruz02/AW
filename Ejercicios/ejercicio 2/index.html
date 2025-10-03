@@ -1,12 +1,15 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="UTF-8" />
+    <link rel="stylesheet" href="estilos.css">
     <title>Suscripción a la revista</title>
 </head>
+
 <body>
     <h1>Suscripción a la Revista</h1>
-    <form" role="form">
+    <form role="form">
         <fieldset>
             <legend>Datos personales</legend>
             <label for="nombre">Nombre:</label>
@@ -16,7 +19,7 @@
             <label for="apellido2">Segundo apellido:</label>
             <input type="text" required><br>
             <label for="direccion">Dirección:</label>
-            <input type="text" placeholder="Calle o plaza, núemeo y piso" required><br>
+            <input type="text" placeholder="Calle o plaza, núemeo y piso" size="50" required><br>
             <label for="email">e-mail:</label>
             <input type="email" placeholder="@" required><br>
             <label for="password">Contraseña:</label>
@@ -50,26 +53,37 @@
             <input type="checkbox">
             <label>Ciencia</label><br>
         </fieldset>
-        
+
         <fieldset>
             <legend>Datos sobre la revista</legend>
-            <legend>Frecuencia con la que se recibirá la revista:</legend><br>
+            <legend>Frecuencia con la que se recibirá la revista:</legend>
             <select required>
                 <option value="1">Semanal</option>
                 <option value="2">Mensual</option>
                 <option value="3">Trimestral</option>
                 <option value="4">Anual</option>
             </select><br>
-            <p>Puedes mandar tu artículo sobre cualquier tema de los que tratamos. Nosotros lo valoraremos para que pueda ser publicado.</p>
-            <p>Mandar artículo:<input type="file"></p>
+            <p>Puedes mandar tu artículo sobre cualquier tema de los que tratamos. Nosotros lo valoraremos para que
+                pueda ser publicado.</p>
+            <p>Mandar artículo: <input type="file" aria-label="enviar archivo">
+            </p>
             <p>Si deseas mandar simplemente una opinión o comentario escríbelo aquí</p>
-            <textarea placeholder="Escribe aquí tu comentario"></textarea><br>
-            
+            <textarea placeholder="Escribe aquí tu comentario" rows="5"></textarea><br>
+
         </fieldset>
         <fieldset>
-            <input type="submit" name="Enviar">
-            <input type="reset" name="Limpiar"><br> 
+            <legend>Comenzar de nuevo</legend>
+            Borrar todos los datos del formulario y vovlver a empezar:
+            <button type="reset" aria-label="limpiar">Borrar todo</button>
+        </fieldset>
+
+        <fieldset>
+            <legend>Enviar</legend>
+            Enviar formulario por correo electrónico: Al pulsar el botón se abrirá la página de envío de correo: en esa
+            página pulsa enviar:
+            <button type="button" aria-label="enviar por correo">Enviar por correo</button>
         </fieldset>
     </form>
 </body>
+
 </html>

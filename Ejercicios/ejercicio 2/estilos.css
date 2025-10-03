@@ -1,0 +1,11 @@
+fieldset {
+    padding: 20px;
+    margin: 5px;
+    border-radius: 8px;
+    line-height: 2;
+}
+
+textarea {
+    width: 100%;
+    resize: vertical;
+}
