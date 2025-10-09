@@ -2,29 +2,41 @@
 <html lang="es">
 
 <head>
-    <meta charset="UTF-8" />
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../css/estilos.css">
     <link href="../bootstrap-5.1.1-dist/css/bootstrap.min.css" rel="stylesheet" media="screen">
+    <script src="../bootstrap-5.1.1-dist/js/bootstrap.bundle.min.js"></script>
     <title>Gestión de Flota de Vehículos Eléctricos.</title>
 </head>
 
 <body>
     <header>
-        <img src="../imagenes/uNTER_logo.svg" alt="logo" class="logo">
+        <img src="../imagenes/uNTER_logo.svg" alt="logo" class="logo"> 
         <nav>
             <button aria-label="contacto" onclick="window.location.href='contacto.html'" accesskey="c">Contacto</button>
             <button aria-label="menu">Menu</button>
             <button aria-label="log in">Log in</button>
+            <div class="btn-group">
+                <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown"
+                    aria-expanded="false">
+                    <img src="../imagenes/globe.svg" alt="Lenguaje" width="20">
+                </button>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="index_en.html">English</a></li>
+                </ul>
+            </div>
         </nav>
     </header>
     <main>
+        <!-- TITULO -->
         <h1>
             üNTER
         </h1>
+        <!-- INTRODUCCION -->
         <section id="sostenibilidad">
             <h2>Plataforma de movilidad sostenible</h2>
             <p>
@@ -39,20 +51,20 @@
                 <strong>estadísticas</strong> que facilitan la toma de decisiones estratégicas.
             </p>
         </section>
+        <!-- BENEFICIOS -->
         <section id="beneficios">
             <h2>Beneficios de los vehículos eléctricos</h2>
             <ol>
-                <li>Cero emisiones directas → No producen gases contaminantes al circular, lo que ayuda a reducir la
+                <li>Cero emisiones directas: No producen gases contaminantes al circular, lo que ayuda a reducir la
                     contaminación del aire en ciudades.</li>
-                <li>Menor costo de operación → Gastan menos en “combustible” (electricidad frente a gasolina) y
-                    requieren
+                <li>Menor costo de operación: Gastan menos en “combustible” (electricidad frente a gasolina) y requieren 
                     menos
                     mantenimiento (no tienen aceite ni tantas piezas móviles).</li>
-                <li>Conducción silenciosa y eficiente → Ofrecen una experiencia de manejo más suave, con aceleración
-                    inmediata y
+                <li>Conducción silenciosa y eficiente: Ofrecen una experiencia de manejo más suave, con aceleración inmediata y
                     menos ruido.</li>
             </ol>
         </section>
+        <!-- SERVICIOS PRINCIPALES -->
         <section id="servicios">
             <h2>Servicios principales</h2>
             <ul>
@@ -96,43 +108,45 @@
             </table>
         </section>
         <section id="reservas">
+            <!-- FORMULARIO DE RESERVAS -->
             <h2>Reservas</h2>
             <div class="container">
-                <form role="form">
+                <form>
                     <div class="form-group">
                         <fieldset>
                             <legend>Datos personales</legend>
                             <label for="nombre">Nombre</label>
-                            <input type="text" placeholder="Escribe tu nombre" class="form-control">
+                            <input type="text" id="nombre" placeholder="Escribe tu nombre" class="form-control">
                             <label for="email">Email</label>
-                            <input type="email" placeholder="ejemplo@ucm.es" class="form-control" required>
+                            <input type="email" id="email" placeholder="ejemplo@ucm.es" class="form-control" required>
                             <label for="telefono">Teléfono</label>
-                            <input type="tel" placeholder="" pattern="[0-9]{9}" class="form-control" required>
+                            <input type="tel" id="telefono" placeholder="" pattern="[0-9]{9}" class="form-control" required>
                         </fieldset>
                         <br>
                         <fieldset>
                             <legend>Datos de reserva</legend>
                             <select required class="form-select form-select-sm">
-                                <option selected>Elige un vehículo</option>
+                                <option value="" selected disabled>Elige un vehículo</option>
                                 <option value="1">tesla</option>
                                 <option value="2">BYD</option>
                                 <option value="3">volvo</option>
                                 <option value="4">VW</option>
                             </select>
-                            <label for="dia">Día de inicio</label>
-                            <input type="date" required>
-                            <label for="hora">Hora de inicio</label>
-                            <input type="time" required>
+                            <label for="diaI">Día de inicio</label>
+                            <input type="date" id="diaI" required>
+                            <label for="horaI">Hora de inicio</label>
+                            <input type="time" id="horaI" required>
                             <br>
-                            <label for="dia">Día de fin</label>
-                            <input type="date" required>
-                            <label for="hora">Hora de fin</label>
-                            <input type="time" required><br>
+                            <label for="diaF">Día de fin</label>
+                            <input type="date" id="diaF" required>
+                            <label for="horaF">Hora de fin</label>
+                            <input type="time" id="horaF" required><br>
                         </fieldset>
                         <label for="terminos">Terminos y condiciones</label>
-                        <input type="checkbox" name="condiciones" required><br>
+                        <input type="checkbox" id="terminos" name="condiciones" required><br>
                         <input type="submit" name="Enviar" aria-label="enviar">
-                        <input type="reset" name="Limpiar" aria-label="limpiar"><br>
+                        <input type="reset" name="Limpiar" aria-label="limpiar">
+                    </div>
                 </form>
             </div>
         </section>

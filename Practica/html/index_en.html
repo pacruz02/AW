@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/estilos.css">
+    <link href="../bootstrap-5.1.1-dist/css/bootstrap.min.css" rel="stylesheet" media="screen">
+    <script src="../bootstrap-5.1.1-dist/js/bootstrap.bundle.min.js"></script>
+    <title>Electric Vehicle Fleet Management</title>
+</head>
+
+<body>
+    <header>
+        <img src="../imagenes/uNTER_logo.svg" alt="logo" class="logo">
+        <nav>
+            <button aria-label="contact" onclick="window.location.href='contacto.html'" accesskey="c">Contact</button>
+            <button aria-label="menu">Menu</button>
+            <button aria-label="log in">Log in</button>
+            <div class="btn-group">
+                <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown"
+                    aria-expanded="false">
+                    <img src="../imagenes/globe.svg" alt="Lenguage" width="20">
+                </button>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="index_es.html">Español</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+    <main>
+        <!-- TITULO -->
+        <h1>
+            üNTER
+        </h1>
+        <!-- INTRODUCCION -->
+        <section id="sostenibilidad">
+            <h2>Sustainable Mobility Platform</h2>
+            <p>
+                The <strong>electric vehicle fleet management</strong> web platform aims to provide a complete
+                <em>business</em> solution for managing and sharing these resources.
+                It allows you to control the <strong>reservation</strong> and <strong>return</strong> of vehicles,
+                manage <strong>users</strong> with different <em>roles</em> (employees and administrators), and ensure
+                an <em>efficient</em> and <strong>sustainable</strong> use of corporate mobility. Additionally, it
+                includes <strong>accessibility options</strong> for inclusive use and <strong>statistics
+                    modules</strong> that facilitate strategic decision-making.
+            </p>
+        </section>
+        <!-- BENEFICIOS -->
+        <section id="beneficios">
+            <h2>Benefits of Electric Vehicles</h2>
+            <ol>
+                <li>Zero direct emissions: They do not produce harmful gases while driving, helping to reduce air
+                    pollution in cities.</li>
+                <li>Lower operating costs: They consume less "fuel" (electricity vs gasoline) and require less
+                    maintenance (no oil or many moving parts).</li>
+                <li>Silent and efficient driving: They offer a smoother driving experience, with immediate acceleration
+                    and less noise.</li>
+            </ol>
+        </section>
+        <!-- SERVICIOS PRINCIPALES -->
+        <section id="servicios">
+            <h2>Main Services</h2>
+            <ul>
+                <li>Vehicle reservation and return processes, with autonomy and availability checks.</li>
+                <li>User management with differentiated roles (employees and administrators).</li>
+                <li>Dealer management</li>
+                <li>Vehicle management</li>
+                <li>Reservation management and history by user.</li>
+            </ul>
+        </section>
+        <dl>
+            <dt>HTML</dt>
+            <dd>Markup language for structuring web pages.</dd>
+            <dt>CSS</dt>
+            <dd>Style language for formatting content.</dd>
+            <dt>JavaScript</dt>
+            <dd>Programming language for adding interactivity.</dd>
+        </dl>
+
+        <p>Visit <a href="https://www.ucm.es/" target="_blank">UCM</a></p>
+
+        <img src="../imagenes/vehiculos/byd_seal1.png" alt="BYD Seal" width="200">
+        <br>
+        <a href="../imagenes/vehiculos/tesla2.png" target="_blank"><img src="../imagenes/vehiculos/tesla2.png"
+                alt="tesla" width="50"></a>
+        <p>Go to <a href="#vehiculos" accesskey="v">vehicles</a></p>
+        <section id="vehiculos">
+            <h2>Vehicles</h2>
+            <table>
+                <caption>Available vehicles</caption>
+                <thead>
+                    <tr>
+                        <th scope="col">License Plate</th>
+                        <th scope="col">Brand</th>
+                        <th scope="col">Range (km)</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                </tbody>
+            </table>
+        </section>
+        <section id="reservas">
+            <!-- FORMULARIO DE RESERVAS -->
+            <h2>Reservations</h2>
+            <div class="container">
+                <form>
+                    <div class="form-group">
+                        <fieldset>
+                            <legend>Personal Information</legend>
+                            <label for="nombre">Name</label>
+                            <input type="text" id="nombre" placeholder="Enter your name" class="form-control">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" placeholder="example@ucm.es" class="form-control" required>
+                            <label for="telefono">Phone</label>
+                            <input type="tel" id="telefono" placeholder="" pattern="[0-9]{9}" class="form-control"
+                                required>
+                        </fieldset>
+                        <br>
+                        <fieldset>
+                            <legend>Reservation Details</legend>
+                            <select required class="form-select form-select-sm">
+                                <option value="" selected disabled>Choose a vehicle</option>
+                                <option value="1">Tesla</option>
+                                <option value="2">BYD</option>
+                                <option value="3">Volvo</option>
+                                <option value="4">VW</option>
+                            </select>
+                            <label for="diaI">Start Date</label>
+                            <input type="date" id="diaI" required>
+                            <label for="horaI">Start Time</label>
+                            <input type="time" id="horaI" required>
+                            <br>
+                            <label for="diaF">End Date</label>
+                            <input type="date" id="diaF" required>
+                            <label for="horaF">End Time</label>
+                            <input type="time" id="horaF" required><br>
+                        </fieldset>
+                        <label for="terminos">Terms and conditions</label>
+                        <input type="checkbox" id="terminos" name="condiciones" required><br>
+                        <input type="submit" name="Submit" aria-label="submit">
+                        <input type="reset" name="Reset" aria-label="reset">
+                    </div>
+                </form>
+            </div>
+        </section>
+    </main>
+</body>
+
+</html>
