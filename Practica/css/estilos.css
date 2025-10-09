@@ -59,9 +59,13 @@ h1{
 }
 
 .container{
-    background: black;
     margin-top: 20px;
     padding: 5px;
+    line-height: 2;
+}
+
+form input{
+    line-height: 1;
 }
 
 @media (min-width: 568px) {
