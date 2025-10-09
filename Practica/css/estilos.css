@@ -85,3 +85,6 @@ form input{
         width: 1170px;
     }
 }
+.btn.btn-primary.dropdown-toggle {
+  background-color: #ffffff !important;
+}
