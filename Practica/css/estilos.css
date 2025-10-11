@@ -1,4 +1,4 @@
-header{
+header {
     display: flex;
     background-color: black;
     position: sticky;
@@ -8,7 +8,7 @@ header{
     padding: 2rem;
 }
 
-main{
+main {
     padding: 5%;
 }
 
@@ -16,13 +16,13 @@ main{
     filter: invert(100%);
 }
 
-nav{
+nav {
     display: flex;
     align-items: center;
     gap: 2rem;
 }
 
-nav button{
+nav button {
     color: white;
     background-color: transparent;
     border-style: none;
@@ -31,23 +31,25 @@ nav button{
     font-weight: 400;
 }
 
-nav button:hover{
+nav button:hover {
     /* color: #7289DA; */
     /* transform: scale(1.05); subtle enlargement */
-    text-shadow: 0 0 0.2rem currentColor; /* gives “bolder” look */}
+    text-shadow: 0 0 0.2rem currentColor;
+    /* gives “bolder” look */
+}
 
-body{
-    background-color:white;
+body {
+    background-color: white;
     font-family: 'Quicksand', sans-serif;
     margin: 0px;
     padding: 0px;
 }
 
-h1{
+h1 {
     font-size: 3em;
 }
 
-.contacto-form{
+.contacto-form {
     position: relative;
     color: white;
     width: 30%;
@@ -58,13 +60,13 @@ h1{
     text-align: center;
 }
 
-.container{
+.container {
     margin-top: 20px;
     padding: 5px;
     line-height: 2;
 }
 
-form input{
+form input {
     line-height: 1;
 }
 
@@ -85,6 +87,20 @@ form input{
         width: 1170px;
     }
 }
+
 .btn.btn-primary.dropdown-toggle {
-  background-color: #ffffff !important;
+    background-color: #ffffff !important;
+}
+
+input.invalid {
+    border: 2px solid red;
+}
+
+input.valid {
+    border: 2px solid green;
+}
+
+span.error {
+    color: red;
+    font-size: 0.9em;
 }

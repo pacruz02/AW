@@ -1,45 +1,66 @@
+
 document.addEventListener('DOMContentLoaded', function () {
     const form = document.getElementById("formularioReservas");
-
+    
+    //"Intercepta" el formulario 
     form.addEventListener("submit", function (event) {
 
-        const nombre = document.getElementById('nombre').value;
-        const email = document.getElementById('email').value;
-        const fechaInicio = document.getElementById('diaI').value;
-        const fechaFin = document.getElementById('diaF').value;
+        //recoge los datos del formulario
+        const nombre = document.getElementById('nombre');
+        const email = document.getElementById('email');
+        const fechaInicio = document.getElementById('diaI');
+        const fechaFin = document.getElementById('diaF');
 
         let valido = true;
 
+        //Comprueba la validez del nombre
         if (nombre.length < 3) {
-            alert("El nombre de tener más de 3 caracteres");
+            console.log('hola');
+            setError(nombre, 'El nombre debe tener al menos 3 caracteres');
             valido = false;
-            console.log("Nombre no válido");
         }
 
+        if(nombre ===''){
+            setError(nombre, 'El nombre es obligatorio');
+            valido = false;
+        }
+
+        if(valido)
+            clearError(nombre);
+
+        //Comprueba la validez del correo
         const expRegEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (!expRegEmail.test(email)) {
-            alert("El email no es válido");
+            setError(email, 'El email no es correcto');
             valido = false;
-            console.log("Email no válido");
         }
+        
+        if(valido)
+            clearError(nombre);
 
+        //Comprueba la validez de la fecha
         const hoy = new Date();
         const inicio = new Date(fechaInicio);
         const fin = new Date(fechaFin); 
         hoy.setHours(0, 0, 0, 0);
 
         if (inicio < hoy) {
-            alert("La fecha de inicio no puede ser anterior a hoy");
+            setError(inicio, 'La fecha de inicio no puede ser anterior a hoy');
             valido = false;
-            console.log("Fecha de inicio no válida");
         }
+
+        if(valido)
+            clearError(inicio);
 
         if (fin <= inicio) {
-            alert("La fecha de fin debe ser posterior a la fecha de inicio");
+            setError(fin, 'La fecha de fin debe ser posterior a la fecha de inicio');
             valido = false;
-            console.log("Fecha de fin no válida");
         }
 
+        if(valido)
+            clearError(fin);
+
+        //Si hay algún campo no valido no envía el correo
         if (!valido) {
             event.preventDefault();
         } else {
@@ -48,3 +69,28 @@ document.addEventListener('DOMContentLoaded', function () {
 
     });
 });
+
+function setError(input, message){
+
+    const errorSpan = document.getElementById(input.id + 'Error');
+    
+    errorSpan.textContent = message;
+
+    input.classList.add('invalid');
+    input.classList.add('valid');
+
+    input.setAttribute('aria-invalid', 'true');
+    
+}
+
+function clearError(input){
+
+    const errorSpan = document.getElementById(input.id + 'Error');
+
+    errorSpan.textContent = '';
+
+    input.classList.remove('invalid');
+    input.classList.add('valid');
+    input.removeAttribute('aria-invalid');
+
+}
