@@ -32,7 +32,7 @@ document.addEventListener('DOMContentLoaded', function () {
             setError(email, 'El email no es correcto');
             valido = false;
         } else {
-            clearError(nombre);
+            clearError(email);
         }
 
         //Comprueba la validez de la fecha
@@ -44,14 +44,14 @@ document.addEventListener('DOMContentLoaded', function () {
             setError(fechaInicio, 'La fecha de inicio no puede ser anterior a hoy');
             valido = false;
         } else {
-            clearError(inicio);
+            clearError(fechaInicio);
         }
 
         if (fin <= inicio) {
             setError(fechaFin, 'La fecha de fin debe ser posterior a la fecha de inicio');
             valido = false;
-        } else {
-            clearError(fin);
+        } else {    
+            clearError(fechaFin);
         }
 
         //Si hay algún campo no valido no envía el correo
@@ -88,3 +88,51 @@ function clearError(input) {
     input.removeAttribute('aria-invalid');
 
 }
+
+const nombreInput = document.getElementById('nombre');
+
+nombreInput.addEventListener('input', function () {
+    if (this.value.length >= 3) {
+        clearError(this);
+    } else {
+        setError(this, 'El nombre debe tener al menos 3 caracteres');
+    }
+});
+
+const emailInput = document.getElementById('email');    
+
+emailInput.addEventListener('input', function () {      
+    const expRegEmail = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    if (expRegEmail.test(this.value)) {
+        clearError(this);
+    } else {
+        setError(this, 'El email no es correcto');
+    }
+
+});
+
+const fechaInicioInput = document.getElementById('diaI');
+
+fechaInicioInput.addEventListener('input', function () {    
+    const inicio = new Date(this.value);
+    const hoy = new Date();
+    if (inicio >= hoy) {
+        clearError(this);
+    }
+    else {
+        setError(this, 'La fecha de inicio no puede ser anterior a hoy');
+    }
+});
+
+const fechaFinInput = document.getElementById('diaF');
+
+fechaFinInput.addEventListener('input', function () {
+
+    const inicio = new Date(fechaInicioInput.value);
+    const fin = new Date(this.value);
+    if (fin > inicio) {
+        clearError(this);
+    } else {
+        setError(this, 'La fecha de fin debe ser posterior a la fecha de inicio');
+    }
+});
