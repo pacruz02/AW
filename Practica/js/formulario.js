@@ -30,7 +30,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
 
         //Comprueba la validez del correo
-        const expRegEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        const expRegEmail = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
         if (!expRegEmail.test(email.value)) {
             setError(email, 'El email no es correcto');
             valido = false;
