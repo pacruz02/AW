@@ -14,51 +14,54 @@ document.addEventListener('DOMContentLoaded', function () {
         let valido = true;
 
         //Comprueba la validez del nombre
-        if (nombre.length < 3) {
+        if (nombre.value.length < 3) {
             console.log('hola');
             setError(nombre, 'El nombre debe tener al menos 3 caracteres');
             valido = false;
         }
 
-        if(nombre ===''){
+        if(nombre.value ===''){
             setError(nombre, 'El nombre es obligatorio');
             valido = false;
         }
 
-        if(valido)
+        if(valido){
             clearError(nombre);
+        }
 
         //Comprueba la validez del correo
         const expRegEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if (!expRegEmail.test(email)) {
+        if (!expRegEmail.test(email.value)) {
             setError(email, 'El email no es correcto');
             valido = false;
         }
         
-        if(valido)
+        if(valido){
             clearError(nombre);
+        }
 
         //Comprueba la validez de la fecha
+        const inicio = new Date(fechaInicio.value);
+        const fin = new Date(fechaFin.value);
         const hoy = new Date();
-        const inicio = new Date(fechaInicio);
-        const fin = new Date(fechaFin); 
-        hoy.setHours(0, 0, 0, 0);
 
         if (inicio < hoy) {
-            setError(inicio, 'La fecha de inicio no puede ser anterior a hoy');
+            setError(fechaInicio, 'La fecha de inicio no puede ser anterior a hoy');
             valido = false;
         }
 
-        if(valido)
+        if(valido){
             clearError(inicio);
-
+        }
+        
         if (fin <= inicio) {
-            setError(fin, 'La fecha de fin debe ser posterior a la fecha de inicio');
+            setError(fechaFin, 'La fecha de fin debe ser posterior a la fecha de inicio');
             valido = false;
         }
 
-        if(valido)
+        if(valido){
             clearError(fin);
+        }
 
         //Si hay algún campo no valido no envía el correo
         if (!valido) {
@@ -77,7 +80,7 @@ function setError(input, message){
     errorSpan.textContent = message;
 
     input.classList.add('invalid');
-    input.classList.add('valid');
+    input.classList.remove('valid');
 
     input.setAttribute('aria-invalid', 'true');
     
