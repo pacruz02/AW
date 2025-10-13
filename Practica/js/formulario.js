@@ -1,7 +1,7 @@
 
 document.addEventListener('DOMContentLoaded', function () {
     const form = document.getElementById("formularioReservas");
-    
+
     //"Intercepta" el formulario 
     form.addEventListener("submit", function (event) {
 
@@ -19,13 +19,10 @@ document.addEventListener('DOMContentLoaded', function () {
             setError(nombre, 'El nombre debe tener al menos 3 caracteres');
             valido = false;
         }
-
-        if(nombre.value ===''){
+        else if (nombre.value === '') {
             setError(nombre, 'El nombre es obligatorio');
             valido = false;
-        }
-
-        if(valido){
+        } else {
             clearError(nombre);
         }
 
@@ -34,9 +31,7 @@ document.addEventListener('DOMContentLoaded', function () {
         if (!expRegEmail.test(email.value)) {
             setError(email, 'El email no es correcto');
             valido = false;
-        }
-        
-        if(valido){
+        } else {
             clearError(nombre);
         }
 
@@ -48,18 +43,14 @@ document.addEventListener('DOMContentLoaded', function () {
         if (inicio < hoy) {
             setError(fechaInicio, 'La fecha de inicio no puede ser anterior a hoy');
             valido = false;
-        }
-
-        if(valido){
+        } else {
             clearError(inicio);
         }
-        
+
         if (fin <= inicio) {
             setError(fechaFin, 'La fecha de fin debe ser posterior a la fecha de inicio');
             valido = false;
-        }
-
-        if(valido){
+        } else {
             clearError(fin);
         }
 
@@ -73,20 +64,20 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 });
 
-function setError(input, message){
+function setError(input, message) {
 
     const errorSpan = document.getElementById(input.id + 'Error');
-    
+
     errorSpan.textContent = message;
 
     input.classList.add('invalid');
     input.classList.remove('valid');
 
     input.setAttribute('aria-invalid', 'true');
-    
+
 }
 
-function clearError(input){
+function clearError(input) {
 
     const errorSpan = document.getElementById(input.id + 'Error');
 
