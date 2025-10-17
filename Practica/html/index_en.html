@@ -4,12 +4,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/svg" href="../imagenes/icon.svg">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../css/estilos.css">
     <link href="../bootstrap-5.1.1-dist/css/bootstrap.min.css" rel="stylesheet" media="screen">
     <script src="../bootstrap-5.1.1-dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../js/formulario.js" defer></script>
     <title>Electric Vehicle Fleet Management</title>
 </head>
 
@@ -108,17 +110,22 @@
             <!-- FORMULARIO DE RESERVAS -->
             <h2>Reservations</h2>
             <div class="container">
-                <form>
+                <form id="formularioReservas">
                     <div class="form-group">
                         <fieldset>
                             <legend>Personal Information</legend>
                             <label for="nombre">Name</label>
                             <input type="text" id="nombre" placeholder="Enter your name" class="form-control">
+                            <span class="error" id="nombreError" aria-label="error con el nombre"></span>
+                            <br>
                             <label for="email">Email</label>
                             <input type="email" id="email" placeholder="example@ucm.es" class="form-control" required>
+                            <span class="error" id="emailError" aria-label="error con el correo"></span>
+                            <br>
                             <label for="telefono">Phone</label>
                             <input type="tel" id="telefono" placeholder="" pattern="[0-9]{9}" class="form-control"
                                 required>
+                            <span class="error" id="telefonoError" aria-label="error con el telefono"></span>
                         </fieldset>
                         <br>
                         <fieldset>
@@ -130,15 +137,20 @@
                                 <option value="3">Volvo</option>
                                 <option value="4">VW</option>
                             </select>
+                            <span class="error" id="vehiculoError" aria-label="error con el vehículo"></span>
                             <label for="diaI">Start Date</label>
                             <input type="date" id="diaI" required>
+                            <span class="error" id="diaIError" aria-label="error con el dia de inicio"></span>
                             <label for="horaI">Start Time</label>
                             <input type="time" id="horaI" required>
+                            <span class="error" id="horaIError" aria-label="error con la hora de inicio"></span>
                             <br>
                             <label for="diaF">End Date</label>
                             <input type="date" id="diaF" required>
+                            <span class="error" id="diaFError" aria-label="error con el dia de fin"></span>
                             <label for="horaF">End Time</label>
                             <input type="time" id="horaF" required><br>
+                            <span class="error" id="horaFError" aria-label="error con la hora de fin"></span>
                         </fieldset>
                         <label for="terminos">Terms and conditions</label>
                         <input type="checkbox" id="terminos" name="condiciones" required><br>

@@ -1,6 +1,6 @@
 header {
     display: flex;
-    background-color: black;
+    background-color: #2c2c2c;
     position: sticky;
     top: 0;
     font-size: 4em;
@@ -99,10 +99,23 @@ select.invalid {
 
 input.valid,
 select.valid {
-    border: solid green;
+    border: solid rgb(68, 190, 68);
 }
 
 span.error {
     color: red;
     font-size: 0.9em;
+}
+
+strong {
+    font-family: Quicksand;
+}
+
+.card {
+    color: white !important;
+    background-color: #2c2c2c !important;
+    border: 3px solid #313131 !important;
+    padding: 1%;
+    width: 50rem !important;
+    margin: auto !important;
 }
