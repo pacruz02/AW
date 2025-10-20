@@ -1,27 +1,32 @@
 document.addEventListener('DOMContentLoaded', () => {
+    initValidation('formularioReservas');
+    initValidation('formularioLogin');
+    initValidation('formularioRegistro');
+});
 
-    const form = document.getElementById('formularioReservas');
-    const campos = form.querySelectorAll('input, select');
+function initValidation(formId) {
+    const form = document.getElementById(formId);
+    if (!form) return; // si no existe, salir
+
+    // Selecciona solo campos relevantes (exclude type="submit" y botones)
+    const campos = form.querySelectorAll('input:not([type="submit"]):not([type="button"]), select, textarea');
 
     campos.forEach(campo => {
-        if (campo.tagName === 'INPUT') { //Si es input es decir el nombre o el email
-            campo.addEventListener('input', () => validarCampo(campo));
-        } else if (campo.tagName === 'SELECT') { //Si es select es decir el selector del coche
-            campo.addEventListener('change', () => validarCampo(campo));
-        }
+        const evt = campo.tagName === 'SELECT' ? 'change' : 'input';
+        campo.addEventListener(evt, () => validarCampo(campo, form));
     });
 
-    form.addEventListener('submit', e => { //Comprueba cuando se hace el submit
+    form.addEventListener('submit', e => {
         let valido = true;
         campos.forEach(campo => {
-            if (!validarCampo(campo)) valido = false;
+            if (!validarCampo(campo, form)) valido = false;
         });
         if (!valido) e.preventDefault();
     });
-});
+}
 
 function setError(input, message) { // Pone los errores en los html elements
-    const errorSpan = document.getElementById(input.id + 'Error');
+    const errorSpan = input.form?.querySelector(`#${input.id}Error`);
     if (!errorSpan) return;
     errorSpan.textContent = message;
     input.classList.add('invalid');
@@ -29,29 +34,29 @@ function setError(input, message) { // Pone los errores en los html elements
 }
 
 function clearError(input) { // Borra los errores de html elements
-    const errorSpan = document.getElementById(input.id + 'Error');
+    const errorSpan = input.form?.querySelector(`#${input.id}Error`);
     if (!errorSpan) return;
     errorSpan.textContent = '';
     input.classList.remove('invalid');
     input.classList.add('valid');
 }
 
-function validarCampo(campo) { // Valida cada campo del formulario
+function validarCampo(campo, form) { // Valida cada campo del formulario
     switch (campo.id) {
-        case 'nombre': return validarNombre();
-        case 'email': return validarEmail();
-        case 'telefono': return validarTelefono();
-        case 'diaI': return validarDiaInicio();
-        case 'diaF': return validarDiaFin();
-        case 'vehiculo': return validarVehiculo();
+        case 'nombre': return validarNombre(campo);
+        case 'email': return validarEmail(campo);
+        case 'telefono': return validarTelefono(campo);
+        case 'diaI': return validarDiaInicio(campo);
+        case 'diaF': return validarDiaFin(campo, form);
+        case 'vehiculo': return validarVehiculo(campo);
+        case 'password': return validarContrasena(campo);
+        case 'passwordR': return validarContrasenaR(campo, form);
         default: return true;
     }
 }
 
-function validarNombre() {
-    const nombre = document.getElementById('nombre');
-    const valor = nombre.value.trim();
-    if (valor.length < 3) {
+function validarNombre(nombre) {
+    if (nombre.value.trim().length < 3) {
         setError(nombre, 'El nombre debe tener al menos 3 caracteres');
         return false;
     }
@@ -59,8 +64,7 @@ function validarNombre() {
     return true;
 }
 
-function validarEmail() {
-    const email = document.getElementById('email');
+function validarEmail(email) {
     const expRegEmail = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     if (!expRegEmail.test(email.value.trim())) {
         setError(email, 'El correo no es válido');
@@ -70,8 +74,7 @@ function validarEmail() {
     return true;
 }
 
-function validarTelefono() {
-    const telefono = document.getElementById('telefono');
+function validarTelefono(telefono) {
     const expRegTelefono = /^[0-9]{9}$/;
     if (!expRegTelefono.test(telefono.value.trim())) {
         setError(telefono, 'Debe tener 9 dígitos');
@@ -81,8 +84,7 @@ function validarTelefono() {
     return true;
 }
 
-function validarDiaInicio() {
-    const diaI = document.getElementById('diaI');
+function validarDiaInicio(diaI) {
     if (!diaI.value) {
         setError(diaI, 'Selecciona una fecha de inicio');
         return false;
@@ -99,15 +101,19 @@ function validarDiaInicio() {
     return true;
 }
 
-function validarDiaFin() {
-    const diaI = new Date(document.getElementById('diaI').value);
-    const diaF = document.getElementById('diaF');
+function validarDiaFin(diaF, form) {
+    const diaI = form.querySelector('#diaI');
     if (!diaF.value) {
         setError(diaF, 'Selecciona una fecha de fin');
         return false;
     }
+    if (!diaI || !diaI.value) {
+        setError(diaF, 'Selecciona una fecha de inicio primero');
+        return false;
+    }
+    const inicio = new Date(diaI.value);
     const fin = new Date(diaF.value);
-    if (fin <= diaI) {
+    if (fin <= inicio) {
         setError(diaF, 'Debe ser posterior a la fecha de inicio');
         return false;
     }
@@ -115,12 +121,31 @@ function validarDiaFin() {
     return true;
 }
 
-function validarVehiculo() {
-    const vehiculo = document.getElementById('vehiculo');
+function validarVehiculo(vehiculo) {
     if (!vehiculo.value) {
         setError(vehiculo, 'Selecciona un vehículo');
         return false;
     }
     clearError(vehiculo);
     return true;
+}
+
+function validarContrasena(contrasena) {
+  const expRegPassword = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z0-9]).{8,}$/;
+  if (!expRegPassword.test(contrasena.value)) {
+      setError(contrasena, 'La contraseña debe tener al menos 8 caracteres, incluyendo mayúsculas, minúsculas, números y un carácter especial');
+      return false;
+  }
+  clearError(contrasena);
+  return true;
+}
+
+function validarContrasenaR(contrasenaR, form) {
+    const contrasena = form.querySelector('#password');
+  if (contrasenaR.value !== contrasena.value) {
+      setError(contrasenaR, 'Las contraseñas no coinciden');
+      return false;
+  }
+  clearError(contrasenaR);
+  return true;
 }

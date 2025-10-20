@@ -120,16 +120,16 @@
                             <legend>Datos personales</legend>
                             <label for="nombre">Nombre</label><br>
                             <input type="text" id="nombre" placeholder="Escribe tu nombre" class="form-control">
-                            <span class="error" id="nombreError" aria-label="error con el nombre"></span>
+                            <span class="error" id="nombreError" aria-label="error con el nombre" aria-live="polite"></span>
                             <br>
                             <label for="email">Email</label>
                             <input type="email" id="email" placeholder="ejemplo@ucm.es" class="form-control" required>
-                            <span class="error" id="emailError" aria-label="error con el correo"></span>
+                            <span class="error" id="emailError" aria-label="error con el correo" aria-live="polite"></span>
                             <br>
                             <label for="telefono">Teléfono</label>
                             <input type="tel" id="telefono" placeholder="" pattern="[0-9]{9}" class="form-control"
                                 required>
-                            <span class="error" id="telefonoError" aria-label="error con el telefono"></span>
+                            <span class="error" id="telefonoError" aria-label="error con el telefono" aria-live="polite"></span>
                         </fieldset>
                         <br>
                         <fieldset>
@@ -141,20 +141,20 @@
                                 <option value="3">volvo</option>
                                 <option value="4">VW</option>
                             </select>
-                            <span class="error" id="vehiculoError" aria-label="error con el vehículo"></span>
+                            <span class="error" id="vehiculoError" aria-label="error con el vehículo" aria-live="polite"></span>
                             <label for="diaI">Día de inicio</label>
                             <input type="date" id="diaI" required>
-                            <span class="error" id="diaIError" aria-label="error con el dia de inicio"></span>
+                            <span class="error" id="diaIError" aria-label="error con el dia de inicio" aria-live="polite"></span>
                             <label for="horaI">Hora de inicio</label>
                             <input type="time" id="horaI" required>
-                            <span class="error" id="horaIError" aria-label="error con la hora de inicio"></span>
+                            <span class="error" id="horaIError" aria-label="error con la hora de inicio" aria-live="polite"></span>
                             <br>
                             <label for="diaF">Día de fin</label>
                             <input type="date" id="diaF" required>
-                            <span class="error" id="diaFError" aria-label="error con el dia de fin"></span>
+                            <span class="error" id="diaFError" aria-label="error con el dia de fin" aria-live="polite"></span>
                             <label for="horaF">Hora de fin</label>
                             <input type="time" id="horaF" required><br>
-                            <span class="error" id="horaFError" aria-label="error con la hora de fin"></span>
+                            <span class="error" id="horaFError" aria-label="error con la hora de fin" aria-live="polite"></span>
                         </fieldset>
                         <label for="terminos">Terminos y condiciones</label>
                         <input type="checkbox" id="terminos" name="condiciones" required><br>
