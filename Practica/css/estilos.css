@@ -119,3 +119,8 @@ strong {
     width: 50rem !important;
     margin: auto !important;
 }
+
+.img-fluid {
+    max-width: 20% !important;
+    height: auto;
+}
