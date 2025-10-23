@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/svg" href="../imagenes/icon.svg">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/estilos.css">
+    <link href="../bootstrap-5.1.1-dist/css/bootstrap.min.css" rel="stylesheet" media="screen">
+    <script src="../bootstrap-5.1.1-dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../js/formulario.js" defer></script>
+    <title>Inicio sesión</title>
+</head>
+
+<body>
+    <header>
+        <a href="index_es.html">
+            <img src="../imagenes/uNTER_logo.svg" alt="logo" class="logo">
+        </a>
+        <nav>
+            <div class="btn-group">
+                <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown"
+                    aria-expanded="false">
+                    <img src="../imagenes/globe.svg" alt="Lenguaje" width="20">
+                </button>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="login_en.html">English</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+
+        <div class="form-section">
+            <div class="card">
+                <h1>Bienvenido a <strong>üNTER</strong></h1>
+                <form id="formularioLogin">
+
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Correo electrónico</label>
+                        <input type="email" class="form-control" id="email" name="email" required>
+                        <span class="error" id="emailError" aria-label="error con el correo" aria-live="polite"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label for="password" class="form-label">Contraseña</label>
+                        <input type="password" class="form-control" id="password" name="password" required>
+                        <span class="error" id="passwordError" aria-label="error con la contraseña"
+                            aria-live="polite"></span>
+                    </div>
+                    <button type="submit" class="btn btn-light">Iniciar sesión</button>
+                </form>
+                <p>¿No tienes una cuenta? <a href="register_es.html">Regístrate aquí</a></p>
+            </div>
+    </main>
+
+</html>
