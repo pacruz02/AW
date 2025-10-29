@@ -8,7 +8,7 @@ header {
     justify-content: space-between;
     background-color: #2c2c2c;
     position: sticky;
-    /* top: 0; */
+    top: 0;
     /* font-size: 4em; */
     padding: 2rem;
 }
@@ -32,12 +32,36 @@ nav button:hover {
 }
 
 .btn.btn-primary.dropdown-toggle {
-    background-color: #ffffff !important;
+    background-color: #f2f2f2 !important;
     border-style: none !important;
 }
-
-
-
+.img-fluid {
+    max-width: 20% !important;
+    height: auto;
+}
 .logo {
-    filter: invert(100%);
+    /* filter: invert(100%); */
+    fill: #f2f2f2;
+}
+
+.weberror {
+    background-color: #2c2c2c;
+    color: #f2f2f2;
+    min-height: 180px;
+    text-align: center;
+    align-items: center;
+    height: 600px;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    min-height: 100%;
+    h1 {
+        font-size: 20em;
+        line-height: 1em;
+        font-weight: 700;
+    }
+}
+
+main {
+    padding: 5%;
 }
