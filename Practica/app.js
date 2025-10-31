@@ -2,36 +2,55 @@
 const http = require('http');
 const fs = require('fs');
 const path = require('path');
-//Establecimiento de la función callback del servidor
-let servidor = http.createServer(function (request, response) {
-    // funcionalidad del servidor
-    response.setHeader('Content-Type', 'text/html; charset=utf-8');
 
-    const rutaPublica = path.join(__dirname, 'public');  // Carpeta donde están los archivos estáticos
-
-    // Si la ruta es la raíz, enviar el archivo index.html
-    if (request.url === '/') {
-        const archivoHTML = path.join(__dirname, 'public', 'html', 'index_es.html');
-        fs.readFile(archivoHTML, 'utf-8', (err, data) => {
-            if (err) {
-                response.statusCode = 500;
-                response.end('Error al cargar el archivo HTML');
-            } else {
-                response.statusCode = 200;
-                response.setHeader('Content-Type', 'text/html');
-                response.end(data);
-            }
-        });
-    }
+const servidor = http.createServer((request, response) => {
 
     console.log(`Método: ${request.method}`);
     console.log(`URL: ${request.url}`);
-    console.log(request.headers);
+
+    const rutaPublica = path.join(__dirname, 'public');
+
+    if (request.url === "/") {
+        const archivoHTML = path.join(rutaPublica, 'html', 'index_es.html');
+        return fs.readFile(archivoHTML, 'utf-8', (err, data) => {
+            if (err) {
+                response.statusCode = 500;
+                return response.end('Error al cargar el archivo HTML');
+            }
+            response.statusCode = 200;
+            response.setHeader('Content-Type', 'text/html; charset=utf-8');
+            response.end(data);
+        });
+    }
+
+    const rutaArchivo = path.join(rutaPublica, request.url);
+
+    fs.readFile(rutaArchivo, (err, data) => {
+        if (err) {
+            response.statusCode = 404;
+            return response.end('Archivo no encontrado');
+        }
+
+        // Determinar MIME type
+        const ext = path.extname(rutaArchivo).toLowerCase();
+        const tipos = {
+            ".html": "text/html",
+            ".css": "text/css",
+            ".js": "application/javascript",
+            ".png": "image/png",
+            ".jpg": "image/jpeg",
+            ".jpeg": "image/jpeg",
+            ".gif": "image/gif",
+            ".svg": "image/svg+xml"
+        };
+
+        response.setHeader("Content-Type", tipos[ext] || "application/octet-stream");
+        response.statusCode = 200;
+        response.end(data);
+    });
+
 });
-// Inicio del servidor
-servidor.listen(3000, function (err) {
-    if (err)
-        console.log("Error al iniciar el servidor");
-    else
-        console.log("Servidor escuchando en el puerto 3000: http://localhost:3000/");
+
+servidor.listen(3000, () => {
+    console.log("Servidor escuchando en http://localhost:3000/");
 });
