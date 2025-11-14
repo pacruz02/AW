@@ -1,0 +1,54 @@
+{
+  "concesionarios": [
+    {
+      "nombre": "Sede Central - Ciudad Universitaria",
+      "ciudad": "Madrid",
+      "direccion": "Calle Profesor José García Santesmases, 9",
+      "telefono_contacto": "910000001"
+    },
+    {
+      "nombre": "Campus de Somosaguas",
+      "ciudad": "Pozuelo de Alarcón",
+      "direccion": "Finca de Somosaguas, s/n",
+      "telefono_contacto": "910000002"
+    }
+  ],
+  "vehiculos": [
+    {
+      "matricula": "1234ABC",
+      "marca": "Tesla",
+      "modelo": "Model 3",
+      "año_matriculacion": 2023,
+      "numero_plazas": 5,
+      "autonomia_km": 450,
+      "color": "Blanco",
+      "imagen": "/images/tesla_model_3.jpg",
+      "estado": "disponible",
+      "concesionario_nombre": "Sede Central - Ciudad Universitaria"
+    },
+    {
+      "matricula": "5678DEF",
+      "marca": "Renault",
+      "modelo": "Zoe",
+      "año_matriculacion": 2022,
+      "numero_plazas": 5,
+      "autonomia_km": 300,
+      "color": "Azul",
+      "imagen": "/images/renault_zoe.jpg",
+      "estado": "disponible",
+      "concesionario_nombre": "Campus de Somosaguas"
+    },
+    {
+      "matricula": "9012GHI",
+      "marca": "Hyundai",
+      "modelo": "Kona Electric",
+      "año_matriculacion": 2023,
+      "numero_plazas": 5,
+      "autonomia_km": 480,
+      "color": "Rojo",
+      "imagen": "/images/hyundai_kona.jpg",
+      "estado": "mantenimiento",
+      "concesionario_nombre": "Sede Central - Ciudad Universitaria"
+    }
+  ]
+}
