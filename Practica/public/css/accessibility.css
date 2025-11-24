@@ -1,0 +1,35 @@
+/* Modo Alto Contraste */
+body.high-contrast {
+    background-color: #000 !important;
+    color: #fff !important;
+}
+
+body.high-contrast .card, 
+body.high-contrast .modal-content {
+    background-color: #333 !important;
+    color: #fff !important;
+    border: 1px solid #fff;
+}
+
+body.high-contrast .table {
+    color: #fff !important;
+}
+
+body.high-contrast a {
+    color: #ffff00 !important; /* Amarillo para enlaces */
+    text-decoration: underline;
+}
+
+body.high-contrast .btn-primary {
+    background-color: #000;
+    border: 2px solid #fff;
+}
+
+/* Tamaños de Fuente */
+body.font-small {
+    font-size: 80% !important;
+}
+
+body.font-large {
+    font-size: 120% !important;
+}

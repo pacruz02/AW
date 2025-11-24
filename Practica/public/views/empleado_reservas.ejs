@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Mis Reservas</title>
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-4">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h1>Mis Reservas</h1>
+            <a href="/empleado/dashboard" class="btn btn-secondary">Volver al Panel</a>
+        </div>
+
+        <% if (reservas.length === 0) { %>
+            <div class="alert alert-info" role="alert">
+                Aún no has realizado ninguna reserva. <a href="/empleado/vehiculos">¡Reserva un vehículo ahora!</a>
+            </div>
+        <% } else { %>
+            <div class="table-responsive">
+                <table class="table table-hover align-middle">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>Vehículo</th>
+                            <th>Matrícula</th>
+                            <th>Desde</th>
+                            <th>Hasta</th>
+                            <th>Estado</th>
+                            <th>Kms Recorridos</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% reservas.forEach(r => { %>
+                            <tr>
+                                <td>
+                                    <div class="d-flex align-items-center">
+                                        <% if (r.imagen) { %>
+                                            <img src="<%= r.imagen %>" alt="Foto" class="rounded me-2" style="width: 50px; height: 30px; object-fit: cover;">
+                                        <% } %>
+                                        <%= r.marca %> <%= r.modelo %>
+                                    </div>
+                                </td>
+                                <td><%= r.matricula %></td>
+                                <td><%= new Date(r.fecha_inicio).toLocaleString('es-ES') %></td>
+                                <td><%= new Date(r.fecha_fin).toLocaleString('es-ES') %></td>
+                                <td>
+                                    <% 
+                                        let badgeClass = 'bg-secondary';
+                                        if (r.estado === 'activa') badgeClass = 'bg-success';
+                                        if (r.estado === 'cancelada') badgeClass = 'bg-danger';
+                                        if (r.estado === 'finalizada') badgeClass = 'bg-primary';
+                                    %>
+                                    <span class="badge <%= badgeClass %>"><%= r.estado.toUpperCase() %></span>
+                                </td>
+                                <td>
+                                    <%= r.kilometros_recorridos ? r.kilometros_recorridos + ' km' : '-' %>
+                                </td>
+                            </tr>
+                        <% }); %>
+                    </tbody>
+                </table>
+            </div>
+        <% } %>
+    </div>
+    <script src="/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

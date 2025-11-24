@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title><%= vehiculo ? 'Editar' : 'Nuevo' %> Vehículo</title>
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header">
+                        <h3><%= vehiculo ? 'Editar Vehículo' : 'Añadir Nuevo Vehículo' %></h3>
+                    </div>
+                    <div class="card-body">
+                        <form action="<%= vehiculo ? '/admin/vehiculos/editar/' + vehiculo.id_vehiculo : '/admin/vehiculos/nuevo' %>" method="POST">
+                            
+                            <div class="row mb-3">
+                                <div class="col">
+                                    <label class="form-label">Matrícula</label>
+                                    <input type="text" class="form-control" name="matricula" value="<%= vehiculo ? vehiculo.matricula : '' %>" required>
+                                </div>
+                                <div class="col">
+                                    <label class="form-label">Marca</label>
+                                    <input type="text" class="form-control" name="marca" value="<%= vehiculo ? vehiculo.marca : '' %>" required>
+                                </div>
+                                <div class="col">
+                                    <label class="form-label">Modelo</label>
+                                    <input type="text" class="form-control" name="modelo" value="<%= vehiculo ? vehiculo.modelo : '' %>" required>
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <div class="col">
+                                    <label class="form-label">Año</label>
+                                    <input type="number" class="form-control" name="anio" value="<%= vehiculo ? vehiculo.año_matriculacion : '' %>">
+                                </div>
+                                <div class="col">
+                                    <label class="form-label">Plazas</label>
+                                    <input type="number" class="form-control" name="plazas" value="<%= vehiculo ? vehiculo.numero_plazas : 5 %>">
+                                </div>
+                                <div class="col">
+                                    <label class="form-label">Autonomía (km)</label>
+                                    <input type="number" class="form-control" name="autonomia" value="<%= vehiculo ? vehiculo.autonomia_km : '' %>" required>
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label">Color</label>
+                                <input type="text" class="form-control" name="color" value="<%= vehiculo ? vehiculo.color : '' %>">
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label">URL Imagen</label>
+                                <input type="text" class="form-control" name="imagen" value="<%= vehiculo ? vehiculo.imagen : '/img/default.jpg' %>">
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label">Concesionario</label>
+                                <select class="form-select" name="concesionario" required>
+                                    <% concesionarios.forEach(c => { %>
+                                        <option value="<%= c.id_concesionario %>" 
+                                            <%= (vehiculo && vehiculo.id_concesionario === c.id_concesionario) ? 'selected' : '' %>>
+                                            <%= c.nombre %>
+                                        </option>
+                                    <% }); %>
+                                </select>
+                            </div>
+
+                            <% if (vehiculo) { %>
+                                <div class="mb-3">
+                                    <label class="form-label">Estado</label>
+                                    <select class="form-select" name="estado">
+                                        <option value="disponible" <%= vehiculo.estado === 'disponible' ? 'selected' : '' %>>Disponible</option>
+                                        <option value="reservado" <%= vehiculo.estado === 'reservado' ? 'selected' : '' %>>Reservado</option>
+                                        <option value="mantenimiento" <%= vehiculo.estado === 'mantenimiento' ? 'selected' : '' %>>Mantenimiento</option>
+                                    </select>
+                                </div>
+                            <% } %>
+
+                            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                                <a href="/admin/vehiculos" class="btn btn-secondary me-md-2">Cancelar</a>
+                                <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

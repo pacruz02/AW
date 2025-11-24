@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Gestión de Usuarios - Admin</title>
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-4">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h1>Gestión de Usuarios</h1>
+            <a href="/admin/dashboard" class="btn btn-secondary">Volver</a>
+        </div>
+
+        <div class="table-responsive">
+            <table class="table table-striped table-hover align-middle">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Correo</th>
+                        <th>Rol</th>
+                        <th>Concesionario Asignado</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% usuarios.forEach(u => { %>
+                        <tr>
+                            <td><%= u.nombre %></td>
+                            <td><%= u.correo %></td>
+                            <td>
+                                <span class="badge bg-<%= u.rol === 'admin' ? 'danger' : 'primary' %>">
+                                    <%= u.rol.toUpperCase() %>
+                                </span>
+                            </td>
+                            <td><%= u.nombre_concesionario || 'Sin Asignar' %></td>
+                            <td>
+                                <a href="/admin/usuarios/editar/<%= u.id_usuario %>" class="btn btn-sm btn-primary">Editar</a>
+                                <form action="/admin/usuarios/borrar/<%= u.id_usuario %>" method="POST" style="display:inline;" onsubmit="return confirm('¿Eliminar a este usuario? Esta acción borrará también su historial de reservas.');">
+                                    <button type="submit" class="btn btn-sm btn-danger">Borrar</button>
+                                </form>
+                            </td>
+                        </tr>
+                    <% }); %>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <script src="/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

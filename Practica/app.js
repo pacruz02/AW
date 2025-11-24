@@ -28,6 +28,27 @@ app.use(session({
     saveUninitialized: false
 }));
 
+// Middleware de Accesibilidad Global
+app.use((req, res, next) => {
+    // Valores por defecto
+    if (!req.session.accessibility) {
+        req.session.accessibility = { contrast: 'normal', fontSize: 'normal' };
+    }
+    
+    // Hacemos las opciones disponibles para TODAS las plantillas EJS
+    res.locals.accessibility = req.session.accessibility;
+    
+    // Generamos la cadena de clases para el <body>
+    let bodyClasses = [];
+    if (req.session.accessibility.contrast === 'high') bodyClasses.push('high-contrast');
+    if (req.session.accessibility.fontSize === 'small') bodyClasses.push('font-small');
+    if (req.session.accessibility.fontSize === 'large') bodyClasses.push('font-large');
+    
+    res.locals.bodyClass = bodyClasses.join(' ');
+    
+    next();
+});
+
 app.use('/', mainRoutes);
 app.use('/admin', adminRoutes);
 app.use('/empleado', empleadoRoutes);

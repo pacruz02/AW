@@ -119,4 +119,41 @@ router.post('/login', (req, res) => {
     });
 });
 
+router.get('/logout', (req, res) => {
+    // Destruimos la sesión en el servidor
+    req.session.destroy((err) => {
+        if (err) {
+            console.error("Error al cerrar sesión:", err);
+            return res.status(500).render('error500', { mensaje: "No se pudo cerrar la sesión", pila: err.stack });
+        }
+        
+        // Opcional: Limpiar la cookie del cliente explícitamente
+        res.clearCookie('connect.sid'); // 'connect.sid' es el nombre por defecto de la cookie de express-session
+        
+        // Redirigimos a la página de login
+        res.redirect('/login');
+    });
+});
+
+// Ruta API para guardar preferencias de accesibilidad
+router.post('/api/accessibility', (req, res) => {
+    const { contrast, fontSize } = req.body;
+
+    // 1. Guardar en sesión (siempre)
+    if (contrast) req.session.accessibility.contrast = contrast;
+    if (fontSize) req.session.accessibility.fontSize = fontSize;
+
+    // 2. Guardar en BD si el usuario está logueado (Nivel Avanzado)
+    if (req.session.usuarioId) {
+        const prefs = JSON.stringify(req.session.accessibility);
+        const sql = "UPDATE Usuarios SET preferencias_accesibilidad = ? WHERE id_usuario = ?";
+        
+        pool.query(sql, [prefs, req.session.usuarioId], (err) => {
+            if (err) console.error("Error guardando preferencias en BD:", err);
+        });
+    }
+
+    res.json({ success: true });
+});
+
 module.exports = router;

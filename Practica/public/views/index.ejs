@@ -4,13 +4,16 @@
     <meta charset="UTF-8">
     <title>Bienvenida - Flota Eléctrica</title>
     <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/accessibility.css">
 </head>
-<body>
+<body class="<%= bodyClass %>">
     <div class="container">
         <h1>Bienvenido a la Plataforma</h1>
         <p>Esta es la página principal.</p>
         <a href="/login" class="btn btn-primary">Iniciar Sesión</a>
     </div>
     <script src="/js/bootstrap.bundle.min.js"></script>
+    <%- include('partials/accessibility_modal') %>
+<script src="/js/accessibility.js"></script>
 </body>
 </html>

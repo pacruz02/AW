@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Estadísticas de la Flota</title>
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-4">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h1>Panel de Estadísticas</h1>
+            <a href="/admin/dashboard" class="btn btn-secondary">Volver</a>
+        </div>
+
+        <div class="row mb-4">
+            <div class="col-md-3">
+                <div class="card text-white bg-primary mb-3">
+                    <div class="card-header">Usuarios</div>
+                    <div class="card-body">
+                        <h1 class="card-title"><%= totales.usuarios %></h1>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card text-white bg-success mb-3">
+                    <div class="card-header">Vehículos</div>
+                    <div class="card-body">
+                        <h1 class="card-title"><%= totales.vehiculos %></h1>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card text-white bg-warning mb-3">
+                    <div class="card-header">Reservas Totales</div>
+                    <div class="card-body">
+                        <h1 class="card-title"><%= totales.reservas %></h1>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card text-white bg-info mb-3">
+                    <div class="card-header">Sedes</div>
+                    <div class="card-body">
+                        <h1 class="card-title"><%= totales.concesionarios %></h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card mb-4">
+                    <div class="card-header">
+                        Reservas por Concesionario
+                    </div>
+                    <ul class="list-group list-group-flush">
+                        <% porConcesionario.forEach(dato => { %>
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                <%= dato.nombre %>
+                                <span class="badge bg-primary rounded-pill"><%= dato.num_reservas %></span>
+                            </li>
+                        <% }); %>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="card mb-4">
+                    <div class="card-header">
+                        Vehículo Más Popular
+                    </div>
+                    <div class="card-body text-center">
+                        <% if (topVehiculo) { %>
+                            <h3 class="card-title"><%= topVehiculo.marca %> <%= topVehiculo.modelo %></h3>
+                            <p class="card-text text-muted"><%= topVehiculo.matricula %></p>
+                            <hr>
+                            <h1 class="display-4 text-success"><%= topVehiculo.total %></h1>
+                            <p>Reservas realizadas</p>
+                        <% } else { %>
+                            <p class="text-muted">No hay suficientes datos de reservas aún.</p>
+                        <% } %>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

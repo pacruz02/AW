@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Gestión de Vehículos - Admin</title>
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-4">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h1>Gestión de Vehículos</h1>
+            <div>
+                <a href="/admin/vehiculos/nuevo" class="btn btn-success">Nuevo Vehículo</a>
+                <a href="/admin/dashboard" class="btn btn-secondary">Volver</a>
+            </div>
+        </div>
+
+        <table class="table table-striped table-hover">
+            <thead class="table-dark">
+                <tr>
+                    <th>Matrícula</th>
+                    <th>Marca/Modelo</th>
+                    <th>Estado</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% if (vehiculos.length === 0) { %>
+                    <tr><td colspan="4" class="text-center">No hay vehículos registrados.</td></tr>
+                <% } else { %>
+                    <% vehiculos.forEach(v => { %>
+                        <tr>
+                            <td><%= v.matricula %></td>
+                            <td><%= v.marca %> <%= v.modelo %></td>
+                            <td>
+                                <span class="badge bg-<%= v.estado === 'disponible' ? 'success' : (v.estado === 'reservado' ? 'warning' : 'danger') %>">
+                                    <%= v.estado %>
+                                </span>
+                            </td>
+                            <td>
+                                <a href="/admin/vehiculos/editar/<%= v.id_vehiculo %>" class="btn btn-sm btn-primary">Editar</a>
+                                <form action="/admin/vehiculos/borrar/<%= v.id_vehiculo %>" method="POST" style="display:inline;" onsubmit="return confirm('¿Seguro que quieres eliminar este vehículo?');">
+                                    <button type="submit" class="btn btn-sm btn-danger">Borrar</button>
+                                </form>
+                            </td>
+                        </tr>
+                    <% }); %>
+                <% } %>
+            </tbody>
+        </table>
+    </div>
+    <script src="/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Reservar Vehículo</title>
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header bg-primary text-white">
+                        Confirmar Reserva
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title"><%= vehicle.marca %> <%= vehicle.modelo %></h5>
+                        <p class="card-text">Matrícula: <%= vehicle.matricula %></p>
+                        
+                        <% if (error) { %>
+                            <div class="alert alert-danger"><%= error %></div>
+                        <% } %>
+
+                        <form action="/empleado/reservar" method="POST">
+                            <input type="hidden" name="id_vehiculo" value="<%= vehicle.id_vehiculo %>">
+                            
+                            <div class="mb-3">
+                                <label for="fecha_inicio" class="form-label">Fecha y Hora de Recogida</label>
+                                <input type="datetime-local" class="form-control" id="fecha_inicio" name="fecha_inicio" required>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label for="fecha_fin" class="form-label">Fecha y Hora de Devolución</label>
+                                <input type="datetime-local" class="form-control" id="fecha_fin" name="fecha_fin" required>
+                            </div>
+
+                            <div class="d-grid gap-2">
+                                <button type="submit" class="btn btn-success">Confirmar Reserva</button>
+                                <a href="/empleado/vehiculos" class="btn btn-secondary">Cancelar</a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
