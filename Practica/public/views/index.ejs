@@ -5,15 +5,17 @@
     <title>Bienvenida - Flota Eléctrica</title>
     <link rel="stylesheet" href="/css/bootstrap.min.css">
     <link rel="stylesheet" href="/css/accessibility.css">
+    <link rel="stylesheet" href="/css/style.css">
 </head>
-<body class="<%= bodyClass %>">
+<body class="<%= typeof bodyClass !== 'undefined' ? bodyClass : '' %>">
+    <%- include('partials/navbar') %>
     <div class="container">
         <h1>Bienvenido a la Plataforma</h1>
         <p>Esta es la página principal.</p>
-        <a href="/login" class="btn btn-primary">Iniciar Sesión</a>
     </div>
-    <script src="/js/bootstrap.bundle.min.js"></script>
+    <%- include('partials/footer') %>
     <%- include('partials/accessibility_modal') %>
-<script src="/js/accessibility.js"></script>
+    <script src="/js/bootstrap.bundle.min.js"></script>
+    <script src="/js/accessibility.js"></script>
 </body>
 </html>

@@ -1,13 +1,14 @@
+/* public/css/layout.css */
 
+/* El cuerpo ocupa toda la altura y se comporta como una columna flexible */
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f0f0f0;
-    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
 }
-h1 {
-    color: #2e7d32;
-}
-a {
-    text-decoration: none;
-    color: #1b5e20;
+
+/* El elemento main crece para ocupar todo el espacio disponible */
+/* Esto empuja el footer hacia el fondo */
+main {
+    flex: 1; 
 }

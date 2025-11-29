@@ -79,6 +79,7 @@ router.post('/login', (req, res) => {
         return res.render('login', { error: "Correo y contraseña son obligatorios." });
     }
 
+    // Nota: Es importante hacer SELECT * para traer también 'preferencias_accesibilidad'
     pool.query("SELECT * FROM Usuarios WHERE correo = ?", [correo], (err, results) => {
         if (err) {
             console.error(err);
@@ -90,6 +91,12 @@ router.post('/login', (req, res) => {
         }
 
         const usuario = results[0];
+        
+        // Verificamos si existe el campo contraseña antes de hacer split (por seguridad)
+        if (!usuario.contraseña) {
+             return res.render('login', { error: "Error en los datos del usuario." });
+        }
+
         const [salt, storedHash] = usuario.contraseña.split(':');
 
         crypto.pbkdf2(password, salt, iteraciones, keylen, digest, (err, derivedKey) => {
@@ -104,9 +111,31 @@ router.post('/login', (req, res) => {
             const sonIguales = crypto.timingSafeEqual(newHashBuffer, storedHashBuffer);
 
             if (sonIguales) {
+                // 1. Guardamos datos básicos de sesión
                 req.session.usuarioId = usuario.id_usuario;
                 req.session.usuarioRol = usuario.rol;
                 
+                // 2. CARGAR PREFERENCIAS DE LA BD A LA SESIÓN (NUEVO)
+                if (usuario.preferencias_accesibilidad) {
+                    try {
+                        // La BD puede devolver un string JSON o un objeto directamente, 
+                        // dependiendo de la versión del driver. Aseguramos que sea objeto.
+                        let prefs = usuario.preferencias_accesibilidad;
+                        if (typeof prefs === 'string') {
+                            prefs = JSON.parse(prefs);
+                        }
+                        req.session.accessibility = prefs;
+                    } catch (parseError) {
+                        console.error("Error al parsear preferencias:", parseError);
+                        // Si falla, usamos defaults
+                        req.session.accessibility = { contrast: 'normal', fontSize: 'normal' };
+                    }
+                } else {
+                    // Si no tiene nada guardado, defaults
+                    req.session.accessibility = { contrast: 'normal', fontSize: 'normal' };
+                }
+                
+                // 3. Redirección según rol
                 if (usuario.rol === 'admin') {
                     res.redirect('/admin/dashboard');
                 } else {

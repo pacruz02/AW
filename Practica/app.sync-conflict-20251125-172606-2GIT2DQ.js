@@ -5,52 +5,47 @@ const path = require('path');
 const morgan = require('morgan');
 const session = require('express-session');
 const cookieParser = require('cookie-parser');
-
-// Importamos configuraciones
 const { cargarDatosIniciales } = require('./config/dataLoader');
 
-// Importamos Rutas
 const mainRoutes = require('./routes/mainRoutes');
 const adminRoutes = require('./routes/adminRoutes');
 const empleadoRoutes = require('./routes/empleadoRoutes');
 
-// Importamos Middlewares (¡Aquí está el cambio!)
-const { loadUser, loadAccessibility } = require('./middleware/global');
-const { notFoundHandler, errorHandler } = require('./middleware/errors');
-
 const app = express();
 const PORT = 3000;
 
-// --- CONFIGURACIÓN ---
 app.set("views", path.join(__dirname, "public", "views"));
 app.set("view engine", "ejs");
 
-// --- MIDDLEWARES GLOBALES (Librerías) ---
 app.use(morgan("dev"));
-app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, "public")));
 app.use(cookieParser());
+
 app.use(session({
     secret: 'tu_clave_secreta_aqui',
     resave: false,
     saveUninitialized: false
 }));
 
-// --- MIDDLEWARES PROPIOS (Lógica de Negocio) ---
-app.use(loadUser);          // Carga el usuario en res.locals
-app.use(loadAccessibility); // Carga preferencias visuales
-
-// --- RUTAS ---
 app.use('/', mainRoutes);
 app.use('/admin', adminRoutes);
 app.use('/empleado', empleadoRoutes);
 
-// --- GESTIÓN DE ERRORES ---
-app.use(notFoundHandler);   // Manejador 404
-app.use(errorHandler);      // Manejador 500
+app.use((req, res, next) => {
+    res.status(404);
+    res.render("error404", { url: req.url });
+});
 
-// --- ARRANQUE ---
+app.use((err, req, res, next) => {
+    console.error(err.stack);
+    res.status(500);
+    res.render("error500", { 
+        mensaje: err.message, 
+        pila: err.stack 
+    });
+});
+
 app.listen(PORT, () => {
     console.log(`Servidor escuchando en http://localhost:${PORT}`);
     cargarDatosIniciales();

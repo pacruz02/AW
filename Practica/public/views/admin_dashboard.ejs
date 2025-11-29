@@ -4,19 +4,18 @@
     <meta charset="UTF-8">
     <title>Panel de Administración</title>
     <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/accessibility.css">
+    <link rel="stylesheet" href="/css/style.css">
 </head>
-<body>
+<body class="<%= typeof bodyClass !== 'undefined' ? bodyClass : '' %>">
+    <%- include('partials/navbar') %>
     <div class="container mt-4">
         <h1>Panel de Administración</h1>
         <p>¡Bienvenido, Admin!</p>
-        <ul>
-            <li><a href="/admin/vehiculos">Gestión de Vehículos</a></li>
-            <li><a href="/admin/concesionarios">Gestión de Concesionarios</a></li>
-            <li><a href="/admin/usuarios">Gestión de Usuarios</a></li>
-            <li><a href="/admin/estadisticas">Estadísticas</a></li>
-        </ul>
-        <a href="/logout" class="btn btn-danger">Cerrar Sesión</a>
     </div>
+    <%- include('partials/footer') %>
+    <%- include('partials/accessibility_modal') %>
     <script src="/js/bootstrap.bundle.min.js"></script>
+    <script src="/js/accessibility.js"></script>
 </body>
 </html>

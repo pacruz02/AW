@@ -4,8 +4,11 @@
     <meta charset="UTF-8">
     <title>Estadísticas de la Flota</title>
     <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/accessibility.css">
+    <link rel="stylesheet" href="/css/style.css">
 </head>
-<body>
+<body class="<%= typeof bodyClass !== 'undefined' ? bodyClass : '' %>">
+    <%- include('partials/navbar') %>
     <div class="container mt-4">
         <div class="d-flex justify-content-between align-items-center mb-4">
             <h1>Panel de Estadísticas</h1>
@@ -84,6 +87,9 @@
             </div>
         </div>
     </div>
+    <%- include('partials/footer') %>
+    <%- include('partials/accessibility_modal') %>
     <script src="/js/bootstrap.bundle.min.js"></script>
+    <script src="/js/accessibility.js"></script>
 </body>
 </html>

@@ -1,0 +1,57 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="/">Flota Eléctrica</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <% if (user) { %>
+                    <% if (user.rol === 'empleado') { %>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/empleado/vehiculos">Vehículos Disponibles</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/empleado/reservas">Mis Reservas</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/empleado/dashboard">Mi Panel</a>
+                        </li>
+                    <% } %>
+
+                    <% if (user.rol === 'admin') { %>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="/admin/dashboard">Panel Principal</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="/admin/vehiculos">Vehículos</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="/admin/concesionarios">Sedes</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="/admin/usuarios">Usuarios</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="/admin/estadisticas">Estadísticas</a>
+                                </li>
+                    <% } %>
+                <% } %>
+            </ul>
+
+            <div class="d-flex">
+                <button class="btn btn-outline-light me-2" data-bs-toggle="modal" data-bs-target="#accessibilityModal">
+                    Accesibilidad
+                </button>
+
+                <% if (user) { %>
+                    <a href="/logout" class="btn btn-outline-danger">Cerrar Sesión</a>
+                <% } else { %>
+                    <a href="/login" class="btn btn-outline-primary me-2">Login</a>
+                    <a href="/registro" class="btn btn-primary">Registro</a>
+                <% } %>
+            </div>
+        </div>
+    </div>
+</nav>

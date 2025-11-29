@@ -4,8 +4,11 @@
     <meta charset="UTF-8">
     <title>Panel de Empleado</title>
     <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/accessibility.css">
+    <link rel="stylesheet" href="/css/style.css">
 </head>
-<body>
+<body class="<%= typeof bodyClass !== 'undefined' ? bodyClass : '' %>">
+    <%- include('partials/navbar') %>
     <div class="container mt-4">
         <h1>Panel de Empleado</h1>
         <p>¡Bienvenido!</p>
@@ -15,6 +18,9 @@
         </ul>
         <a href="/logout" class="btn btn-danger">Cerrar Sesión</a>
     </div>
+    <%- include('partials/footer') %>
+    <%- include('partials/accessibility_modal') %>
     <script src="/js/bootstrap.bundle.min.js"></script>
+    <script src="/js/accessibility.js"></script>
 </body>
 </html>
