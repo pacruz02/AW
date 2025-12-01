@@ -10,13 +10,8 @@
 <body class="<%= typeof bodyClass !== 'undefined' ? bodyClass : '' %>">
     <%- include('partials/navbar') %>
     <div class="container mt-4">
-        <h1>Panel de Empleado</h1>
-        <p>¡Bienvenido!</p>
-        <ul>
-            <li><a href="/empleado/vehiculos">Ver Vehículos de mi Base</a></li>
-            <li><a href="/empleado/reservas">Mis Reservas</a></li>
-        </ul>
-        <a href="/logout" class="btn btn-danger">Cerrar Sesión</a>
+        <h1>¡Bienvenido, <%= user.name %>!</h1>
+        <em>Empleado</em>
     </div>
     <%- include('partials/footer') %>
     <%- include('partials/accessibility_modal') %>

@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <title>Error del servidor</title>
+    <link rel="stylesheet" href="../css/style.css">
 </head>
-<body>
-    <h1>500 - Error Interno del Servidor</h1>
+<body class="weberror">
+    <h1>500<br>Error Interno del Servidor</h1>
     <p>Se ha producido el siguiente error: <%= mensaje %></p>
     <p>Pila de ejecución:</p>
-    <pre><%= pila %></pre>
 </body>
 </html>

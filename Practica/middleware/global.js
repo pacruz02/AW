@@ -4,7 +4,8 @@
 const loadUser = (req, res, next) => {
     res.locals.user = req.session.usuarioId ? { 
         id: req.session.usuarioId, 
-        rol: req.session.usuarioRol 
+        rol: req.session.usuarioRol,
+        name: req.session.usuarioNombre
     } : null;
     next();
 };

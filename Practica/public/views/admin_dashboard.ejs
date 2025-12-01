@@ -10,8 +10,8 @@
 <body class="<%= typeof bodyClass !== 'undefined' ? bodyClass : '' %>">
     <%- include('partials/navbar') %>
     <div class="container mt-4">
-        <h1>Panel de Administración</h1>
-        <p>¡Bienvenido, Admin!</p>
+        <h1>¡Bienvenido, <%= user.name %>!</h1>
+        <em>Administrador</em>
     </div>
     <%- include('partials/footer') %>
     <%- include('partials/accessibility_modal') %>

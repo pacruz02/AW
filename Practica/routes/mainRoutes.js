@@ -114,6 +114,7 @@ router.post('/login', (req, res) => {
                 // 1. Guardamos datos básicos de sesión
                 req.session.usuarioId = usuario.id_usuario;
                 req.session.usuarioRol = usuario.rol;
+                req.session.usuarioNombre = usuario.nombre;
                 
                 // 2. CARGAR PREFERENCIAS DE LA BD A LA SESIÓN (NUEVO)
                 if (usuario.preferencias_accesibilidad) {

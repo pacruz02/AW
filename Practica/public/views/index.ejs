@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <title>Bienvenida - Flota Eléctrica</title>
@@ -7,15 +8,124 @@
     <link rel="stylesheet" href="/css/accessibility.css">
     <link rel="stylesheet" href="/css/style.css">
 </head>
+
 <body class="<%= typeof bodyClass !== 'undefined' ? bodyClass : '' %>">
     <%- include('partials/navbar') %>
-    <div class="container">
-        <h1>Bienvenido a la Plataforma</h1>
-        <p>Esta es la página principal.</p>
+        <div class="container">
+            <h1>Bienvenido a üNTER</h1>
+            <p>Esta es la página principal.</p>
+        </div>
+        <div class="container">
+            <!-- Carrusel Bootstrap con imágenes locales -->
+<div id="carouselLocal" class="carousel slide" data-bs-ride="carousel">
+
+  <div class="carousel-indicators">
+    <button type="button" data-bs-target="#carouselLocal" data-bs-slide-to="0" class="active"></button>
+    <button type="button" data-bs-target="#carouselLocal" data-bs-slide-to="1"></button>
+    <button type="button" data-bs-target="#carouselLocal" data-bs-slide-to="2"></button>
+    <button type="button" data-bs-target="#carouselLocal" data-bs-slide-to="3"></button>
+    <button type="button" data-bs-target="#carouselLocal" data-bs-slide-to="4"></button>
+  </div>
+
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      <img src="../img/vehiculos/byd_seal1.png" class="d-block w-100" alt="Slide 1">
     </div>
-    <%- include('partials/footer') %>
-    <%- include('partials/accessibility_modal') %>
-    <script src="/js/bootstrap.bundle.min.js"></script>
-    <script src="/js/accessibility.js"></script>
+
+    <div class="carousel-item">
+      <img src="../img/vehiculos/byd_seal2.png" class="d-block w-100" alt="Slide 2">
+    </div>
+
+    <div class="carousel-item">
+      <img src="../img/vehiculos/byd_seal1.png" class="d-block w-100" alt="Slide 3">
+    </div>
+
+    <div class="carousel-item">
+      <img src="../img/vehiculos/byd_seal2.png" class="d-block w-100" alt="Slide 4">
+    </div>
+
+    <div class="carousel-item">
+      <img src="../img/vehiculos/byd_seal1.png" class="d-block w-100" alt="Slide 5">
+    </div>
+  </div>
+
+  <button class="carousel-control-prev" type="button" data-bs-target="#carouselLocal" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon"></span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#carouselLocal" data-bs-slide="next">
+    <span class="carousel-control-next-icon"></span>
+  </button>
+
+</div>
+
+        </div>
+        <div class="container">
+            <section>
+                <h2>Nuestros valores y compromiso</h2>
+                <p>
+                    En <strong>Tu Empresa</strong> creemos que la movilidad del futuro debe ser
+                    <em>sostenible</em>, <em>responsable</em> y <em>accesible para todos</em>.
+                    Por eso hemos construido un servicio de alquiler de vehículos eléctricos
+                    basado en valores que van más allá del simple transporte.
+                </p>
+            </section>
+
+            <section>
+                <h3>Compromiso con el medio ambiente</h3>
+                <p>
+                    Nos mueve la convicción de que cada desplazamiento puede ser <em>más limpio</em>.
+                    Al elegir vehículos <strong>100% eléctricos</strong>, reducimos las emisiones
+                    de CO₂, disminuimos la contaminación acústica y contribuimos activamente a un
+                    entorno más saludable.
+                </p>
+                <ul>
+                    <li><strong>Apostamos</strong> por el uso de energía renovable siempre que es posible.</li>
+                    <li>Mejoramos la eficiencia de nuestra flota mediante <em>tecnología avanzada</em>.</li>
+                    <li>Trabajamos para reducir nuestra <strong>huella ambiental</strong> cada día.</li>
+                </ul>
+            </section>
+
+            <section>
+                <h3>Servicio cercano, cómodo y transparente</h3>
+                <p>
+                    Nuestro objetivo es ofrecerte una experiencia <em>ágil</em> y <em>sin complicaciones</em>.
+                    Desde la reserva hasta la devolución del vehículo, cuidamos cada detalle para que tu
+                    viaje sea cómodo, seguro y libre de preocupaciones.
+                </p>
+                <ul>
+                    <li>Reservas claras y sencillas, sin <strong>costes ocultos</strong>.</li>
+                    <li>Atención al cliente disponible para ayudarte en cada paso.</li>
+                    <li>Información completa sobre <em>autonomía, carga y uso del vehículo</em>.</li>
+                </ul>
+            </section>
+
+            <section>
+                <h3>Innovación y mejora constante</h3>
+                <p>
+                    Nos mantenemos en <em>evolución continua</em>, escuchando a nuestros usuarios
+                    e incorporando nuevas soluciones tecnológicas para ofrecer un servicio
+                    cada vez más sostenible y eficiente.
+                </p>
+            </section>
+
+            <section>
+                <h3>Movilidad responsable</h3>
+                <p>
+                    Promovemos un modelo de transporte que respeta el entorno y fomenta un
+                    estilo de vida consciente. Cada vez que eliges uno de nuestros vehículos
+                    eléctricos, estás contribuyendo a un <strong>futuro más verde</strong> y a
+                    ciudades más limpias.
+                </p>
+                <p>
+                    <mark>Tu elección impulsa el cambio hacia una movilidad sostenible.</mark>
+                </p>
+            </section>
+
+        </div>
+        <%- include('partials/footer') %>
+            <%- include('partials/accessibility_modal') %>
+                <script src="/js/bootstrap.bundle.min.js"></script>
+                <script src="/js/accessibility.js"></script>
 </body>
+
 </html>
