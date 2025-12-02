@@ -1,0 +1,51 @@
+-- 1. Tabla Concesionarios (se crea primero)
+CREATE TABLE Concesionarios (
+    id_concesionario INT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(255) NOT NULL,
+    ciudad VARCHAR(100) NOT NULL,
+    direccion VARCHAR(255) NOT NULL,
+    telefono_contacto VARCHAR(20)
+);
+
+-- 2. Tabla Usuarios (depende de Concesionarios)
+CREATE TABLE Usuarios (
+    id_usuario INT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(255) NOT NULL,
+    correo VARCHAR(255) NOT NULL UNIQUE,
+    contraseña VARCHAR(255) NOT NULL,
+    rol ENUM('empleado', 'admin') NOT NULL DEFAULT 'empleado',
+    telefono VARCHAR(20),
+    id_concesionario INT,
+    preferencias_accesibilidad JSON,
+    FOREIGN KEY (id_concesionario) REFERENCES Concesionarios(id_concesionario) ON DELETE SET NULL
+);
+
+-- 3. Tabla Vehiculos (depende de Concesionarios)
+CREATE TABLE Vehiculos (
+    id_vehiculo INT AUTO_INCREMENT PRIMARY KEY,
+    matricula VARCHAR(20) NOT NULL UNIQUE,
+    marca VARCHAR(100) NOT NULL,
+    modelo VARCHAR(100) NOT NULL,
+    año_matriculacion INT,
+    numero_plazas INT NOT NULL DEFAULT 5,
+    autonomia_km INT NOT NULL,
+    color VARCHAR(50),
+    imagen VARCHAR(255),
+    estado ENUM('disponible', 'reservado', 'mantenimiento') NOT NULL DEFAULT 'disponible',
+    id_concesionario INT,
+    FOREIGN KEY (id_concesionario) REFERENCES Concesionarios(id_concesionario) ON DELETE SET NULL
+);
+
+-- 4. Tabla Reservas (depende de Usuarios y Vehiculos)
+CREATE TABLE Reservas (
+    id_reserva INT AUTO_INCREMENT PRIMARY KEY,
+    id_usuario INT NOT NULL,
+    id_vehiculo INT NOT NULL,
+    fecha_inicio DATETIME NOT NULL,
+    fecha_fin DATETIME NOT NULL,
+    estado ENUM('activa', 'finalizada', 'cancelada') NOT NULL DEFAULT 'activa',
+    kilometros_recorridos INT,
+    incidencias_reportadas TEXT,
+    FOREIGN KEY (id_usuario) REFERENCES Usuarios(id_usuario) ON DELETE CASCADE,
+    FOREIGN KEY (id_vehiculo) REFERENCES Vehiculos(id_vehiculo) ON DELETE CASCADE
+);

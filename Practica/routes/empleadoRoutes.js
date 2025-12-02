@@ -8,7 +8,25 @@ const { checkEmpleado } = require('../middleware/auth');
 router.use(checkEmpleado);
 
 router.get('/dashboard', (req, res) => {
-    res.render('empleado_dashboard');
+    const usuarioId = req.session.usuarioId;
+
+    const sql = `
+        SELECT R.*, V.marca, V.modelo, V.matricula, V.imagen 
+        FROM Reservas R 
+        JOIN Vehiculos V ON R.id_vehiculo = V.id_vehiculo 
+        WHERE R.id_usuario = ? 
+        ORDER BY R.fecha_inicio DESC
+    `;
+
+    pool.query(sql, [usuarioId], (err, reservas) => {
+        if (err) {
+            console.error(err);
+            return res.status(500).render('error500', { mensaje: err.message, pila: err.stack });
+        }
+        
+        // Renderizamos el dashboard pasándole la lista de reservas
+        res.render('empleado_dashboard', { reservas: reservas });
+    });
 });
 
 router.get('/vehiculos', (req, res) => {

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <title>Panel de Empleado</title>
@@ -7,15 +8,101 @@
     <link rel="stylesheet" href="/css/accessibility.css">
     <link rel="stylesheet" href="/css/style.css">
 </head>
+
 <body class="<%= typeof bodyClass !== 'undefined' ? bodyClass : '' %>">
+
     <%- include('partials/navbar') %>
-    <div class="container mt-4">
-        <h1>¡Bienvenido, <%= user.name %>!</h1>
-        <em>Empleado</em>
-    </div>
-    <%- include('partials/footer') %>
-    <%- include('partials/accessibility_modal') %>
-    <script src="/js/bootstrap.bundle.min.js"></script>
-    <script src="/js/accessibility.js"></script>
+        <div class="card">
+            <div class="dashboard-card">
+                <div>
+                    <h1>¡Bienvenido, <%= user.name %>!</h1>
+                    <em>Empleado</em>
+                </div>
+                <div class="imagen-contenedor">
+                    <img src="../img/planceholder.png" alt="Foto del empleado">
+                </div>
+            </div>
+            <div class="card-body">
+
+                <hr class="mb-4">
+
+                <h3 class="mb-3">Mis Reservas Recientes</h3>
+
+                <% if (reservas.length===0) { %>
+                    <div class="alert alert-info" role="alert">
+                        <h4 class="alert-heading">¡Aún no tienes reservas!</h4>
+                        <p>Parece que todavía no has utilizado ningún vehículo de la flota.</p>
+                        <hr>
+                        <p class="mb-0">Haz clic en el botón de arriba para reservar tu primer coche.</p>
+                    </div>
+                    <% } else { %>
+                        <div class="card">
+                            <div class="card-body p-0">
+                                <div class="table-responsive">
+                                    <table class="table align-middle table-light">
+                                        <thead>
+                                            <tr>
+                                                <th class="ps-4">Vehículo</th>
+                                                <th>Fechas</th>
+                                                <th>Estado</th>
+                                                <th>Kms</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <% reservas.forEach(r=> { %>
+                                                <tr>
+                                                    <td class="ps-4">
+                                                        <div class="d-flex align-items-center">
+                                                            <% if (r.imagen) { %>
+                                                                <img src="<%= r.imagen %>" class="rounded me-3"
+                                                                    style="width: 40px; height: 40px; object-fit: cover;">
+                                                                <% } %>
+                                                                    <div>
+                                                                        <div class="fw-bold">
+                                                                            <%= r.marca %>
+                                                                                <%= r.modelo %>
+                                                                        </div>
+                                                                        <div class="text-muted small">
+                                                                            <%= r.matricula %>
+                                                                        </div>
+                                                                    </div>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div class="small">
+                                                            <strong>Salida:</strong>
+                                                            <%= new Date(r.fecha_inicio).toLocaleString('es-ES') %><br>
+                                                                <strong>Llegada:</strong>
+                                                                <%= new Date(r.fecha_fin).toLocaleString('es-ES') %>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <% let badgeClass='bg-secondary' ; if (r.estado==='activa' )
+                                                            badgeClass='bg-success' ; if (r.estado==='cancelada' )
+                                                            badgeClass='bg-danger' ; if (r.estado==='finalizada' )
+                                                            badgeClass='bg-primary' ; %>
+                                                            <span class="badge <%= badgeClass %> rounded-pill">
+                                                                <%= r.estado.toUpperCase() %>
+                                                            </span>
+                                                    </td>
+                                                    <td>
+                                                        <%= r.kilometros_recorridos ? r.kilometros_recorridos + ' km'
+                                                            : '-' %>
+                                                    </td>
+                                                </tr>
+                                                <% }); %>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <% } %>
+            </div>
+        </div>
+        <%- include('partials/footer') %>
+            <%- include('partials/accessibility_modal') %>
+                <script src="/js/bootstrap.bundle.min.js"></script>
+                <script src="/js/accessibility.js"></script>
 </body>
+
 </html>
