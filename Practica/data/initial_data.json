@@ -22,7 +22,7 @@
       "numero_plazas": 5,
       "autonomia_km": 450,
       "color": "Blanco",
-      "imagen": "/img/vehiculos/tesla_model3.jpg",
+      "imagen": "../img/vehiculos/tesla1.jpg",
       "estado": "disponible",
       "concesionario_nombre": "Sede Central - Ciudad Universitaria"
     },
@@ -34,7 +34,7 @@
       "numero_plazas": 5,
       "autonomia_km": 300,
       "color": "Azul",
-      "imagen": "/img/vehiculos/byd_seal1.jpg",
+      "imagen": "../img/vehiculos/byd_seal1.jpg",
       "estado": "disponible",
       "concesionario_nombre": "Campus de Somosaguas"
     },
@@ -46,7 +46,7 @@
       "numero_plazas": 5,
       "autonomia_km": 480,
       "color": "Rojo",
-      "imagen": "/img/vehiculos/volvo1.jpg",
+      "imagen": "../img/vehiculos/volvo1.jpg",
       "estado": "mantenimiento",
       "concesionario_nombre": "Sede Central - Ciudad Universitaria"
     }

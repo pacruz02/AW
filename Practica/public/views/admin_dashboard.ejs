@@ -1,21 +1,30 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <title>Panel de Administración</title>
+    <link rel="icon" type="image/svg" href="../imagenes/icon.svg">
     <link rel="stylesheet" href="/css/bootstrap.min.css">
     <link rel="stylesheet" href="/css/accessibility.css">
     <link rel="stylesheet" href="/css/style.css">
 </head>
+
 <body class="<%= typeof bodyClass !== 'undefined' ? bodyClass : '' %>">
     <%- include('partials/navbar') %>
-    <div class="card">
-        <h1>¡Bienvenido, <%= user.name %>!</h1>
-        <em>Administrador</em>
-    </div>
-    <%- include('partials/footer') %>
-    <%- include('partials/accessibility_modal') %>
-    <script src="/js/bootstrap.bundle.min.js"></script>
-    <script src="/js/accessibility.js"></script>
+        <div class="card dashboard-card">
+            <div>
+                <h1>¡Bienvenido, <%= user.name %>!</h1>
+                <em>Admin</em>
+            </div>
+            <div class="imagen-contenedor">
+                <img src="../img/planceholder.png" alt="Foto del empleado">
+            </div>
+        </div>
+        <%- include('partials/footer') %>
+        <%- include('partials/accessibility_modal') %>
+        <script src="/js/bootstrap.bundle.min.js"></script>
+        <script src="/js/accessibility.js"></script>
 </body>
+
 </html>
