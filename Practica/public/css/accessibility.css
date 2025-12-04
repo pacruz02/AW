@@ -4,7 +4,7 @@ body.high-contrast {
     color: #fff !important;
 }
 
-body.high-contrast .card, 
+body.high-contrast .card,
 body.high-contrast .modal-content {
     background-color: #333 !important;
     color: #fff !important;
@@ -15,8 +15,15 @@ body.high-contrast .table {
     color: #fff !important;
 }
 
+body.high-contrast .table-hover tbody tr:hover td,
+.table-hover tbody tr:hover th {
+    color: white !important;
+    background-color: #555 !important;
+}
+
 body.high-contrast a {
-    color: #ffff00 !important; /* Amarillo para enlaces */
+    color: #ffff00 !important;
+    /* Amarillo para enlaces */
     text-decoration: underline;
 }
 
@@ -31,5 +38,5 @@ body.font-small {
 }
 
 body.font-large {
-    font-size: 120% !important;
+    font-size: 180% !important;
 }
