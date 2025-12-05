@@ -11,6 +11,12 @@ body.high-contrast .modal-content {
     border: 1px solid #fff;
 }
 
+body.high-contrast .dropdown-menu {
+    background-color: #333 !important;
+    color: #fff !important;
+    border: 1px solid #fff;
+}
+
 body.high-contrast .table {
     color: #fff !important;
 }

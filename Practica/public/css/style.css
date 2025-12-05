@@ -59,8 +59,9 @@ main {
 }
 
 .dropdown-menu {
-    background-color: #2c2c2c !important;
-    color: white !important;
+    align-items: center !important;
+    border: 3px solid #313131 !important;
+    margin: auto !important;
 }
 
 .imagen-contenedor img {
