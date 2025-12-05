@@ -1,156 +1,160 @@
-<div class="dropup position-fixed bottom-0 ms-3">
-    <button type="button" class="btn btn-outline-light m-3" data-bs-target="#HotkeysModal"
-        aria-label="Opciones de Accesibilidad" accesskey="h" data-bs-toggle="dropdown" aria-expanded="false"
-        style="filter: invert(1);">
-        <div class="d-flex">
-            <key>
-                alt
-            </key>
-            +
-            <key>
-                H
-            </key>
-        </div>
-    </button>
-    Hotkeys
-
-    <ul class="dropdown-menu p-4 shadow dropdown-fluid">
-        <li>
-            <div class="d-flex">
-                <key>
-                    alt
-                </key>
-                +
-                <key>
-                    0
-                </key>
-                Inicio
-            </div>
-        </li>
-        <li>
-            <div class="d-flex">
-                <key>
-                    alt
-                </key>
-                +
-                <key>
-                    1
-                </key>
-                Dashboard
-            </div>
-        </li>
-        <% if (user) { %>
-            <% if (user.rol==='empleado' ) { %>
-                <li>
-                    <div class="d-flex">
-                        <key>
-                            alt
-                        </key>
-                        +
-                        <key>
-                            2
-                        </key>
-                        Vehículos
-                    </div>
-                </li>
-                <li>
-                    <div class="d-flex">
-                        <key>
-                            alt
-                        </key>
-                        +
-                        <key>
-                            3
-                        </key>
-                        Reservas
-                    </div>
-                </li>
-                <% } %>
-                    <% if (user.rol==='admin' ) { %>
-                        <li>
-                            <div class="d-flex">
-                                <key>
-                                    alt
-                                </key>
-                                +
-                                <key>
-                                    2
-                                </key>
-                                Vehiculos
-                            </div>
-                        </li>
-                        <li>
-                            <div class="d-flex">
-                                <key>
-                                    alt
-                                </key>
-                                +
-                                <key>
-                                    3
-                                </key>
-                                Sedes
-                            </div>
-                        </li>
-                        <li>
-                            <div class="d-flex">
-                                <key>
-                                    alt
-                                </key>
-                                +
-                                <key>
-                                    4
-                                </key>
-                                Usuarios
-                            </div>
-                        </li>
-                        <li>
-                            <div class="d-flex">
-                                <key>
-                                    alt
-                                </key>
-                                +
-                                <key>
-                                    5
-                                </key>
-                                Estadísticas
-                            </div>
-                        </li>
-                        <% } %>
-                            <% } %>
-                                <li>
-                                    <div class="d-flex">
-                                        <key>
-                                            alt
-                                        </key>
-                                        +
-                                        <key>
-                                            A
-                                        </key>
-                                        Accesibilidad
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="d-flex">
-                                        <key>
-                                            alt
-                                        </key>
-                                        +
-                                        <key>
-                                            C
-                                        </key>
-                                        Cerrar Sesión
-                                    </div>
-                                </li>
-    </ul>
-
-</div>
 <footer class="footer mt-auto py-3 bg-dark text-white text-center">
     <div class="container">
-        <div class="row">
-            <div class="col-12">
+        <div class="row align-items-center">
+            
+            <div class="col-12 col-md-4 text-start">
+                <div class="dropup">
+                    <button type="button" class="btn btn-dark btn-outline-light" data-bs-target="#HotkeysModal" aria-label="Hotkeys"
+                        accesskey="h" data-bs-toggle="dropdown" aria-expanded="false">
+                        <div class="d-flex">
+                            <key>
+                                alt
+                            </key>
+                            +
+                            <key>
+                                H
+                            </key>
+                        </div>
+                    </button>
+                    Hotkeys
+                
+                    <ul class="dropdown-menu p-4 shadow dropdown-fluid">
+                        <li>
+                            <div class="d-flex">
+                                <key>
+                                    alt
+                                </key>
+                                +
+                                <key>
+                                    0
+                                </key>
+                                Inicio
+                            </div>
+                        </li>
+                        <li>
+                            <div class="d-flex">
+                                <key>
+                                    alt
+                                </key>
+                                +
+                                <key>
+                                    1
+                                </key>
+                                Dashboard
+                            </div>
+                        </li>
+                        <% if (user) { %>
+                            <% if (user.rol==='empleado' ) { %>
+                                <li>
+                                    <div class="d-flex">
+                                        <key>
+                                            alt
+                                        </key>
+                                        +
+                                        <key>
+                                            2
+                                        </key>
+                                        Vehículos
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="d-flex">
+                                        <key>
+                                            alt
+                                        </key>
+                                        +
+                                        <key>
+                                            3
+                                        </key>
+                                        Reservas
+                                    </div>
+                                </li>
+                                <% } %>
+                                    <% if (user.rol==='admin' ) { %>
+                                        <li>
+                                            <div class="d-flex">
+                                                <key>
+                                                    alt
+                                                </key>
+                                                +
+                                                <key>
+                                                    2
+                                                </key>
+                                                Vehiculos
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="d-flex">
+                                                <key>
+                                                    alt
+                                                </key>
+                                                +
+                                                <key>
+                                                    3
+                                                </key>
+                                                Sedes
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="d-flex">
+                                                <key>
+                                                    alt
+                                                </key>
+                                                +
+                                                <key>
+                                                    4
+                                                </key>
+                                                Usuarios
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="d-flex">
+                                                <key>
+                                                    alt
+                                                </key>
+                                                +
+                                                <key>
+                                                    5
+                                                </key>
+                                                Estadísticas
+                                            </div>
+                                        </li>
+                                        <% } %>
+                                            <li>
+                                                <div class="d-flex">
+                                                    <key>
+                                                        alt
+                                                    </key>
+                                                    +
+                                                    <key>
+                                                        C
+                                                    </key>
+                                                    Logout
+                                                </div>
+                                            </li>
+                                            <% } %>
+                                                <li>
+                                                    <div class="d-flex">
+                                                        <key>
+                                                            alt
+                                                        </key>
+                                                        +
+                                                        <key>
+                                                            A
+                                                        </key>
+                                                        Accesibilidad
+                                                    </div>
+                                                </li>
+                    </ul>
+                
+                </div>
+            </div>
+
+            <div class="col-12 col-md-8 text-start">
                 <p class="mb-0">&copy; 2025 üNTER. Todos los derechos reservados.</p>
                 <small class="text-muted">Práctica de Aplicaciones Web - Facultad de Informática</small>
             </div>
+            
         </div>
     </div>
 </footer>

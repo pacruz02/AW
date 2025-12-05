@@ -25,6 +25,7 @@ main {
     min-height: 180px;
     text-align: center;
     align-items: center;
+
     h1 {
         font-size: 4em;
         line-height: 1em;
@@ -38,13 +39,12 @@ main {
     z-index: 1000 !important;
 }
 
-.navbar-toggler
-.navbar-toggler-icon{
+.navbar-toggler .navbar-toggler-icon {
     color: aliceblue !important;
     background-color: blue !important;
 }
 
-    .dashboard-card {
+.dashboard-card {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -58,6 +58,11 @@ main {
     margin: auto !important;
 }
 
+.dropdown-menu {
+    background-color: #2c2c2c !important;
+    color: white !important;
+}
+
 .imagen-contenedor img {
     display: block;
     max-height: 100px;
@@ -65,11 +70,10 @@ main {
 
 key {
     color: #313131;
-    background-color: rgb(233, 233, 233);
+    background-color: white;
     padding: 0.3rem 0.5rem;
     border-radius: 0.1rem;
     display: inline-block;
-    /* font-size: 0.7rem; */
     line-height: 0.7rem;
     margin: 0.3em;
     font-weight: 800;
