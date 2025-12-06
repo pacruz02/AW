@@ -79,7 +79,6 @@ router.post('/login', (req, res) => {
         return res.render('login', { error: "Correo y contraseña son obligatorios." });
     }
 
-    // Nota: Es importante hacer SELECT * para traer también 'preferencias_accesibilidad'
     pool.query("SELECT * FROM Usuarios WHERE correo = ?", [correo], (err, results) => {
         if (err) {
             console.error(err);
@@ -92,7 +91,6 @@ router.post('/login', (req, res) => {
 
         const usuario = results[0];
         
-        // Verificamos si existe el campo contraseña antes de hacer split (por seguridad)
         if (!usuario.contraseña) {
              return res.render('login', { error: "Error en los datos del usuario." });
         }
@@ -111,16 +109,12 @@ router.post('/login', (req, res) => {
             const sonIguales = crypto.timingSafeEqual(newHashBuffer, storedHashBuffer);
 
             if (sonIguales) {
-                // 1. Guardamos datos básicos de sesión
                 req.session.usuarioId = usuario.id_usuario;
                 req.session.usuarioRol = usuario.rol;
                 req.session.usuarioNombre = usuario.nombre;
                 
-                // 2. CARGAR PREFERENCIAS DE LA BD A LA SESIÓN (NUEVO)
                 if (usuario.preferencias_accesibilidad) {
                     try {
-                        // La BD puede devolver un string JSON o un objeto directamente, 
-                        // dependiendo de la versión del driver. Aseguramos que sea objeto.
                         let prefs = usuario.preferencias_accesibilidad;
                         if (typeof prefs === 'string') {
                             prefs = JSON.parse(prefs);
@@ -128,15 +122,12 @@ router.post('/login', (req, res) => {
                         req.session.accessibility = prefs;
                     } catch (parseError) {
                         console.error("Error al parsear preferencias:", parseError);
-                        // Si falla, usamos defaults
                         req.session.accessibility = { contrast: 'normal', fontSize: 'normal' };
                     }
                 } else {
-                    // Si no tiene nada guardado, defaults
                     req.session.accessibility = { contrast: 'normal', fontSize: 'normal' };
                 }
                 
-                // 3. Redirección según rol
                 if (usuario.rol === 'admin') {
                     res.redirect('/admin/dashboard');
                 } else {
@@ -150,30 +141,23 @@ router.post('/login', (req, res) => {
 });
 
 router.get('/logout', (req, res) => {
-    // Destruimos la sesión en el servidor
     req.session.destroy((err) => {
         if (err) {
             console.error("Error al cerrar sesión:", err);
             return res.status(500).render('error500', { mensaje: "No se pudo cerrar la sesión", pila: err.stack });
         }
         
-        // Opcional: Limpiar la cookie del cliente explícitamente
-        res.clearCookie('connect.sid'); // 'connect.sid' es el nombre por defecto de la cookie de express-session
+        res.clearCookie('connect.sid');
         
-        // Redirigimos a la página de login
         res.redirect('/login');
     });
 });
 
-// Ruta API para guardar preferencias de accesibilidad
-router.post('/api/accessibility', (req, res) => {
     const { contrast, fontSize } = req.body;
 
-    // 1. Guardar en sesión (siempre)
     if (contrast) req.session.accessibility.contrast = contrast;
     if (fontSize) req.session.accessibility.fontSize = fontSize;
 
-    // 2. Guardar en BD si el usuario está logueado (Nivel Avanzado)
     if (req.session.usuarioId) {
         const prefs = JSON.stringify(req.session.accessibility);
         const sql = "UPDATE Usuarios SET preferencias_accesibilidad = ? WHERE id_usuario = ?";

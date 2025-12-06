@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Resultados de Carga</title>
+    <link rel="icon" type="image/svg" href="../img/icon.svg">
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/accessibility.css">
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body class="<%= typeof bodyClass !== 'undefined' ? bodyClass : '' %>">
+    <%- include('partials/navbar') %>
+
+    <div class="container mt-4">
+        <h1>Logs del Proceso</h1>
+        
+        <div class="card bg-dark text-white font-monospace mb-4">
+            <div class="card-body">
+                <ul class="list-unstyled mb-0">
+                    <% logs.forEach(log => { %>
+                        <li><%= log %></li>
+                    <% }); %>
+                    <% if (logs.length === 0) { %>
+                        <li>No se realizaron operaciones.</li>
+                    <% } %>
+                </ul>
+            </div>
+        </div>
+
+        <a href="/admin/dashboard" class="btn btn-primary">Volver al Dashboard</a>
+        <a href="/admin/vehiculos" class="btn btn-secondary">Ver listado de vehículos</a>
+    </div>
+
+    <%- include('partials/footer') %>
+    <%- include('partials/accessibility_modal') %>
+    <script src="/js/bootstrap.bundle.min.js"></script>
+    <script src="/js/accessibility.js"></script>
+</body>
+</html>

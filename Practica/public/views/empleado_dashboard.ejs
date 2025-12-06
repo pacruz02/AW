@@ -30,17 +30,12 @@
                 <h3 class="mb-3">Mis Reservas Recientes</h3>
 
                 <% if (reservas.length===0) { %>
-                    <div class="alert alert-info" role="alert">
-                        <h4 class="alert-heading">¡Aún no tienes reservas!</h4>
-                        <p>Parece que todavía no has utilizado ningún vehículo de la flota.</p>
-                        <hr>
-                        <p class="mb-0">Haz clic en el botón de arriba para reservar tu primer coche.</p>
-                    </div>
+                        <p>¡Aún no tienes reservas!</p>
                     <% } else { %>
                         <div class="card">
                             <div class="card-body p-0">
                                 <div class="table-responsive">
-                                    <table class="table align-middle table-light">
+                                    <table class="table align-middle">
                                         <thead>
                                             <tr>
                                                 <th class="ps-4">Vehículo</th>

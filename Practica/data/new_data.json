@@ -1,0 +1,96 @@
+{
+  "concesionarios": [
+    {
+      "nombre": "EcoMove Madrid Centro",
+      "ciudad": "Madrid",
+      "direccion": "Paseo de la Castellana, 120",
+      "telefono_contacto": "915550001"
+    },
+    {
+      "nombre": "GreenDrive Barcelona",
+      "ciudad": "Barcelona",
+      "direccion": "Avinguda Diagonal, 400",
+      "telefono_contacto": "934440002"
+    },
+    {
+      "nombre": "Valencia Eléctrica",
+      "ciudad": "Valencia",
+      "direccion": "Carrer de Colón, 15",
+      "telefono_contacto": "963330003"
+    }
+  ],
+  "vehiculos": [
+    {
+      "matricula": "1234-LKT",
+      "marca": "Tesla",
+      "modelo": "Model 3",
+      "año_matriculacion": 2023,
+      "numero_plazas": 5,
+      "autonomia_km": 491,
+      "color": "Blanco Perla",
+      "imagen": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/2019_Tesla_Model_3_Performance_AWD_Front.jpg/640px-2019_Tesla_Model_3_Performance_AWD_Front.jpg",
+      "estado": "disponible",
+      "concesionario_nombre": "EcoMove Madrid Centro"
+    },
+    {
+      "matricula": "5678-MHY",
+      "marca": "Renault",
+      "modelo": "Zoe E-Tech",
+      "año_matriculacion": 2022,
+      "numero_plazas": 5,
+      "autonomia_km": 395,
+      "color": "Azul Celadón",
+      "imagen": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3e/Renault_Zoe_R135_Intens_%28II%29_%E2%80%93_f_17012021.jpg/640px-Renault_Zoe_R135_Intens_%28II%29_%E2%80%93_f_17012021.jpg",
+      "estado": "disponible",
+      "concesionario_nombre": "EcoMove Madrid Centro"
+    },
+    {
+      "matricula": "9012-KLP",
+      "marca": "Volkswagen",
+      "modelo": "ID.4",
+      "año_matriculacion": 2023,
+      "numero_plazas": 5,
+      "autonomia_km": 520,
+      "color": "Gris Manganeso",
+      "imagen": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/23/Volkswagen_ID.4_IMG_4308.jpg/640px-Volkswagen_ID.4_IMG_4308.jpg",
+      "estado": "mantenimiento",
+      "concesionario_nombre": "GreenDrive Barcelona"
+    },
+    {
+      "matricula": "3456-JZX",
+      "marca": "Nissan",
+      "modelo": "Leaf",
+      "año_matriculacion": 2021,
+      "numero_plazas": 5,
+      "autonomia_km": 270,
+      "color": "Rojo Fusión",
+      "imagen": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/ca/2018_Nissan_Leaf_Tekna_Front.jpg/640px-2018_Nissan_Leaf_Tekna_Front.jpg",
+      "estado": "disponible",
+      "concesionario_nombre": "GreenDrive Barcelona"
+    },
+    {
+      "matricula": "7890-NBB",
+      "marca": "Hyundai",
+      "modelo": "Ioniq 5",
+      "año_matriculacion": 2024,
+      "numero_plazas": 5,
+      "autonomia_km": 480,
+      "color": "Oro Mate",
+      "imagen": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/Hyundai_Ioniq_5_IMG_5033.jpg/640px-Hyundai_Ioniq_5_IMG_5033.jpg",
+      "estado": "reservado",
+      "concesionario_nombre": "Valencia Eléctrica"
+    },
+    {
+      "matricula": "1122-BBC",
+      "marca": "Peugeot",
+      "modelo": "e-208",
+      "año_matriculacion": 2022,
+      "numero_plazas": 5,
+      "autonomia_km": 340,
+      "color": "Amarillo Faro",
+      "imagen": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/Peugeot_208_GT_Line_%28II%29_%E2%80%93_f_06022021.jpg/640px-Peugeot_208_GT_Line_%28II%29_%E2%80%93_f_06022021.jpg",
+      "estado": "disponible",
+      "concesionario_nombre": "Valencia Eléctrica"
+    }
+  ]
+}

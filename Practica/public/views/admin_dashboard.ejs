@@ -12,14 +12,31 @@
 
 <body class="<%= typeof bodyClass !== 'undefined' ? bodyClass : '' %>">
     <%- include('partials/navbar') %>
-        <div class="card dashboard-card">
-            <div>
-                <h1>¡Bienvenido, <%= user.name %>!</h1>
-                <em>Admin</em>
+        <div class="card">
+            <div class="dashboard-card">
+                <div>
+                    <h1>¡Bienvenido, <%= user.name %>!</h1>
+                    <em>Admin</em>
+                </div>
+                <div class="imagen-contenedor">
+                    <img src="../img/planceholder.png" alt="Foto del empleado">
+                </div>
             </div>
-            <div class="imagen-contenedor">
-                <img src="../img/planceholder.png" alt="Foto del empleado">
-            </div>
+            <li>
+                <a href="/admin/carga-datos">Carga Masiva de Datos (JSON)</a>
+            </li>
+            <li>
+                <a class="nav-link" href="/admin/vehiculos" accesskey="V">Vehículos</a>
+            </li>
+            <li>
+                <a class="nav-link" href="/admin/concesionarios" accesskey="S">Sedes</a>
+            </li>
+            <li>
+                <a class="nav-link" href="/admin/usuarios" accesskey="U">Usuarios</a>
+            </li>
+            <li>
+                <a class="nav-link" href="/admin/estadisticas" accesskey="E">Estadísticas</a>
+            </li>
         </div>
         <%- include('partials/footer') %>
             <%- include('partials/accessibility_modal') %>

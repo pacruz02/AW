@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Carga de Datos JSON</title>
+    <link rel="icon" type="image/svg" href="../img/icon.svg">
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/accessibility.css">
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body class="<%= typeof bodyClass !== 'undefined' ? bodyClass : '' %>">
+    <%- include('partials/navbar') %>
+    
+    <div class="container mt-4">
+        <h1>Carga Masiva de Datos</h1>
+        <p>Selecciona el archivo <code>initial_data.json</code> de tu ordenador para actualizar la base de datos.</p>
+        
+        <% if (error) { %>
+            <div class="alert alert-danger"><%= error %></div>
+        <% } %>
+
+        <div class="card">
+            <div class="card-body">
+                <form action="/admin/carga-datos/preview" method="POST" id="uploadForm">
+                    
+                    <div class="mb-3">
+                        <label for="json_file" class="form-label">Archivo JSON:</label>
+                        <input class="form-control" type="file" id="json_file" accept=".json" required>
+                    </div>
+
+                    <textarea name="json_text" id="json_text" style="display:none;"></textarea>
+                    
+                    <div id="file-info" class="alert alert-secondary d-none">
+                        <strong>Archivo cargado:</strong> <span id="filename"></span><br>
+                        <small>Listo para analizar.</small>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary" id="btn-submit" disabled>Analizar Archivo</button>
+                    <a href="/admin/dashboard" class="btn btn-secondary">Cancelar</a>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <%- include('partials/footer') %>
+    <%- include('partials/accessibility_modal') %>
+    <script src="/js/bootstrap.bundle.min.js"></script>
+    <script src="/js/accessibility.js"></script>
+
+    <script>
+        const fileInput = document.getElementById('json_file');
+        const hiddenInput = document.getElementById('json_text');
+        const submitBtn = document.getElementById('btn-submit');
+        const fileInfo = document.getElementById('file-info');
+        const filenameSpan = document.getElementById('filename');
+
+        fileInput.addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            
+            if (!file) {
+                submitBtn.disabled = true;
+                return;
+            }
+
+            const reader = new FileReader();
+            
+            reader.onload = function(e) {
+                hiddenInput.value = e.target.result;
+                
+                filenameSpan.textContent = file.name;
+                fileInfo.classList.remove('d-none');
+                submitBtn.disabled = false;
+            };
+
+            reader.onerror = function() {
+                alert("Error al leer el archivo");
+                submitBtn.disabled = true;
+            };
+
+            reader.readAsText(file);
+        });
+    </script>
+</body>
+</html>

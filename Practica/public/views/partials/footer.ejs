@@ -1,11 +1,11 @@
 <footer class="footer mt-auto py-3 bg-dark text-white text-center">
     <div class="container">
         <div class="row align-items-center">
-            
+
             <div class="col-12 col-md-4 text-start">
                 <div class="dropup">
-                    <button type="button" class="btn btn-dark btn-outline-light ms" data-bs-target="#HotkeysModal" aria-label="Hotkeys"
-                        accesskey="h" data-bs-toggle="dropdown" aria-expanded="false">
+                    <button type="button" class="btn btn-dark btn-outline-light ms" data-bs-target="#HotkeysModal"
+                        aria-label="Hotkeys" accesskey="h" data-bs-toggle="dropdown" aria-expanded="false">
                         <div class="d-flex">
                             <key>
                                 alt
@@ -17,7 +17,7 @@
                         </div>
                     </button>
                     &nbsp;Hotkeys
-                
+
                     <ul class="dropdown-menu p-4 shadow dropdown-fluid">
                         <li>
                             <div class="d-flex">
@@ -31,20 +31,44 @@
                                 Inicio
                             </div>
                         </li>
-                        <li>
-                            <div class="d-flex">
-                                <key>
-                                    alt
-                                </key>
-                                +
-                                <key>
-                                    1
-                                </key>
-                                Dashboard
-                            </div>
-                        </li>
                         <% if (user) { %>
-                            <% if (user.rol==='empleado' ) { %>
+                            <li>
+                                <div class="d-flex">
+                                    <key>
+                                        alt
+                                    </key>
+                                    +
+                                    <key>
+                                        1
+                                    </key>
+                                    Dashboard
+                                </div>
+                            </li>
+                            <li>
+                                <div class="d-flex">
+                                    <key>
+                                        alt
+                                    </key>
+                                    +
+                                    <key>
+                                        2
+                                    </key>
+                                    Vehículos
+                                </div>
+                            </li>
+                            <li>
+                                <div class="d-flex">
+                                    <key>
+                                        alt
+                                    </key>
+                                    +
+                                    <key>
+                                        3
+                                    </key>
+                                    Reservas
+                                </div>
+                            </li>
+                            <% if (user.rol==='admin' ) { %>
                                 <li>
                                     <div class="d-flex">
                                         <key>
@@ -52,9 +76,9 @@
                                         </key>
                                         +
                                         <key>
-                                            2
+                                            V
                                         </key>
-                                        Vehículos
+                                        Vehiculos
                                     </div>
                                 </li>
                                 <li>
@@ -64,13 +88,49 @@
                                         </key>
                                         +
                                         <key>
-                                            3
+                                            S
                                         </key>
-                                        Reservas
+                                        Sedes
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="d-flex">
+                                        <key>
+                                            alt
+                                        </key>
+                                        +
+                                        <key>
+                                            U
+                                        </key>
+                                        Usuarios
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="d-flex">
+                                        <key>
+                                            alt
+                                        </key>
+                                        +
+                                        <key>
+                                            E
+                                        </key>
+                                        Estadísticas
                                     </div>
                                 </li>
                                 <% } %>
-                                    <% if (user.rol==='admin' ) { %>
+                                    <li>
+                                        <div class="d-flex">
+                                            <key>
+                                                alt
+                                            </key>
+                                            +
+                                            <key>
+                                                C
+                                            </key>
+                                            Logout
+                                        </div>
+                                    </li>
+                                    <% } %>
                                         <li>
                                             <div class="d-flex">
                                                 <key>
@@ -78,75 +138,13 @@
                                                 </key>
                                                 +
                                                 <key>
-                                                    2
+                                                    A
                                                 </key>
-                                                Vehiculos
+                                                Accesibilidad
                                             </div>
                                         </li>
-                                        <li>
-                                            <div class="d-flex">
-                                                <key>
-                                                    alt
-                                                </key>
-                                                +
-                                                <key>
-                                                    3
-                                                </key>
-                                                Sedes
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="d-flex">
-                                                <key>
-                                                    alt
-                                                </key>
-                                                +
-                                                <key>
-                                                    4
-                                                </key>
-                                                Usuarios
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="d-flex">
-                                                <key>
-                                                    alt
-                                                </key>
-                                                +
-                                                <key>
-                                                    5
-                                                </key>
-                                                Estadísticas
-                                            </div>
-                                        </li>
-                                        <% } %>
-                                            <li>
-                                                <div class="d-flex">
-                                                    <key>
-                                                        alt
-                                                    </key>
-                                                    +
-                                                    <key>
-                                                        C
-                                                    </key>
-                                                    Logout
-                                                </div>
-                                            </li>
-                                            <% } %>
-                                                <li>
-                                                    <div class="d-flex">
-                                                        <key>
-                                                            alt
-                                                        </key>
-                                                        +
-                                                        <key>
-                                                            A
-                                                        </key>
-                                                        Accesibilidad
-                                                    </div>
-                                                </li>
                     </ul>
-                
+
                 </div>
             </div>
 
@@ -154,7 +152,7 @@
                 <p class="mb-0">&copy; 2025 üNTER. Todos los derechos reservados.</p>
                 <small class="text-muted">Práctica de Aplicaciones Web - Facultad de Informática</small>
             </div>
-            
+
         </div>
     </div>
 </footer>
