@@ -22,16 +22,20 @@
                     <li class="nav-item">
                         <a class="nav-link text-white" href="/empleado/vehiculos" accesskey="2">Vehículos
                             Disponibles</a>
-                        </li>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="/empleado/reservas" accesskey="3">Mis Reservas</a>
+                    </li>
+                    <% if (user.rol==='admin' ) { %>
                         <li class="nav-item">
-                            <a class="nav-link text-white" href="/empleado/reservas" accesskey="3">Mis Reservas</a>
+                            <a class="nav-link text-white" href="/admin/dashboard" accesskey="j">Panel Admin</a>
                         </li>
-                        <% if (user.rol==='admin' ) { %>
-                            <li class="nav-item">
-                                <a class="nav-link text-white" href="/admin/dashboard" accesskey="j">Panel Admin</a>
-                            </li>
-                            <% } %>
+                            <a href="/admin/vehiculos" accesskey="V"></a>
+                            <a href="/admin/concesionarios" accesskey="S"></a>
+                            <a href="/admin/usuarios" accesskey="U"></a>
+                            <a href="/admin/estadisticas" accesskey="E"></a>
                         <% } %>
+                            <% } %>
             </ul>
 
             <div class="d-flex">
