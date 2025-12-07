@@ -14,15 +14,19 @@
 <body class="<%= typeof bodyClass !== 'undefined' ? bodyClass : '' %>">
 
     <%- include('partials/navbar') %>
-
+    
         <div class="container mt-4">
-
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h1>Mi Panel</h1>
+            </div>
             <div class="card shadow-sm mb-4">
                 <div class="card-body">
                     <div class="row align-items-center">
                         <div class="col-md-7 text-center text-md-start mb-3 mb-md-0">
                             <h1 class="display-5">¡Bienvenido, <%= user.name %>!</h1>
-                            <span class="badge bg-success fs-6"><%= user.rol %></span>
+                            <span class="badge bg-success fs-6">
+                                <%= user.rol %>
+                            </span>
                         </div>
 
                         <div class="col-md-4 imagen-contenedor">
@@ -35,7 +39,7 @@
             <div class="card shadow-sm">
                 <div class="card-body">
                     <div class="d-flex justify-content-between align-items-center mb-3">
-                        <h3 class="card-title mb-0">Mis Reservas</h3>
+                        <h3 class="card-title mb-0">Historial de Reservas</h3>
                     </div>
 
                     <hr>
@@ -74,8 +78,7 @@
                                                     </div>
                                                 </td>
                                                 <td class="d-flex align-items-center justify-content-center h-100">
-                                                    <img src="<%= r.imagen %>"
-                                                        class="rounded img-fluid">
+                                                    <img src="<%= r.imagen %>" class="rounded img-fluid">
                                                 </td>
                                                 <td>
                                                     <div class="small">

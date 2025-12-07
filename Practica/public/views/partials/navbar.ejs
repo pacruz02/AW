@@ -17,18 +17,18 @@
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <% if (user) { %>
                     <li class="nav-item">
-                        <a class="nav-link" href="/empleado/dashboard" accesskey="1">Mi Panel</a>
+                        <a class="nav-link text-white" href="/empleado/dashboard" accesskey="1">Mi Panel</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/empleado/vehiculos" accesskey="2">Vehículos
+                        <a class="nav-link text-white" href="/empleado/vehiculos" accesskey="2">Vehículos
                             Disponibles</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/empleado/reservas" accesskey="3">Mis Reservas</a>
+                            <a class="nav-link text-white" href="/empleado/reservas" accesskey="3">Mis Reservas</a>
                         </li>
                         <% if (user.rol==='admin' ) { %>
                             <li class="nav-item">
-                                <a class="nav-link" href="/admin/dashboard" accesskey="j">Panel Admin</a>
+                                <a class="nav-link text-white" href="/admin/dashboard" accesskey="j">Panel Admin</a>
                             </li>
                             <% } %>
                         <% } %>

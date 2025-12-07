@@ -16,18 +16,21 @@
     <%- include('partials/navbar') %>
 
         <div class="container mt-4">
-
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h1>Panel Admin</h1>
+            </div>
             <div class="card shadow-sm mb-4">
                 <div class="card-body">
                     <div class="row align-items-center">
                         <div class="col-md-7 text-center text-md-start mb-3 mb-md-0">
                             <h1 class="display-5">¡Bienvenido, <%= user.name %>!</h1>
-                            <span class="badge bg-success fs-6">Admin</span>
+                            <span class="badge bg-success fs-6">
+                                <%= user.rol %>
+                            </span>
                         </div>
 
                         <div class="col-md-4 imagen-contenedor">
-                            <img src="/img/planceholder.png" alt="Foto del empleado"
-                                class="img-fluid">
+                            <img src="/img/planceholder.png" alt="Foto del empleado" class="img-fluid">
                         </div>
                     </div>
                 </div>
