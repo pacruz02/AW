@@ -8,10 +8,12 @@ const cookieParser = require('cookie-parser');
 
 const { cargarDatosIniciales } = require('./config/dataLoader');
 
+// Rutas
 const mainRoutes = require('./routes/mainRoutes');
 const adminRoutes = require('./routes/adminRoutes');
 const empleadoRoutes = require('./routes/empleadoRoutes');
 
+// Middleware
 const { loadUser, loadAccessibility } = require('./middleware/global');
 const { notFoundHandler, errorHandler } = require('./middleware/errors');
 
