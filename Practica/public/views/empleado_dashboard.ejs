@@ -88,11 +88,15 @@
                                                                 Date(r.fecha_fin).toLocaleDateString() %></span>
                                                     </div>
                                                 </td>
-                                                <td>
-                                                    <span>
-                                                        <%= r.estado.toUpperCase() %>
-                                                    </span>
-                                                </td>
+                                                  <td>
+                                            <% let badgeClass='bg-secondary' ; if (r.estado==='activa' )
+                                                badgeClass='bg-success' ; if (r.estado==='cancelada' )
+                                                badgeClass='bg-danger' ; if (r.estado==='finalizada' )
+                                                badgeClass='bg-primary' ; %>
+                                                <span class="badge <%= badgeClass %>">
+                                                    <%= r.estado.toUpperCase() %>
+                                                </span>
+                                        </td>
                                                 <td>
                                                     <%= r.kilometros_recorridos ? r.kilometros_recorridos + ' km' : '-'
                                                         %>

@@ -7,7 +7,7 @@ const dao = require('./dao');
 const jsonPath = path.join(__dirname, '..', 'data', 'initial_data.json');
 
 /**
- * Carga datos iniciales (JSON) en la base de datossi está vacía
+ * Carga datos iniciales (JSON) en la base de datos si está vacía
  */
 function cargarDatosIniciales() {
     console.log("Verificando estado de la Base de Datos...");
