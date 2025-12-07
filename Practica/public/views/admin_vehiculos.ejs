@@ -10,8 +10,11 @@
     <link rel="stylesheet" href="/css/style.css">
 </head>
 <body class="<%= typeof bodyClass !== 'undefined' ? bodyClass : '' %>">
+    
     <%- include('partials/navbar') %>
+
     <div class="container mt-4">
+        
         <div class="d-flex justify-content-between align-items-center mb-3">
             <h1>Gestión de Vehículos</h1>
             <div>
@@ -20,40 +23,95 @@
             </div>
         </div>
 
-        <table class="table table-hover">
-            <thead class="table-dark">
-                <tr>
-                    <th>Matrícula</th>
-                    <th>Marca/Modelo</th>
-                    <th>Estado</th>
-                    <th>Acciones</th>
-                </tr>
-            </thead>
-            <tbody>
-                <% if (vehiculos.length === 0) { %>
-                    <tr><td colspan="4" class="text-center">No hay vehículos registrados.</td></tr>
-                <% } else { %>
-                    <% vehiculos.forEach(v => { %>
-                        <tr>
-                            <td><%= v.matricula %></td>
-                            <td><%= v.marca %> <%= v.modelo %></td>
-                            <td>
-                                <span class="badge bg-<%= v.estado === 'disponible' ? 'success' : (v.estado === 'reservado' ? 'warning' : 'danger') %>">
-                                    <%= v.estado %>
-                                </span>
-                            </td>
-                            <td>
-                                <a href="/admin/vehiculos/editar/<%= v.id_vehiculo %>" class="btn btn-sm btn-primary">Editar</a>
-                                <form action="/admin/vehiculos/borrar/<%= v.id_vehiculo %>" method="POST" style="display:inline;" onsubmit="return confirm('¿Seguro que quieres eliminar este vehículo?');">
-                                    <button type="submit" class="btn btn-sm btn-danger">Borrar</button>
-                                </form>
-                            </td>
-                        </tr>
-                    <% }); %>
-                <% } %>
-            </tbody>
-        </table>
+        <div class="card mb-3 bg-light border-0">
+            <div class="card-body py-3">
+                <form action="/admin/vehiculos" method="GET">
+                    <div class="row g-1 align-items-end">
+                        
+                        <div class="col-12 col-md-3">
+                            <label for="ciudad" class="form-label">Ciudad</label>
+                            <select class="form-select" name="ciudad" id="ciudad" onchange="this.form.submit()">
+                                <option value="">Todas las ciudades</option>
+                                <% if (typeof ciudades !== 'undefined') { %>
+                                    <% ciudades.forEach(c => { %>
+                                        <option value="<%= c.ciudad %>" <%= (typeof filtros !== 'undefined' && filtros.ciudad === c.ciudad) ? 'selected' : '' %>>
+                                            <%= c.ciudad %>
+                                        </option>
+                                    <% }); %>
+                                <% } %>
+                            </select>
+                        </div>
+
+                        <div class="col-12 col-md-3">
+                            <label for="concesionario" class="form-label">Concesionario</label>
+                            <select class="form-select" name="concesionario" id="concesionario" onchange="this.form.submit()">
+                                <option value="">Todos los concesionarios</option>
+                                <% if (typeof concesionarios !== 'undefined') { %>
+                                    <% concesionarios.forEach(c => { %>
+                                        <% if ((typeof filtros === 'undefined' || !filtros.ciudad) || c.ciudad === filtros.ciudad) { %>
+                                            <option value="<%= c.id_concesionario %>" <%= (typeof filtros !== 'undefined' && filtros.concesionario == c.id_concesionario) ? 'selected' : '' %>>
+                                                <%= c.nombre %>
+                                            </option>
+                                        <% } %>
+                                    <% }); %>
+                                <% } %>
+                            </select>
+                        </div>
+
+                        <div class="col-12 col-md-4">
+                            <div class="d-grid gap-2 d-md-flex">
+                                <% if (typeof filtros !== 'undefined' && (filtros.ciudad || filtros.concesionario)) { %>
+                                    <a href="/admin/vehiculos" class="btn btn-outline-secondary">Limpiar</a>
+                                <% } %>
+                            </div>
+                        </div>
+
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="table-responsive">
+            <table class="table table-hover align-middle">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Matrícula</th>
+                        <th>Marca/Modelo</th>
+                        <th>Ubicación</th> 
+                        <th>Estado</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% if (vehiculos.length === 0) { %>
+                        <tr><td colspan="5" class="text-center py-3">No hay vehículos que coincidan con los filtros.</td></tr>
+                    <% } else { %>
+                        <% vehiculos.forEach(v => { %>
+                            <tr>
+                                <td><%= v.matricula %></td>
+                                <td><%= v.marca %> <%= v.modelo %></td>
+                                <td >
+                                    <%= v.ciudad %> <br>
+                                    (<%= v.nombre_concesionario %>)
+                                </td>
+                                <td>
+                                    <span class="badge bg-<%= v.estado === 'disponible' ? 'success' : (v.estado === 'reservado' ? 'warning' : 'danger') %>">
+                                        <%= v.estado %>
+                                    </span>
+                                </td>
+                                <td>
+                                    <a href="/admin/vehiculos/editar/<%= v.id_vehiculo %>" class="btn btn-sm btn-primary">Editar</a>
+                                    <form action="/admin/vehiculos/borrar/<%= v.id_vehiculo %>" method="POST" style="display:inline;" onsubmit="return confirm('¿Seguro que quieres eliminar este vehículo?');">
+                                        <button type="submit" class="btn btn-sm btn-danger">Borrar</button>
+                                    </form>
+                                </td>
+                            </tr>
+                        <% }); %>
+                    <% } %>
+                </tbody>
+            </table>
+        </div>
     </div>
+
     <%- include('partials/footer') %>
     <%- include('partials/accessibility_modal') %>
     <script src="/js/bootstrap.bundle.min.js"></script>

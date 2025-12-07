@@ -52,3 +52,8 @@ body.high-contrast .carousel-control-prev-icon,
 body.high-contrast .carousel-control-next-icon {
     filter: invert(0);
 }
+
+body.high-contrast key {
+    color: #313131;
+    background-color: white;
+}
