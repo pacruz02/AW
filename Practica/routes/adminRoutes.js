@@ -3,12 +3,11 @@
 const express = require('express');
 const router = express.Router();
 const pool = require('../config/db');
-const dao = require('../config/dao');
 const { checkAdmin } = require('../middleware/auth');
 
 router.use(checkAdmin);
 
-// ------ Dashboard
+// ------ DASHBOARD
 router.get('/dashboard', (req, res) => {
     res.render('admin_dashboard');
 });
@@ -17,19 +16,15 @@ router.get('/dashboard', (req, res) => {
 
 // Listar Vehículos
 router.get('/vehiculos', (req, res) => {
-    // Filtros
     const filtroCiudad = req.query.ciudad || '';
     const filtroConcesionario = req.query.concesionario || '';
 
-    // Obtener Ciudades distintas
     pool.query("SELECT DISTINCT ciudad FROM Concesionarios ORDER BY ciudad", (err, ciudadesRows) => {
         if (err) return res.status(500).render('error500', { mensaje: err.message, pila: err.stack });
 
-        // Obtener todos los Concesionarios
         pool.query("SELECT id_concesionario, nombre, ciudad FROM Concesionarios ORDER BY nombre", (err, concesionariosRows) => {
             if (err) return res.status(500).render('error500', { mensaje: err.message, pila: err.stack });
 
-            // Vehículos con filtros dinámicos
             let sql = `
                 SELECT V.*, C.nombre as nombre_concesionario, C.ciudad 
                 FROM Vehiculos V 
@@ -66,10 +61,10 @@ router.get('/vehiculos', (req, res) => {
 
 // Formulario Nuevo Vehículo
 router.get('/vehiculos/nuevo', (req, res) => {
-    pool.query("SELECT * FROM Concesionarios", (err, concesionarios) => {// Obteniene todos los concesionarios
+    pool.query("SELECT * FROM Concesionarios", (err, concesionarios) => {
         if (err) return res.status(500).render('error500', { mensaje: err.message, pila: err.stack });
 
-        res.render('admin_vehiculo_form', { // Renderiza el formulario
+        res.render('admin_vehiculo_form', {
             vehiculo: null,
             concesionarios: concesionarios
         });
@@ -78,9 +73,8 @@ router.get('/vehiculos/nuevo', (req, res) => {
 
 // Procesar Nuevo Vehículo
 router.post('/vehiculos/nuevo', (req, res) => {
-    const { matricula, marca, modelo, anio, plazas, autonomia, color, imagen, precio, concesionario } = req.body;
+    const { matricula, marca, modelo, anio, plazas, autonomia, color, imagen, concesionario } = req.body;
 
-    // Insertar el nuevo vehículo en la base de datos
     const sql = `INSERT INTO Vehiculos (matricula, marca, modelo,
      año_matriculacion, numero_plazas, autonomia_km, color, imagen, 
      estado, id_concesionario) VALUES (?, ?, ?, ?, ?, ?, ?, ?, 'disponible', ?)`;
@@ -100,16 +94,16 @@ router.post('/vehiculos/nuevo', (req, res) => {
 router.get('/vehiculos/editar/:id', (req, res) => {
     const id = req.params.id;
 
-    pool.query("SELECT * FROM Vehiculos WHERE id_vehiculo = ?", [id], (err, rows) => {// Obteniene el vehículo por ID
+    pool.query("SELECT * FROM Vehiculos WHERE id_vehiculo = ?", [id], (err, rows) => {
         if (err) return res.status(500).render('error500', { mensaje: err.message, pila: err.stack });
         if (rows.length === 0) return res.status(404).render('error404', { url: req.url });
 
         const vehiculo = rows[0];
 
-        pool.query("SELECT * FROM Concesionarios", (err, concesionarios) => { // Obteniene todos los concesionarios
+        pool.query("SELECT * FROM Concesionarios", (err, concesionarios) => {
             if (err) return res.status(500).render('error500', { mensaje: err.message, pila: err.stack });
 
-            res.render('admin_vehiculo_form', { // Renderiza el formulario con datos del vehículo
+            res.render('admin_vehiculo_form', {
                 vehiculo: vehiculo,
                 concesionarios: concesionarios
             });
@@ -122,7 +116,6 @@ router.post('/vehiculos/editar/:id', (req, res) => {
     const id = req.params.id;
     const { matricula, marca, modelo, anio, plazas, autonomia, color, imagen, estado, concesionario } = req.body;
 
-    // Actualizar el vehículo en la base de datos
     const sql = `UPDATE Vehiculos SET matricula=?, marca=?, modelo=?, 
     año_matriculacion=?, numero_plazas=?, autonomia_km=?, color=?, 
     imagen=?, estado=?, id_concesionario=? WHERE id_vehiculo=?`;
@@ -138,7 +131,7 @@ router.post('/vehiculos/editar/:id', (req, res) => {
 // Borrar Vehículo
 router.post('/vehiculos/borrar/:id', (req, res) => {
     const id = req.params.id;
-    pool.query("DELETE FROM Vehiculos WHERE id_vehiculo = ?", [id], (err, result) => { // Borrar el vehículo por ID
+    pool.query("DELETE FROM Vehiculos WHERE id_vehiculo = ?", [id], (err, result) => {
         if (err) return res.status(500).render('error500', { mensaje: "No se puede borrar el vehículo (probablemente tiene reservas asociadas).", pila: err.stack });
         res.redirect('/admin/vehiculos');
     });
@@ -148,7 +141,7 @@ router.post('/vehiculos/borrar/:id', (req, res) => {
 
 // Listar Concesionarios
 router.get('/concesionarios', (req, res) => {
-    pool.query("SELECT * FROM Concesionarios", (err, concesionarios) => {// Obtener todos los concesionarios
+    pool.query("SELECT * FROM Concesionarios", (err, concesionarios) => {
         if (err) return res.status(500).render('error500', { mensaje: err.message, pila: err.stack });
         res.render('admin_concesionarios', { concesionarios: concesionarios });
     });
@@ -156,13 +149,12 @@ router.get('/concesionarios', (req, res) => {
 
 // Formulario Nuevo Concesionario
 router.get('/concesionarios/nuevo', (req, res) => {
-    res.render('admin_concesionario_form', { concesionario: null }); // Renderiza el formulario vacío
+    res.render('admin_concesionario_form', { concesionario: null });
 });
 
 // Procesar Nuevo Concesionario
 router.post('/concesionarios/nuevo', (req, res) => {
     const { nombre, ciudad, direccion, telefono } = req.body;
-    // Insertar el nuevo concesionario en la base de datos
     const sql = `INSERT INTO Concesionarios (nombre, ciudad, direccion, 
      telefono_contacto) VALUES (?, ?, ?, ?)`;
 
@@ -175,7 +167,7 @@ router.post('/concesionarios/nuevo', (req, res) => {
 // Formulario Editar Concesionario
 router.get('/concesionarios/editar/:id', (req, res) => {
     const id = req.params.id;
-    pool.query("SELECT * FROM Concesionarios WHERE id_concesionario = ?", [id], (err, rows) => {// Obteniene el concesionario por ID
+    pool.query("SELECT * FROM Concesionarios WHERE id_concesionario = ?", [id], (err, rows) => {
         if (err) return res.status(500).render('error500', { mensaje: err.message, pila: err.stack });
         if (rows.length === 0) return res.status(404).render('error404', { url: req.url });
 
@@ -187,7 +179,6 @@ router.get('/concesionarios/editar/:id', (req, res) => {
 router.post('/concesionarios/editar/:id', (req, res) => {
     const id = req.params.id;
     const { nombre, ciudad, direccion, telefono } = req.body;
-    // Actualizar el concesionario en la base de datos
     const sql = "UPDATE Concesionarios SET nombre=?, ciudad=?, direccion=?, telefono_contacto=? WHERE id_concesionario=?";
 
     pool.query(sql, [nombre, ciudad, direccion, telefono, id], (err, result) => {
@@ -199,7 +190,7 @@ router.post('/concesionarios/editar/:id', (req, res) => {
 // Borrar Concesionario
 router.post('/concesionarios/borrar/:id', (req, res) => {
     const id = req.params.id;
-    pool.query("DELETE FROM Concesionarios WHERE id_concesionario = ?", [id], (err, result) => { // Borrar el concesionario por ID
+    pool.query("DELETE FROM Concesionarios WHERE id_concesionario = ?", [id], (err, result) => {
         if (err) {
             console.error(err);
             return res.status(500).render('error500', {
@@ -214,8 +205,6 @@ router.post('/concesionarios/borrar/:id', (req, res) => {
 // ------ ESTADÍSTICAS
 
 router.get('/estadisticas', (req, res) => {
-
-    // Consulta para obtener totales generales
     const sqlTotales = `
         SELECT 
             (SELECT COUNT(*) FROM Usuarios) as usuarios,
@@ -226,10 +215,8 @@ router.get('/estadisticas', (req, res) => {
 
     pool.query(sqlTotales, (err, totalesResult) => {
         if (err) return res.status(500).render('error500', { mensaje: err.message, pila: err.stack });
-
         const totales = totalesResult[0];
 
-        // Consulta para obtener reservas por concesionario
         const sqlPorConcesionario = `
             SELECT C.nombre, COUNT(R.id_reserva) as num_reservas 
             FROM Concesionarios C 
@@ -242,7 +229,6 @@ router.get('/estadisticas', (req, res) => {
         pool.query(sqlPorConcesionario, (err, porConcesionario) => {
             if (err) return res.status(500).render('error500', { mensaje: err.message, pila: err.stack });
 
-            // Consulta para obtener el vehículo más reservado
             const sqlTopVehiculo = `
                 SELECT V.marca, V.modelo, V.matricula, COUNT(R.id_reserva) as total
                 FROM Reservas R
@@ -268,7 +254,6 @@ router.get('/estadisticas', (req, res) => {
 // ------ GESTIÓN DE USUARIOS
 
 router.get('/usuarios', (req, res) => {
-    // Obtener todos los usuarios junto con el nombre del concesionario asociado
     const sql = `
         SELECT U.*, C.nombre as nombre_concesionario 
         FROM Usuarios U
@@ -284,14 +269,12 @@ router.get('/usuarios', (req, res) => {
 
 router.get('/usuarios/editar/:id', (req, res) => {
     const id = req.params.id;
-
-    pool.query("SELECT * FROM Usuarios WHERE id_usuario = ?", [id], (err, rows) => {// Obteniene el usuario por ID
+    pool.query("SELECT * FROM Usuarios WHERE id_usuario = ?", [id], (err, rows) => {
         if (err) return res.status(500).render('error500', { mensaje: err.message, pila: err.stack });
         if (rows.length === 0) return res.status(404).render('error404', { url: req.url });
 
         const usuario = rows[0];
-
-        pool.query("SELECT * FROM Concesionarios", (err, concesionarios) => {// Obteniene todos los concesionarios
+        pool.query("SELECT * FROM Concesionarios", (err, concesionarios) => {
             if (err) return res.status(500).render('error500', { mensaje: err.message, pila: err.stack });
 
             res.render('admin_usuario_form', {
@@ -302,12 +285,9 @@ router.get('/usuarios/editar/:id', (req, res) => {
     });
 });
 
-// Procesar Edición Usuario
 router.post('/usuarios/editar/:id', (req, res) => {
     const id = req.params.id;
     const { rol, concesionario } = req.body;
-
-    // Actualizar el usuario en la base de datos
     const sql = "UPDATE Usuarios SET rol = ?, id_concesionario = ? WHERE id_usuario = ?";
 
     pool.query(sql, [rol, concesionario, id], (err, result) => {
@@ -316,17 +296,12 @@ router.post('/usuarios/editar/:id', (req, res) => {
     });
 });
 
-// procesar Borrar Usuario
 router.post('/usuarios/borrar/:id', (req, res) => {
     const id = req.params.id;
-
-    
-    if (id == req.session.usuarioId) { // Evitar que un admin se borre a sí mismo
+    if (id == req.session.usuarioId) {
         return res.status(400).send("No puedes borrar tu propio usuario mientras estás logueado.");
     }
-
-   
-    pool.query("DELETE FROM Usuarios WHERE id_usuario = ?", [id], (err, result) => { // Borrar el usuario por ID
+    pool.query("DELETE FROM Usuarios WHERE id_usuario = ?", [id], (err, result) => {
         if (err) return res.status(500).render('error500', { mensaje: err.message, pila: err.stack });
         res.redirect('/admin/usuarios');
     });
@@ -345,18 +320,17 @@ router.post('/carga-datos/preview', (req, res) => {
     try {
         jsonData = JSON.parse(req.body.json_text);
     } catch (e) {
-        return res.render('admin_carga', { error: "El formato JSON no es válido. Revisa la sintaxis." });
+        return res.render('admin_carga', { error: "El formato JSON no es válido." });
     }
 
     if (!jsonData.vehiculos || !Array.isArray(jsonData.vehiculos)) {
         return res.render('admin_carga', { error: "El JSON debe contener un array llamado 'vehiculos'." });
     }
 
-    pool.query("SELECT matricula FROM Vehiculos", (err, rows) => { // Obtener todas las matrículas existentes
+    pool.query("SELECT matricula FROM Vehiculos", (err, rows) => {
         if (err) return res.status(500).render('error500', { mensaje: err.message, pila: err.stack });
 
         const matriculasExistentes = new Set(rows.map(r => r.matricula));
-
         const nuevos = [];
         const existentes = [];
 
@@ -368,10 +342,10 @@ router.post('/carga-datos/preview', (req, res) => {
             }
         });
 
-        pool.query("SELECT * FROM Concesionarios", (err, concesionarios) => { // Obtener todos los concesionarios
+        pool.query("SELECT * FROM Concesionarios", (err, concesionarios) => {
             if (err) return res.status(500).render('error500', { mensaje: err.message, pila: err.stack });
 
-            res.render('admin_carga_confirm', { // Renderizar la vista de confirmación
+            res.render('admin_carga_confirm', {
                 nuevos: nuevos,
                 existentes: existentes,
                 concesionarios: concesionarios,
@@ -387,15 +361,98 @@ router.post('/carga-datos/preview', (req, res) => {
 router.post('/carga-datos/confirm', (req, res) => {
     const nuevos = JSON.parse(req.body.jsonNuevos || '[]');
     const existentesTotal = JSON.parse(req.body.jsonExistentes || '[]');
-    const matriculas = new Set([].concat(req.body.actualizar_matriculas || []));// Matrículas a actualizar
+    const aActualizarMatriculas = req.body.actualizar_matriculas || []; 
+    const concesionariosNuevos = JSON.parse(req.body.jsonConcesionarios || '[]');
 
-    const actualizar = existentesTotal.filter(v => matriculas.has(v.matricula));
+    const matriculasSet = new Set(Array.isArray(aActualizarMatriculas) ? aActualizarMatriculas : [aActualizarMatriculas]);
+    const aActualizar = existentesTotal.filter(v => matriculasSet.has(v.matricula));
 
-    const todosLosVehiculos = [...nuevos, ...actualizar];
     const logs = [];
 
-    dao.procesarListaVehiculos(todosLosVehiculos, logs, () => {
-        res.render('admin_carga_result', { logs: logs });
+    // --- 1. PROCESAR CONCESIONARIOS ---
+    const procesarConcesionarios = (lista, index, callback) => {
+        if (index >= lista.length) return callback();
+        
+        const c = lista[index];
+        pool.query("SELECT id_concesionario FROM Concesionarios WHERE nombre = ?", [c.nombre], (err, rows) => {
+            if (err) {
+                logs.push(`[ERROR] Error verificando concesionario ${c.nombre}: ${err.message}`);
+                return procesarConcesionarios(lista, index + 1, callback);
+            }
+
+            if (rows.length > 0) {
+                // Ya existe, seguimos
+                return procesarConcesionarios(lista, index + 1, callback);
+            } else {
+                // No existe, insertar
+                const sql = "INSERT INTO Concesionarios (nombre, ciudad, direccion, telefono_contacto) VALUES (?, ?, ?, ?)";
+                pool.query(sql, [c.nombre, c.ciudad, c.direccion, c.telefono_contacto], (err) => {
+                    if (err) logs.push(`[ERROR] Insertando sede ${c.nombre}: ${err.message}`);
+                    else logs.push(`[OK] Sede creada: ${c.nombre}`);
+                    procesarConcesionarios(lista, index + 1, callback);
+                });
+            }
+        });
+    };
+
+    // --- 2. AUXILIAR: BUSCAR ID CONCESIONARIO ---
+    const getConcesionarioId = (nombre, cb) => {
+        pool.query("SELECT id_concesionario FROM Concesionarios WHERE nombre = ?", [nombre], (err, res) => {
+            if (err || res.length === 0) return cb(null);
+            cb(res[0].id_concesionario);
+        });
+    };
+
+    // --- 3. PROCESAR VEHÍCULOS NUEVOS ---
+    const procesarNuevos = (lista, index, callback) => {
+        if (index >= lista.length) return callback();
+        
+        const v = lista[index];
+        getConcesionarioId(v.concesionario_nombre, (cId) => {
+            if (!cId) {
+                logs.push(`[ERROR] Al insertar ${v.matricula}: Concesionario '${v.concesionario_nombre}' no existe.`);
+                return procesarNuevos(lista, index + 1, callback);
+            }
+            
+            const sql = "INSERT INTO Vehiculos (matricula, marca, modelo, año_matriculacion, numero_plazas, autonomia_km, color, imagen, estado, id_concesionario) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            const params = [v.matricula, v.marca, v.modelo, v.año_matriculacion, v.numero_plazas, v.autonomia_km, v.color, v.imagen, v.estado || 'disponible', cId];
+            
+            pool.query(sql, params, (err) => {
+                if (err) logs.push(`[ERROR] Insertando ${v.matricula}: ${err.message}`);
+                else logs.push(`[OK] Vehículo NUEVO insertado: ${v.matricula}`);
+                procesarNuevos(lista, index + 1, callback);
+            });
+        });
+    };
+
+    // --- 4. PROCESAR ACTUALIZACIONES ---
+    const procesarActualizaciones = (lista, index, callback) => {
+        if (index >= lista.length) return callback();
+
+        const v = lista[index];
+        getConcesionarioId(v.concesionario_nombre, (cId) => {
+            if (!cId) {
+                logs.push(`[AVISO] No se actualizó ${v.matricula}: Concesionario no encontrado.`);
+                return procesarActualizaciones(lista, index + 1, callback);
+            }
+
+            const sql = "UPDATE Vehiculos SET marca=?, modelo=?, año_matriculacion=?, numero_plazas=?, autonomia_km=?, color=?, imagen=?, estado=?, id_concesionario=? WHERE matricula=?";
+            const params = [v.marca, v.modelo, v.año_matriculacion, v.numero_plazas, v.autonomia_km, v.color, v.imagen, v.estado || 'disponible', cId, v.matricula];
+
+            pool.query(sql, params, (err) => {
+                if (err) logs.push(`[ERROR] Actualizando ${v.matricula}: ${err.message}`);
+                else logs.push(`[OK] Vehículo ACTUALIZADO: ${v.matricula}`);
+                procesarActualizaciones(lista, index + 1, callback);
+            });
+        });
+    };
+
+    procesarConcesionarios(concesionariosNuevos, 0, () => {
+        procesarNuevos(nuevos, 0, () => {
+            procesarActualizaciones(aActualizar, 0, () => {
+                res.render('admin_carga_result', { logs: logs });
+            });
+        });
     });
 });
 
