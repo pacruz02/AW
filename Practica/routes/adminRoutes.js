@@ -17,12 +17,50 @@ router.get('/dashboard', (req, res) => {
 
 // Listar Vehículos
 router.get('/vehiculos', (req, res) => {
-    pool.query("SELECT * FROM Vehiculos", (err, vehiculos) => {// Obtener todos los vehículos
-        if (err) {
-            console.error(err);
-            return res.status(500).render('error500', { mensaje: err.message, pila: err.stack });
-        }
-        res.render('admin_vehiculos', { vehiculos: vehiculos });// Renderizar la vista con los vehículos
+    // Filtros
+    const filtroCiudad = req.query.ciudad || '';
+    const filtroConcesionario = req.query.concesionario || '';
+
+    // Obtener Ciudades distintas
+    pool.query("SELECT DISTINCT ciudad FROM Concesionarios ORDER BY ciudad", (err, ciudadesRows) => {
+        if (err) return res.status(500).render('error500', { mensaje: err.message, pila: err.stack });
+
+        // Obtener todos los Concesionarios
+        pool.query("SELECT id_concesionario, nombre, ciudad FROM Concesionarios ORDER BY nombre", (err, concesionariosRows) => {
+            if (err) return res.status(500).render('error500', { mensaje: err.message, pila: err.stack });
+
+            // Vehículos con filtros dinámicos
+            let sql = `
+                SELECT V.*, C.nombre as nombre_concesionario, C.ciudad 
+                FROM Vehiculos V 
+                JOIN Concesionarios C ON V.id_concesionario = C.id_concesionario
+                WHERE 1=1
+            `;
+            const params = [];
+
+            if (filtroCiudad) {
+                sql += " AND C.ciudad = ?";
+                params.push(filtroCiudad);
+            }
+
+            if (filtroConcesionario) {
+                sql += " AND C.id_concesionario = ?";
+                params.push(filtroConcesionario);
+            }
+
+            sql += " ORDER BY V.marca, V.modelo";
+
+            pool.query(sql, params, (err, vehiculosRows) => {
+                if (err) return res.status(500).render('error500', { mensaje: err.message, pila: err.stack });
+
+                res.render('admin_vehiculos', { 
+                    vehiculos: vehiculosRows,
+                    ciudades: ciudadesRows,
+                    concesionarios: concesionariosRows,
+                    filtros: { ciudad: filtroCiudad, concesionario: filtroConcesionario }
+                });
+            });
+        });
     });
 });
 

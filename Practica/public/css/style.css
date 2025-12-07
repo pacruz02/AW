@@ -52,12 +52,11 @@ main {
 
 .imagen-contenedor img {
     display: block;
-    /* max-height: 100px; */
 }
 
 key {
-    color: #313131;
-    background-color: white;
+    color: white;
+    background-color: #313131;
     padding: 0.3rem 0.5rem;
     border-radius: 0.1rem;
     display: inline-block;
