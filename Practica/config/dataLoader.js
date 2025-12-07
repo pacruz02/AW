@@ -6,13 +6,16 @@ const dao = require('./dao');
 
 const jsonPath = path.join(__dirname, '..', 'data', 'initial_data.json');
 
+/**
+ * Carga datos iniciales (JSON) en la base de datossi está vacía
+ */
 function cargarDatosIniciales() {
     console.log("Verificando estado de la Base de Datos...");
     
-    pool.getConnection((err, connection) => {
+    pool.getConnection((err, connection) => { //Obtener conexión
         if (err) return console.error("Error BD:", err);
 
-        connection.query("SELECT COUNT(*) AS total FROM Vehiculos", (err, results) => {
+        connection.query("SELECT COUNT(*) AS total FROM Vehiculos", (err, results) => {//Comprueba si hay datos ya en la BD
             connection.release();
             
             if (err) return console.error("Error consulta:", err);
@@ -24,7 +27,7 @@ function cargarDatosIniciales() {
 
             console.log(">> BD vacía. Iniciando carga desde JSON...");
             
-            fs.readFile(jsonPath, 'utf8', (err, dataStr) => {
+            fs.readFile(jsonPath, 'utf8', (err, dataStr) => {//Leer archivo JSON de carga inicial
                 if (err) return console.error("Error leyendo JSON:", err);
                 
                 try {
@@ -34,8 +37,8 @@ function cargarDatosIniciales() {
                     const concesionarios = [...data.concesionarios];
                     const vehiculos = [...data.vehiculos];
 
-                    dao.procesarListaConcesionarios(concesionarios, logs, () => {
-                        dao.procesarListaVehiculos(vehiculos, logs, () => {
+                    dao.procesarListaConcesionarios(concesionarios, logs, () => {// Cargar concesionarios
+                        dao.procesarListaVehiculos(vehiculos, logs, () => {// Cargar vehículos
                             console.log(">> Carga inicial completada.");
                             console.log(logs.join('\n'));
                         });

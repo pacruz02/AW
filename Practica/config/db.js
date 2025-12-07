@@ -2,6 +2,7 @@
 
 const mysql = require('mysql');
 
+//Configuración de la conexión a la base de datos MySQL
 const pool = mysql.createPool({
     host: '127.0.0.1',
     user: 'root',

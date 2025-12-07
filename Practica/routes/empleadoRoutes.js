@@ -7,9 +7,11 @@ const { checkEmpleado } = require('../middleware/auth');
 
 router.use(checkEmpleado);
 
+// ------ DASHBOARD
 router.get('/dashboard', (req, res) => {
     const usuarioId = req.session.usuarioId;
 
+    // Obtener las reservas del usuario
     const sql = `
         SELECT R.*, V.marca, V.modelo, V.matricula, V.imagen 
         FROM Reservas R 
@@ -24,10 +26,13 @@ router.get('/dashboard', (req, res) => {
             return res.status(500).render('error500', { mensaje: err.message, pila: err.stack });
         }
 
-        res.render('empleado_dashboard', { reservas: reservas });
+        res.render('empleado_dashboard', { reservas: reservas });// Renderizar el dashboard con las reservas
     });
 });
 
+// ------ VEHÍCULOS
+
+// Listado de vehículos disponibles para reserva
 router.get('/vehiculos', (req, res) => {
     const usuarioId = req.session.usuarioId;
 
@@ -37,6 +42,7 @@ router.get('/vehiculos', (req, res) => {
             return res.status(500).render('error500', { mensaje: err.message, pila: err.stack });
         }
 
+        // Obtener el concesionario del empleado
         const sqlUsuario = "SELECT id_concesionario FROM Usuarios WHERE id_usuario = ?";
 
         connection.query(sqlUsuario, [usuarioId], (err, results) => {
@@ -48,6 +54,7 @@ router.get('/vehiculos', (req, res) => {
 
             const idConcesionario = results[0].id_concesionario;
 
+            // Obtener los vehículos disponibles en ese concesionario
             const sqlVehiculos = "SELECT * FROM Vehiculos WHERE id_concesionario = ? AND estado = 'disponible'";
 
             connection.query(sqlVehiculos, [idConcesionario], (err, vehiculos) => {
@@ -63,9 +70,11 @@ router.get('/vehiculos', (req, res) => {
     });
 });
 
+// Reservar un vehículo
 router.get('/reservar/:id', (req, res) => {
     const idVehiculo = req.params.id;
 
+    // Obtener los datos del vehículo
     pool.query("SELECT * FROM Vehiculos WHERE id_vehiculo = ?", [idVehiculo], (err, results) => {
         if (err) {
             console.error(err);
@@ -80,13 +89,15 @@ router.get('/reservar/:id', (req, res) => {
     });
 });
 
+// Procesar la reserva
 router.post('/reservar', (req, res) => {
     const { id_vehiculo, fecha_inicio, fecha_fin } = req.body;
     const usuarioId = req.session.usuarioId;
 
-    if (new Date(fecha_inicio) >= new Date(fecha_fin)) {
-        pool.query("SELECT * FROM Vehiculos WHERE id_vehiculo = ?", [id_vehiculo], (err, results) => {
-            return res.render('reservar', { vehicle: results[0], error: "La fecha de fin debe ser posterior a la de inicio." });
+
+    if (new Date(fecha_inicio) >= new Date(fecha_fin)) {// Validación de fechas
+        pool.query("SELECT * FROM Vehiculos WHERE id_vehiculo = ?", [id_vehiculo], (err, results) => {// Obtener los datos del vehículo
+            return res.render('reservar', { vehicle: results[0], error: "La fecha de fin debe ser posterior a la de inicio." });// Renderizar el formulario con error
         });
         return;
     }
@@ -100,6 +111,7 @@ router.post('/reservar', (req, res) => {
                 return res.status(500).render('error500', { mensaje: err.message, pila: err.stack });
             }
 
+            // Insertar la reserva
             const sqlReserva = "INSERT INTO Reservas (id_usuario, id_vehiculo, fecha_inicio, fecha_fin, estado) VALUES (?, ?, ?, ?, 'activa')";
 
             connection.query(sqlReserva, [usuarioId, id_vehiculo, fecha_inicio, fecha_fin], (err, result) => {
@@ -111,6 +123,7 @@ router.post('/reservar', (req, res) => {
                     });
                 }
 
+                // Actualizar el estado del vehículo a 'reservado'
                 const sqlUpdateVehiculo = "UPDATE Vehiculos SET estado = 'reservado' WHERE id_vehiculo = ?";
 
                 connection.query(sqlUpdateVehiculo, [id_vehiculo], (err, result) => {
@@ -138,11 +151,13 @@ router.post('/reservar', (req, res) => {
     });
 });
 
-// --- MIS RESERVAS ---
+// ------ MIS RESERVAS ---
 
+// Listado de reservas del empleado
 router.get('/reservas', (req, res) => {
     const usuarioId = req.session.usuarioId;
 
+    // Obtener las reservas del usuario
     const sql = `
         SELECT R.*, V.marca, V.modelo, V.matricula, V.imagen 
         FROM Reservas R 
@@ -160,6 +175,7 @@ router.get('/reservas', (req, res) => {
     });
 });
 
+// Finalizar o cancelar una reserva
 router.post('/reservas/finalizar', (req, res) => {
     const { id_reserva, kilometros, cancelada } = req.body;
     const nuevoEstado = cancelada ? 'cancelada' : 'finalizada';
@@ -173,6 +189,7 @@ router.post('/reservas/finalizar', (req, res) => {
                 return res.status(500).render('error500', { mensaje: err.message, pila: err.stack });
             }
 
+            // Actualizar el estado de la reserva
             const sqlUpdateReserva = "UPDATE Reservas SET estado = ?, kilometros_recorridos = ? WHERE id_reserva = ?";
             
             connection.query(sqlUpdateReserva, [nuevoEstado, kilometros, id_reserva], (err, result) => {
@@ -184,6 +201,7 @@ router.post('/reservas/finalizar', (req, res) => {
                     });
                 }
 
+                // Obtener el id del vehículo asociado a la reserva
                 const sqlGetVehiculo = "SELECT id_vehiculo FROM Reservas WHERE id_reserva = ?";
                 
                 connection.query(sqlGetVehiculo, [id_reserva], (err, results) => {
@@ -195,6 +213,7 @@ router.post('/reservas/finalizar', (req, res) => {
                     }
 
                     const idVehiculo = results[0].id_vehiculo;
+                    // Actualizar el estado del vehículo a 'disponible'
                     const sqlUpdateVehiculo = "UPDATE Vehiculos SET estado = 'disponible' WHERE id_vehiculo = ?";
 
                     connection.query(sqlUpdateVehiculo, [idVehiculo], (err, result) => {
