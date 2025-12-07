@@ -4,51 +4,75 @@
       "nombre": "Sede Central - Ciudad Universitaria",
       "ciudad": "Madrid",
       "direccion": "Calle Profesor José García Santesmases, 9",
-      "telefono_contacto": "910000001"
+      "telefono_contacto": "913947501"
     },
     {
       "nombre": "Campus de Somosaguas",
       "ciudad": "Pozuelo de Alarcón",
-      "direccion": "Finca de Somosaguas, s/n",
-      "telefono_contacto": "910000002"
+      "direccion": "Carretera de Húmera, s/n",
+      "telefono_contacto": "913942999"
     }
   ],
   "vehiculos": [
     {
-      "matricula": "1234ABC",
+      "matricula": "5620LFD",
       "marca": "Tesla",
-      "modelo": "Model 3",
+      "modelo": "Model S",
       "año_matriculacion": 2023,
-      "numero_plazas": 5,
+      "numero_plazas": 7,
       "autonomia_km": 450,
-      "color": "Blanco",
-      "imagen": "../img/vehiculos/tesla1.jpg",
+      "color": "Rojo",
+      "imagen": "../img/vehiculos/A-tesla-model-s.png",
       "estado": "disponible",
       "concesionario_nombre": "Sede Central - Ciudad Universitaria"
     },
     {
-      "matricula": "5678DEF",
+      "matricula": "7610LKN",
       "marca": "BYD",
       "modelo": "seal",
-      "año_matriculacion": 2022,
+      "año_matriculacion": 2024,
       "numero_plazas": 5,
-      "autonomia_km": 300,
-      "color": "Azul",
-      "imagen": "../img/vehiculos/byd_seal1.jpg",
+      "autonomia_km": 520,
+      "color": "Gris",
+      "imagen": "../img/vehiculos/A-BYD-seal.png",
       "estado": "disponible",
       "concesionario_nombre": "Campus de Somosaguas"
     },
     {
-      "matricula": "9012GHI",
-      "marca": "Volvo",
-      "modelo": "Volvo Electric",
-      "año_matriculacion": 2023,
+      "matricula": "0373NLJ",
+      "marca": "Nissan",
+      "modelo": "Leaf",
+      "año_matriculacion": 2021,
       "numero_plazas": 5,
-      "autonomia_km": 480,
-      "color": "Rojo",
-      "imagen": "../img/vehiculos/volvo1.jpg",
+      "autonomia_km": 280,
+      "color": "Gris",
+      "imagen": "../img/vehiculos/A-nissan-leaf.png",
       "estado": "mantenimiento",
       "concesionario_nombre": "Sede Central - Ciudad Universitaria"
+    },
+    {
+      "matricula": "3321LDJ",
+      "marca": "Tesla",
+      "modelo": "Cibertruck",
+      "año_matriculacion": 2025,
+      "numero_plazas": 7,
+      "autonomia_km": 480,
+      "color": "Acero",
+      "imagen": "../img/vehiculos/A-tesla-cybertruck.png",
+      "estado": "mantenimiento",
+      "concesionario_nombre": "Campus de Somosaguas"
+    },
+    {
+      "matricula": "6599JHL",
+      "marca": "Honda",
+      "modelo": "E",
+      "año_matriculacion": 2024,
+      "numero_plazas": 4,
+      "autonomia_km": 290,
+      "color": "Gris",
+      "imagen": "../img/vehiculos/A-honda-e.png",
+      "estado": "disponible",
+      "concesionario_nombre": "Campus de Somosaguas"
     }
   ]
 }

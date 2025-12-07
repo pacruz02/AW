@@ -1,5 +1,5 @@
 body.high-contrast {
-    background-color: #000 !important;
+    background-color: #1e1e1e !important;
     color: #fff !important;
 }
 
@@ -41,4 +41,14 @@ body.font-small {
 
 body.font-large {
     font-size: 180% !important;
+}
+
+body.high-contrast .carousel-indicators .active {
+    background-color: #ffffff;
+    opacity: 1;
+}
+
+body.high-contrast .carousel-control-prev-icon,
+body.high-contrast .carousel-control-next-icon {
+    filter: invert(0);
 }

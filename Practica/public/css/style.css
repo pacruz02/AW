@@ -52,7 +52,7 @@ main {
 
 .imagen-contenedor img {
     display: block;
-    max-height: 100px;
+    /* max-height: 100px; */
 }
 
 key {
@@ -64,4 +64,20 @@ key {
     line-height: 0.7rem;
     margin: 0.3em;
     font-weight: 800;
+}
+
+.carousel-indicators [data-bs-target] {
+    background-color: #2f2f2f; /* Pon aquí tu color (ej. Rojo) */
+    opacity: 0.8; /* Hazlas más visibles si quieres */
+}
+
+/* Color de la rayita activa */
+.carousel-indicators .active {
+    background-color: #000000; /* Un tono más oscuro para la activa */
+    opacity: 1;
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+    filter: invert(1);
 }

@@ -1,0 +1,54 @@
+{
+  "concesionarios": [
+    {
+      "nombre": "Sede Central - Ciudad Universitaria",
+      "ciudad": "Madrid",
+      "direccion": "Calle Profesor José García Santesmases, 9",
+      "telefono_contacto": "910000001"
+    },
+    {
+      "nombre": "Campus de Somosaguas",
+      "ciudad": "Pozuelo de Alarcón",
+      "direccion": "Finca de Somosaguas, s/n",
+      "telefono_contacto": "910000002"
+    }
+  ],
+  "vehiculos": [
+    {
+      "matricula": "1234ABC",
+      "marca": "Tesla",
+      "modelo": "Model 3",
+      "año_matriculacion": 2023,
+      "numero_plazas": 5,
+      "autonomia_km": 450,
+      "color": "Blanco",
+      "imagen": "../img/vehiculos/tesla1.jpg",
+      "estado": "disponible",
+      "concesionario_nombre": "Sede Central - Ciudad Universitaria"
+    },
+    {
+      "matricula": "5678DEF",
+      "marca": "BYD",
+      "modelo": "seal",
+      "año_matriculacion": 2022,
+      "numero_plazas": 5,
+      "autonomia_km": 300,
+      "color": "Azul",
+      "imagen": "../img/vehiculos/byd_seal1.jpg",
+      "estado": "disponible",
+      "concesionario_nombre": "Campus de Somosaguas"
+    },
+    {
+      "matricula": "9012GHI",
+      "marca": "Volvo",
+      "modelo": "Volvo Electric",
+      "año_matriculacion": 2023,
+      "numero_plazas": 5,
+      "autonomia_km": 480,
+      "color": "Rojo",
+      "imagen": "../img/vehiculos/volvo1.jpg",
+      "estado": "mantenimiento",
+      "concesionario_nombre": "Sede Central - Ciudad Universitaria"
+    }
+  ]
+}

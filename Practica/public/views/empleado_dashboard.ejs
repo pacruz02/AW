@@ -26,8 +26,7 @@
                         </div>
 
                         <div class="col-md-4 imagen-contenedor">
-                            <img src="/img/planceholder.png" alt="Foto del empleado"
-                                class="img-fluid">
+                            <img src="/img/planceholder.png" alt="Foto del empleado" class="img-fluid">
                         </div>
                     </div>
                 </div>
@@ -50,21 +49,19 @@
                             <div class="table-responsive">
                                 <table class="table table-hover align-middle">
                                     <thead class="table-light">
-                                        <tr>
-                                            <th class="ps-3">Vehículo</th>
+                                        <tr class="text-center">
+                                            <th>Vehículo</th>
+                                            <th class="col-2">Imágen</th>
                                             <th>Fechas</th>
                                             <th>Estado</th>
                                             <th>Kms</th>
                                         </tr>
                                     </thead>
-                                    <tbody>
+                                    <tbody class="align-middle">
                                         <% reservas.forEach(r=> { %>
-                                            <tr>
+                                            <tr class="text-center">
                                                 <td class="ps-3">
-                                                    <div class="d-flex align-items-center">
-                                                        <img src="<%= r.imagen %>"
-                                                            class="rounded me-3 d-none d-sm-block"
-                                                            style="width: 50px; height: 35px; object-fit: cover;">
+                                                    <div class="align-items-center">
                                                         <div>
                                                             <div class="fw-bold">
                                                                 <%= r.marca %>
@@ -76,11 +73,15 @@
                                                         </div>
                                                     </div>
                                                 </td>
+                                                <td class="d-flex align-items-center justify-content-center h-100">
+                                                    <img src="<%= r.imagen %>"
+                                                        class="rounded img-fluid">
+                                                </td>
                                                 <td>
                                                     <div class="small">
-                                                        <span class="d-block">In: <%= new
+                                                        <span class="d-block">Incio: <%= new
                                                                 Date(r.fecha_inicio).toLocaleDateString() %></span>
-                                                        <span class="d-block text-muted">Out: <%= new
+                                                        <span class="d-block text-muted">Fin: <%= new
                                                                 Date(r.fecha_fin).toLocaleDateString() %></span>
                                                     </div>
                                                 </td>

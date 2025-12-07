@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <title>Mis Reservas</title>
@@ -7,126 +8,134 @@
     <link rel="stylesheet" href="/css/accessibility.css">
     <link rel="stylesheet" href="/css/style.css">
 </head>
+
 <body class="<%= typeof bodyClass !== 'undefined' ? bodyClass : '' %>">
-    
+
     <%- include('partials/navbar') %>
 
-    <main class="container mt-4">
-        <div class="d-flex justify-content-between align-items-center mb-4">
-            <h1>Mis Reservas</h1>
-            <a href="/empleado/dashboard" class="btn btn-secondary">Volver al Panel</a>
-        </div>
-
-        <% if (reservas.length === 0) { %>
-            <div class="alert alert-info" role="alert">
-                Aún no has realizado ninguna reserva. <a href="/empleado/vehiculos">¡Reserva un vehículo ahora!</a>
+        <main class="container mt-4">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h1>Mis Reservas</h1>
+                <a href="/empleado/dashboard" class="btn btn-secondary">Volver al Panel</a>
             </div>
-        <% } else { %>
-            <div class="table-responsive">
-                <table class="table table-hover align-middle">
-                    <thead class="table-dark">
-                        <tr>
-                            <th>Vehículo</th>
-                            <th>Matrícula</th>
-                            <th>Desde</th>
-                            <th>Hasta</th>
-                            <th>Estado</th>
-                            <th>Kms Recorridos</th>
-                            <th>Acciones</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <% reservas.forEach(r => { %>
-                            <tr>
-                                <td>
-                                    <div class="d-flex align-items-center">
-                                        <% if (r.imagen) { %>
-                                            <img src="<%= r.imagen %>" alt="Foto" class="rounded me-2" style="width: 50px; height: 30px; object-fit: cover;">
-                                        <% } %>
-                                        <%= r.marca %> <%= r.modelo %>
-                                    </div>
-                                </td>
-                                <td><%= r.matricula %></td>
-                                <td><%= new Date(r.fecha_inicio).toLocaleString('es-ES') %></td>
-                                <td><%= new Date(r.fecha_fin).toLocaleString('es-ES') %></td>
-                                <td>
-                                    <% 
-                                        let badgeClass = 'bg-secondary';
-                                        if (r.estado === 'activa') badgeClass = 'bg-success';
-                                        if (r.estado === 'cancelada') badgeClass = 'bg-danger';
-                                        if (r.estado === 'finalizada') badgeClass = 'bg-primary';
-                                    %>
-                                    <span class="badge <%= badgeClass %>"><%= r.estado.toUpperCase() %></span>
-                                </td>
-                                <td>
-                                    <%= r.kilometros_recorridos ? r.kilometros_recorridos + ' km' : '-' %>
-                                </td>
-                                <td>
-                                    <% if (r.estado === 'activa') { %>
-                                        <button type="button" 
-                                                class="btn btn-sm btn-warning" 
-                                                data-bs-toggle="modal" 
-                                                data-bs-target="#finalizarModal" 
-                                                data-id="<%= r.id_reserva %>">
-                                            Finalizar / Cerrar
-                                        </button>
-                                    <% } %>
-                                </td>
-                            </tr>
-                        <% }); %>
-                    </tbody>
-                </table>
-            </div>
-        <% } %>
-    </main>
 
-    <div class="modal fade" id="finalizarModal" tabindex="-1" aria-labelledby="finalizarModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="finalizarModalLabel">Finalizar Reserva</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            <% if (reservas.length===0) { %>
+                <div class="alert alert-info" role="alert">
+                    Aún no has realizado ninguna reserva. <a href="/empleado/vehiculos">¡Reserva un vehículo ahora!</a>
                 </div>
-                <form action="/empleado/reservas/finalizar" method="POST">
-                    <div class="modal-body">
-                        <input type="hidden" name="id_reserva" id="modalIdReserva">
-                        
-                        <div class="mb-3">
-                            <label for="kilometros" class="form-label">Kilómetros Recorridos</label>
-                            <input type="number" class="form-control" id="kilometros" name="kilometros" min="0" required>
-                            <div class="form-text">Introduce los km realizados durante el trayecto.</div>
-                        </div>
+                <% } else { %>
+                    <div class="table-responsive">
+                        <table class="table table-hover align-middle">
+                            <thead class="table-dark">
+                                <tr class="text-center">
+                                    <th>Vehículo</th>
+                                    <th class="col-2">Imágen</th>
+                                    <th>Matrícula</th>
+                                    <th>Desde</th>
+                                    <th>Hasta</th>
+                                    <th>Estado</th>
+                                    <th>Kms Recorridos</th>
+                                    <th>Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <% reservas.forEach(r=> { %>
+                                    <tr class="text-center">
+                                        <td>
+                                            <%= r.marca %> <%= r.modelo %>
+                                        </td>
+                                        <td class="d-flex align-items-center justify-content-center h-100">
+                                            <img src="<%= r.imagen %>" class="rounded img-fluid">
+                                        </td>
+                                        <td>
+                                            <%= r.matricula %>
+                                        </td>
+                                        <td>
+                                            <%= new Date(r.fecha_inicio).toLocaleString('es-ES') %>
+                                        </td>
+                                        <td>
+                                            <%= new Date(r.fecha_fin).toLocaleString('es-ES') %>
+                                        </td>
+                                        <td>
+                                            <% let badgeClass='bg-secondary' ; if (r.estado==='activa' )
+                                                badgeClass='bg-success' ; if (r.estado==='cancelada' )
+                                                badgeClass='bg-danger' ; if (r.estado==='finalizada' )
+                                                badgeClass='bg-primary' ; %>
+                                                <span class="badge <%= badgeClass %>">
+                                                    <%= r.estado.toUpperCase() %>
+                                                </span>
+                                        </td>
+                                        <td>
+                                            <%= r.kilometros_recorridos ? r.kilometros_recorridos + ' km' : '-' %>
+                                        </td>
+                                        <td>
+                                            <% if (r.estado==='activa' ) { %>
+                                                <button type="button" class="btn btn-sm btn-warning"
+                                                    data-bs-toggle="modal" data-bs-target="#finalizarModal"
+                                                    data-id="<%= r.id_reserva %>">
+                                                    Finalizar / Cerrar
+                                                </button>
+                                                <% } %>
+                                        </td>
+                                    </tr>
+                                    <% }); %>
+                            </tbody>
+                        </table>
+                    </div>
+                    <% } %>
+        </main>
 
-                        <div class="form-check mb-3">
-                            <input class="form-check-input" type="checkbox" value="true" id="cancelada" name="cancelada">
-                            <label class="form-check-label" for="cancelada">
-                                Marcar como Cancelada (No se realizó el viaje)
-                            </label>
+        <div class="modal fade" id="finalizarModal" tabindex="-1" aria-labelledby="finalizarModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="finalizarModalLabel">Finalizar Reserva</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <form action="/empleado/reservas/finalizar" method="POST">
+                        <div class="modal-body">
+                            <input type="hidden" name="id_reserva" id="modalIdReserva">
+
+                            <div class="mb-3">
+                                <label for="kilometros" class="form-label">Kilómetros Recorridos</label>
+                                <input type="number" class="form-control" id="kilometros" name="kilometros" min="0"
+                                    required>
+                                <div class="form-text">Introduce los km realizados durante el trayecto.</div>
+                            </div>
+
+                            <div class="form-check mb-3">
+                                <input class="form-check-input" type="checkbox" value="true" id="cancelada"
+                                    name="cancelada">
+                                <label class="form-check-label" for="cancelada">
+                                    Marcar como Cancelada (No se realizó el viaje)
+                                </label>
+                            </div>
                         </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                        <button type="submit" class="btn btn-primary">Guardar y Finalizar</button>
-                    </div>
-                </form>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                            <button type="submit" class="btn btn-primary">Guardar y Finalizar</button>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
-    </div>
 
-    <%- include('partials/footer') %>
-    <%- include('partials/accessibility_modal') %>
-    
-    <script src="/js/bootstrap.bundle.min.js"></script>
-    <script src="/js/accessibility.js"></script>
+        <%- include('partials/footer') %>
+            <%- include('partials/accessibility_modal') %>
 
-    <script>
-        const finalizarModal = document.getElementById('finalizarModal');
-        finalizarModal.addEventListener('show.bs.modal', function (event) {
-            const button = event.relatedTarget;
-            const idReserva = button.getAttribute('data-id');
-            const modalInput = finalizarModal.querySelector('#modalIdReserva');
-            modalInput.value = idReserva;
-        });
-    </script>
+                <script src="/js/bootstrap.bundle.min.js"></script>
+                <script src="/js/accessibility.js"></script>
+
+                <script>
+                    const finalizarModal = document.getElementById('finalizarModal');
+                    finalizarModal.addEventListener('show.bs.modal', function (event) {
+                        const button = event.relatedTarget;
+                        const idReserva = button.getAttribute('data-id');
+                        const modalInput = finalizarModal.querySelector('#modalIdReserva');
+                        modalInput.value = idReserva;
+                    });
+                </script>
 </body>
+
 </html>
