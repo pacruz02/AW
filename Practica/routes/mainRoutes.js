@@ -37,7 +37,7 @@ router.post('/registro', (req, res) => {
         });
     }
 
-    if (!PASS_REGEX.test(password) || password.length < 8) {
+    if (!PASS_REGEX.test(password)) {
         return pool.query("SELECT id_concesionario, nombre FROM Concesionarios", (err, concesionarios) => {
             res.render('registro', { error: "La contraseña debe tener al menos 8 caracteres, incluyendo una mayúscula, una minúscula y un número", concesionarios: concesionarios });
         });
