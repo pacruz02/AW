@@ -30,7 +30,7 @@ body.high-contrast a {
     color: #ffff00 !important;
 }
 
-body.high-contrast .btn-primary {
+body.high-contrast .btn-light {
     background-color: #000;
     border: 2px solid #fff;
 }
