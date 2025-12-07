@@ -1,6 +1,6 @@
 "use strict";
 
-// Inyectar usuario en todas las vistas
+// Carga los usuarios 
 const loadUser = (req, res, next) => {
     res.locals.user = req.session.usuarioId ? { 
         id: req.session.usuarioId, 
@@ -10,7 +10,7 @@ const loadUser = (req, res, next) => {
     next();
 };
 
-// Inyectar accesibilidad y clases del body
+// Carga accesibilidad y clases del body
 const loadAccessibility = (req, res, next) => {
     if (!req.session.accessibility) {
         req.session.accessibility = { contrast: 'normal', fontSize: 'normal' };

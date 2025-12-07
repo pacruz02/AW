@@ -18,36 +18,36 @@ const { notFoundHandler, errorHandler } = require('./middleware/errors');
 const app = express();
 const PORT = 3000;
 
-// --- CONFIGURACIÓN ---
+// Configuración
 app.set("views", path.join(__dirname, "public", "views"));
 app.set("view engine", "ejs");
 
-// --- MIDDLEWARES GLOBALES ---
+// Middlewares globales
 app.use(morgan("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, "public")));
 app.use(cookieParser());
 app.use(session({
-    secret: 'tu_clave_secreta_aqui',
+    secret: 'secreto',
     resave: false,
     saveUninitialized: false
 }));
 
-// --- MIDDLEWARES PROPIOS ---
+// Middlewares creados
 app.use(loadUser);
 app.use(loadAccessibility);
 
-// --- RUTAS ---
+// Rutas
 app.use('/', mainRoutes);
 app.use('/admin', adminRoutes);
 app.use('/empleado', empleadoRoutes);
 
-// --- GESTIÓN DE ERRORES ---
+// Errores
 app.use(notFoundHandler);
 app.use(errorHandler);  
 
-// --- ARRANQUE ---
+// Arranque
 app.listen(PORT, () => {
     console.log(`Servidor escuchando en http://localhost:${PORT}`);
     cargarDatosIniciales();

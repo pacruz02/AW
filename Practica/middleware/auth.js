@@ -1,5 +1,6 @@
 "use strict";
 
+// Comprueba que quien este intentando acceder este en la BD es decir que sea o empleado o admin
 const checkEmpleado = (req, res, next) => {
     if (!req.session.usuarioId) {
         return res.redirect('/login');
@@ -7,6 +8,7 @@ const checkEmpleado = (req, res, next) => {
     next();
 };
 
+// Comprueba que quien este intentando acceder es un admin
 const checkAdmin = (req, res, next) => {
     if (!req.session.usuarioId) {
         return res.redirect('/login');

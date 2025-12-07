@@ -10,14 +10,18 @@ const keylen = 64;
 const digest = 'sha512';
 const UCM_EMAIL_REGEX = /^[A-Za-z0-9._%+-]+@ucm\.es$/;
 const PASS_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/;
+
+// Index
 router.get('/', (req, res) => {
     res.render('index');
 });
 
+// Login
 router.get('/login', (req, res) => {
     res.render('login', { error: null });
 });
 
+// Registro
 router.get('/registro', (req, res) => {
     pool.query("SELECT id_concesionario, nombre FROM Concesionarios", (err, concesionarios) => {
         if (err) {
@@ -28,16 +32,17 @@ router.get('/registro', (req, res) => {
     });
 });
 
+// Procesar registro
 router.post('/registro', (req, res) => {
     const { nombre, correo, password, telefono, concesionario } = req.body;
 
-    if (!UCM_EMAIL_REGEX.test(correo)) {
+    if (!UCM_EMAIL_REGEX.test(correo)) {//Comprueba el correo
         return pool.query("SELECT id_concesionario, nombre FROM Concesionarios", (err, concesionarios) => {
             res.render('registro', { error: "El correo debe ser del dominio @ucm.es.", concesionarios: concesionarios });
         });
     }
 
-    if (!PASS_REGEX.test(password)) {
+    if (!PASS_REGEX.test(password)) {//Comprueba la contraseña
         return pool.query("SELECT id_concesionario, nombre FROM Concesionarios", (err, concesionarios) => {
             res.render('registro', { error: "La contraseña debe tener al menos 8 caracteres, incluyendo una mayúscula, una minúscula y un número", concesionarios: concesionarios });
         });
@@ -52,8 +57,9 @@ router.post('/registro', (req, res) => {
         }
 
         const hash = derivedKey.toString('hex');
-        const storedPassword = `${salt}:${hash}`;
+        const storedPassword = `${salt}:${hash}`;//Encripta la contraseña
 
+        // Introduce al usuario en la BD
         const sql = "INSERT INTO Usuarios (nombre, correo, contraseña, telefono, id_concesionario, rol) VALUES (?, ?, ?, ?, ?, 'empleado')";
         const params = [nombre, correo, storedPassword, telefono || null, concesionario];
 
@@ -72,6 +78,7 @@ router.post('/registro', (req, res) => {
     });
 });
 
+// Procesar login
 router.post('/login', (req, res) => {
     const { correo, password } = req.body;
 
@@ -79,6 +86,7 @@ router.post('/login', (req, res) => {
         return res.render('login', { error: "Correo y contraseña son obligatorios." });
     }
 
+    // 
     pool.query("SELECT * FROM Usuarios WHERE correo = ?", [correo], (err, results) => {
         if (err) {
             console.error(err);
@@ -106,7 +114,7 @@ router.post('/login', (req, res) => {
             const newHashBuffer = derivedKey;
             const storedHashBuffer = Buffer.from(storedHash, 'hex');
 
-            const sonIguales = crypto.timingSafeEqual(newHashBuffer, storedHashBuffer);
+            const sonIguales = crypto.timingSafeEqual(newHashBuffer, storedHashBuffer);// Comprueba que la contraseña es correcta
 
             if (sonIguales) {
                 req.session.usuarioId = usuario.id_usuario;
@@ -140,6 +148,7 @@ router.post('/login', (req, res) => {
     });
 });
 
+// Procesa el cierre de sesión
 router.get('/logout', (req, res) => {
     req.session.destroy((err) => {
         if (err) {
@@ -153,24 +162,7 @@ router.get('/logout', (req, res) => {
     });
 });
 
-router.post('/accessibility', (req, res) => {
-    const { contrast, fontSize } = req.body;
-
-    if (contrast) req.session.accessibility.contrast = contrast;
-    if (fontSize) req.session.accessibility.fontSize = fontSize;
-
-    if (req.session.usuarioId) {
-        const prefs = JSON.stringify(req.session.accessibility);
-        const sql = "UPDATE Usuarios SET preferencias_accesibilidad = ? WHERE id_usuario = ?";
-
-        pool.query(sql, [prefs, req.session.usuarioId], (err) => {
-            if (err) console.error("Error guardando preferencias en BD:", err);
-        });
-    }
-
-    res.json({ success: true });
-});
-
+// Api de accesibilidad
 router.post('/api/accessibility', (req, res) => {
     const { contrast, fontSize } = req.body;
 
