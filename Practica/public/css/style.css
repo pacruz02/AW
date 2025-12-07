@@ -52,6 +52,7 @@ main {
 
 .imagen-contenedor img {
     display: block;
+    max-height: 100px;
 }
 
 key {

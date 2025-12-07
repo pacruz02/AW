@@ -23,8 +23,7 @@ router.get('/dashboard', (req, res) => {
             console.error(err);
             return res.status(500).render('error500', { mensaje: err.message, pila: err.stack });
         }
-        
-        // Renderizamos el dashboard pasándole la lista de reservas
+
         res.render('empleado_dashboard', { reservas: reservas });
     });
 });
@@ -39,7 +38,7 @@ router.get('/vehiculos', (req, res) => {
         }
 
         const sqlUsuario = "SELECT id_concesionario FROM Usuarios WHERE id_usuario = ?";
-        
+
         connection.query(sqlUsuario, [usuarioId], (err, results) => {
             if (err) {
                 connection.release();
@@ -72,7 +71,7 @@ router.get('/reservar/:id', (req, res) => {
             console.error(err);
             return res.status(500).render('error500', { mensaje: err.message, pila: err.stack });
         }
-        
+
         if (results.length === 0) {
             return res.status(404).render('error404', { url: req.url });
         }
@@ -86,7 +85,7 @@ router.post('/reservar', (req, res) => {
     const usuarioId = req.session.usuarioId;
 
     if (new Date(fecha_inicio) >= new Date(fecha_fin)) {
-         pool.query("SELECT * FROM Vehiculos WHERE id_vehiculo = ?", [id_vehiculo], (err, results) => {
+        pool.query("SELECT * FROM Vehiculos WHERE id_vehiculo = ?", [id_vehiculo], (err, results) => {
             return res.render('reservar', { vehicle: results[0], error: "La fecha de fin debe ser posterior a la de inicio." });
         });
         return;
@@ -102,7 +101,7 @@ router.post('/reservar', (req, res) => {
             }
 
             const sqlReserva = "INSERT INTO Reservas (id_usuario, id_vehiculo, fecha_inicio, fecha_fin, estado) VALUES (?, ?, ?, ?, 'activa')";
-            
+
             connection.query(sqlReserva, [usuarioId, id_vehiculo, fecha_inicio, fecha_fin], (err, result) => {
                 if (err) {
                     return connection.rollback(() => {
@@ -113,7 +112,7 @@ router.post('/reservar', (req, res) => {
                 }
 
                 const sqlUpdateVehiculo = "UPDATE Vehiculos SET estado = 'reservado' WHERE id_vehiculo = ?";
-                
+
                 connection.query(sqlUpdateVehiculo, [id_vehiculo], (err, result) => {
                     if (err) {
                         return connection.rollback(() => {
@@ -143,8 +142,7 @@ router.post('/reservar', (req, res) => {
 
 router.get('/reservas', (req, res) => {
     const usuarioId = req.session.usuarioId;
-    
-    // Obtenemos las reservas del usuario junto con los datos del vehículo asociado
+
     const sql = `
         SELECT R.*, V.marca, V.modelo, V.matricula, V.imagen 
         FROM Reservas R 
@@ -159,6 +157,69 @@ router.get('/reservas', (req, res) => {
             return res.status(500).render('error500', { mensaje: err.message, pila: err.stack });
         }
         res.render('empleado_reservas', { reservas: reservas });
+    });
+});
+
+router.post('/reservas/finalizar', (req, res) => {
+    const { id_reserva, kilometros, cancelada } = req.body;
+    const nuevoEstado = cancelada ? 'cancelada' : 'finalizada';
+
+    pool.getConnection((err, connection) => {
+        if (err) return res.status(500).render('error500', { mensaje: err.message, pila: err.stack });
+
+        connection.beginTransaction((err) => {
+            if (err) {
+                connection.release();
+                return res.status(500).render('error500', { mensaje: err.message, pila: err.stack });
+            }
+
+            const sqlUpdateReserva = "UPDATE Reservas SET estado = ?, kilometros_recorridos = ? WHERE id_reserva = ?";
+            
+            connection.query(sqlUpdateReserva, [nuevoEstado, kilometros, id_reserva], (err, result) => {
+                if (err) {
+                    return connection.rollback(() => {
+                        connection.release();
+                        console.error(err);
+                        res.status(500).render('error500', { mensaje: err.message, pila: err.stack });
+                    });
+                }
+
+                const sqlGetVehiculo = "SELECT id_vehiculo FROM Reservas WHERE id_reserva = ?";
+                
+                connection.query(sqlGetVehiculo, [id_reserva], (err, results) => {
+                    if (err || results.length === 0) {
+                        return connection.rollback(() => {
+                            connection.release();
+                            res.status(500).render('error500', { mensaje: "Error al buscar vehÃculo", pila: "" });
+                        });
+                    }
+
+                    const idVehiculo = results[0].id_vehiculo;
+                    const sqlUpdateVehiculo = "UPDATE Vehiculos SET estado = 'disponible' WHERE id_vehiculo = ?";
+
+                    connection.query(sqlUpdateVehiculo, [idVehiculo], (err, result) => {
+                        if (err) {
+                            return connection.rollback(() => {
+                                connection.release();
+                                console.error(err);
+                                res.status(500).render('error500', { mensaje: err.message, pila: err.stack });
+                            });
+                        }
+
+                        connection.commit((err) => {
+                            if (err) {
+                                return connection.rollback(() => {
+                                    connection.release();
+                                    res.status(500).render('error500', { mensaje: err.message, pila: err.stack });
+                                });
+                            }
+                            connection.release();
+                            res.redirect('/empleado/reservas');
+                        });
+                    });
+                });
+            });
+        });
     });
 });
 
