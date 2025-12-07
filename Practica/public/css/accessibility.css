@@ -1,4 +1,3 @@
-/* Modo Alto Contraste */
 body.high-contrast {
     background-color: #000 !important;
     color: #fff !important;
@@ -29,8 +28,6 @@ body.high-contrast .table-hover tbody tr:hover td,
 
 body.high-contrast a {
     color: #ffff00 !important;
-    /* Amarillo para enlaces */
-    text-decoration: underline;
 }
 
 body.high-contrast .btn-primary {
@@ -38,7 +35,6 @@ body.high-contrast .btn-primary {
     border: 2px solid #fff;
 }
 
-/* Tamaños de Fuente */
 body.font-small {
     font-size: 80% !important;
 }

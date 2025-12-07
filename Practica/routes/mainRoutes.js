@@ -153,7 +153,30 @@ router.get('/logout', (req, res) => {
     });
 });
 
+router.post('/accessibility', (req, res) => {
     const { contrast, fontSize } = req.body;
+
+    if (contrast) req.session.accessibility.contrast = contrast;
+    if (fontSize) req.session.accessibility.fontSize = fontSize;
+
+    if (req.session.usuarioId) {
+        const prefs = JSON.stringify(req.session.accessibility);
+        const sql = "UPDATE Usuarios SET preferencias_accesibilidad = ? WHERE id_usuario = ?";
+        
+        pool.query(sql, [prefs, req.session.usuarioId], (err) => {
+            if (err) console.error("Error guardando preferencias en BD:", err);
+        });
+    }
+
+    res.json({ success: true });
+});
+
+router.post('/api/accessibility', (req, res) => {
+    const { contrast, fontSize } = req.body;
+
+    if (!req.session.accessibility) {
+        req.session.accessibility = { contrast: 'normal', fontSize: 'normal' };
+    }
 
     if (contrast) req.session.accessibility.contrast = contrast;
     if (fontSize) req.session.accessibility.fontSize = fontSize;

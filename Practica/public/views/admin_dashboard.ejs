@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Panel de Administración</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/svg" href="../img/icon.svg">
     <link rel="stylesheet" href="/css/bootstrap.min.css">
     <link rel="stylesheet" href="/css/accessibility.css">
@@ -11,35 +12,70 @@
 </head>
 
 <body class="<%= typeof bodyClass !== 'undefined' ? bodyClass : '' %>">
+
     <%- include('partials/navbar') %>
-        <div class="card">
-            <div class="dashboard-card">
-                <div>
-                    <h1>¡Bienvenido, <%= user.name %>!</h1>
-                    <em>Admin</em>
-                </div>
-                <div class="imagen-contenedor">
-                    <img src="../img/planceholder.png" alt="Foto del empleado">
+
+        <div class="container mt-4">
+
+            <div class="card shadow-sm mb-4">
+                <div class="card-body">
+                    <div class="row align-items-center">
+                        <div class="col-md-8 text-center text-md-start">
+                            <h1 class="display-5">¡Bienvenido, <%= typeof user !=='undefined' ? user.name : 'Usuario' %>
+                                    !</h1>
+                            <em>Admin</em>
+                        </div>
+
+                        <div class="col-md-4 imagen-contenedor">
+                            <img src="/img/planceholder.png" alt="Foto del empleado">
+                        </div>
+                    </div>
                 </div>
             </div>
-            <li>
-                <a href="/admin/carga-datos">Carga Masiva de Datos (JSON)</a>
-            </li>
-            <li>
-                <a class="nav-link" href="/admin/vehiculos" accesskey="V">Vehículos</a>
-            </li>
-            <li>
-                <a class="nav-link" href="/admin/concesionarios" accesskey="S">Sedes</a>
-            </li>
-            <li>
-                <a class="nav-link" href="/admin/usuarios" accesskey="U">Usuarios</a>
-            </li>
-            <li>
-                <a class="nav-link" href="/admin/estadisticas" accesskey="E">Estadísticas</a>
-            </li>
+            <br>
+            <div class="row g-3">
+
+                <div class="col-12 col-sm-6 col-lg-4">
+                    <a href="/admin/carga-datos"
+                        class="btn btn-primary btn-outline-dark w-100 h-100 py-4 d-flex align-items-center justify-content-center shadow-sm">
+                        <span class="fs-5">Carga de datos</span>
+                    </a>
+                </div>
+
+                <div class="col-12 col-sm-6 col-lg-4">
+                    <a href="/admin/vehiculos" accesskey="V"
+                        class="btn btn-primary btn-outline-dark w-100 h-100 py-4 d-flex align-items-center justify-content-center shadow-sm">
+                        <span class="fs-5">Vehículos</span>
+                    </a>
+                </div>
+
+                <div class="col-12 col-sm-6 col-lg-4">
+                    <a href="/admin/concesionarios" accesskey="S"
+                        class="btn btn-primary btn-outline-dark w-100 h-100 py-4 d-flex align-items-center justify-content-center shadow-sm">
+                        <span class="fs-5">Sedes</span>
+                    </a>
+                </div>
+
+                <div class="col-12 col-sm-6 col-lg-4">
+                    <a href="/admin/usuarios" accesskey="U"
+                        class="btn btn-primary btn-outline-dark w-100 h-100 py-4 d-flex align-items-center justify-content-center shadow-sm">
+                        <span class="fs-5">Usuarios</span>
+                    </a>
+                </div>
+
+                <div class="col-12 col-md-8 col-lg-4">
+                    <a href="/admin/estadisticas" accesskey="E"
+                        class="btn btn-primary btn-outline-dark w-100 h-100 py-4 d-flex align-items-center justify-content-center shadow-sm">
+                        <span class="fs-5">Estadísticas</span>
+                    </a>
+                </div>
+
+            </div>
         </div>
+
         <%- include('partials/footer') %>
             <%- include('partials/accessibility_modal') %>
+
                 <script src="/js/bootstrap.bundle.min.js"></script>
                 <script src="/js/accessibility.js"></script>
 </body>
