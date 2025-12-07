@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <title>Gestión de Concesionarios - Admin</title>
@@ -9,52 +10,69 @@
     <link rel="stylesheet" href="/css/accessibility.css">
     <link rel="stylesheet" href="/css/style.css">
 </head>
+
 <body class="<%= typeof bodyClass !== 'undefined' ? bodyClass : '' %>">
     <%- include('partials/navbar') %>
-    <div class="container mt-4">
-        <div class="d-flex justify-content-between align-items-center mb-3">
-            <h1>Concesionarios</h1>
-            <div>
-                <a href="/admin/concesionarios/nuevo" class="btn btn-success">Nueva Sede</a>
-                <a href="/admin/dashboard" class="btn btn-secondary">Volver</a>
+        <div class="container mt-4">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h1>Concesionarios</h1>
+                <div>
+                    <a href="/admin/concesionarios/nuevo" class="btn btn-success">Nueva Sede</a>
+                    <a href="/admin/dashboard" class="btn btn-secondary">Volver</a>
+                </div>
+            </div>
+
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>Nombre</th>
+                            <th>Ciudad</th>
+                            <th>Dirección</th>
+                            <th>Teléfono</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% if (concesionarios.length===0) { %>
+                            <tr>
+                                <td colspan="5" class="text-center">No hay concesionarios registrados.</td>
+                            </tr>
+                            <% } else { %>
+                                <% concesionarios.forEach(c=> { %>
+                                    <tr>
+                                        <td>
+                                            <%= c.nombre %>
+                                        </td>
+                                        <td>
+                                            <%= c.ciudad %>
+                                        </td>
+                                        <td>
+                                            <%= c.direccion %>
+                                        </td>
+                                        <td>
+                                            <%= c.telefono_contacto %>
+                                        </td>
+                                        <td>
+                                            <a href="/admin/concesionarios/editar/<%= c.id_concesionario %>"
+                                                class="btn btn-sm btn-primary">Editar</a>
+                                            <form action="/admin/concesionarios/borrar/<%= c.id_concesionario %>"
+                                                method="POST" style="display:inline;"
+                                                onsubmit="return confirm('¿Eliminar esta sede?');">
+                                                <button type="submit" class="btn btn-sm btn-danger">Borrar</button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                    <% }); %>
+                                        <% } %>
+                    </tbody>
+                </table>
             </div>
         </div>
-
-        <table class="table table-hover">
-            <thead class="table-dark">
-                <tr>
-                    <th>Nombre</th>
-                    <th>Ciudad</th>
-                    <th>Dirección</th>
-                    <th>Teléfono</th>
-                    <th>Acciones</th>
-                </tr>
-            </thead>
-            <tbody>
-                <% if (concesionarios.length === 0) { %>
-                    <tr><td colspan="5" class="text-center">No hay concesionarios registrados.</td></tr>
-                <% } else { %>
-                    <% concesionarios.forEach(c => { %>
-                        <tr>
-                            <td><%= c.nombre %></td>
-                            <td><%= c.ciudad %></td>
-                            <td><%= c.direccion %></td>
-                            <td><%= c.telefono_contacto %></td>
-                            <td>
-                                <a href="/admin/concesionarios/editar/<%= c.id_concesionario %>" class="btn btn-sm btn-primary">Editar</a>
-                                <form action="/admin/concesionarios/borrar/<%= c.id_concesionario %>" method="POST" style="display:inline;" onsubmit="return confirm('¿Eliminar esta sede?');">
-                                    <button type="submit" class="btn btn-sm btn-danger">Borrar</button>
-                                </form>
-                            </td>
-                        </tr>
-                    <% }); %>
-                <% } %>
-            </tbody>
-        </table>
-    </div>
-    <%- include('partials/footer') %>
-    <%- include('partials/accessibility_modal') %>
-    <script src="/js/bootstrap.bundle.min.js"></script>
-    <script src="/js/accessibility.js"></script>
+        <%- include('partials/footer') %>
+            <%- include('partials/accessibility_modal') %>
+                <script src="/js/bootstrap.bundle.min.js"></script>
+                <script src="/js/accessibility.js"></script>
 </body>
+
 </html>

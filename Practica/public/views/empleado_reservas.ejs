@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Mis Reservas</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/css/bootstrap.min.css">
     <link rel="stylesheet" href="/css/accessibility.css">
     <link rel="stylesheet" href="/css/style.css">
@@ -41,7 +42,8 @@
                                 <% reservas.forEach(r=> { %>
                                     <tr class="text-center">
                                         <td>
-                                            <%= r.marca %> <%= r.modelo %>
+                                            <%= r.marca %>
+                                                <%= r.modelo %>
                                         </td>
                                         <td class="d-flex align-items-center justify-content-center h-100">
                                             <img src="<%= r.imagen %>" class="rounded img-fluid">
