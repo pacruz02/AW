@@ -13,9 +13,6 @@
     <%- include('partials/navbar') %>
     
     <div class="container mt-4">
-        <h1>Carga Masiva de Datos</h1>
-        <p>Selecciona el archivo <code>initial_data.json</code> de tu ordenador para actualizar la base de datos.</p>
-        
         <% if (error) { %>
             <div class="alert alert-danger"><%= error %></div>
         <% } %>

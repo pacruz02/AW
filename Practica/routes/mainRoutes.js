@@ -9,7 +9,7 @@ const iteraciones = 10000;
 const keylen = 64;
 const digest = 'sha512';
 const UCM_EMAIL_REGEX = /^[A-Za-z0-9._%+-]+@ucm\.es$/;
-
+const PASS_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/;
 router.get('/', (req, res) => {
     res.render('index');
 });
@@ -36,11 +36,12 @@ router.post('/registro', (req, res) => {
             res.render('registro', { error: "El correo debe ser del dominio @ucm.es.", concesionarios: concesionarios });
         });
     }
-    
-    if (password.length < 8) {
-         return pool.query("SELECT id_concesionario, nombre FROM Concesionarios", (err, concesionarios) => {
-            res.render('registro', { error: "La contraseña debe tener al menos 8 caracteres.", concesionarios: concesionarios });
+
+    if (!PASS_REGEX.test(password) || password.length < 8) {
+        return pool.query("SELECT id_concesionario, nombre FROM Concesionarios", (err, concesionarios) => {
+            res.render('registro', { error: "La contraseña debe tener al menos 8 caracteres, incluyendo una mayúscula, una minúscula y un número", concesionarios: concesionarios });
         });
+
     }
 
     const salt = crypto.randomBytes(16).toString('hex');
@@ -90,9 +91,9 @@ router.post('/login', (req, res) => {
         }
 
         const usuario = results[0];
-        
+
         if (!usuario.contraseña) {
-             return res.render('login', { error: "Error en los datos del usuario." });
+            return res.render('login', { error: "Error en los datos del usuario." });
         }
 
         const [salt, storedHash] = usuario.contraseña.split(':');
@@ -105,14 +106,14 @@ router.post('/login', (req, res) => {
 
             const newHashBuffer = derivedKey;
             const storedHashBuffer = Buffer.from(storedHash, 'hex');
-            
+
             const sonIguales = crypto.timingSafeEqual(newHashBuffer, storedHashBuffer);
 
             if (sonIguales) {
                 req.session.usuarioId = usuario.id_usuario;
                 req.session.usuarioRol = usuario.rol;
                 req.session.usuarioNombre = usuario.nombre;
-                
+
                 if (usuario.preferencias_accesibilidad) {
                     try {
                         let prefs = usuario.preferencias_accesibilidad;
@@ -127,7 +128,7 @@ router.post('/login', (req, res) => {
                 } else {
                     req.session.accessibility = { contrast: 'normal', fontSize: 'normal' };
                 }
-                
+
                 if (usuario.rol === 'admin') {
                     res.redirect('/admin/dashboard');
                 } else {
@@ -146,9 +147,9 @@ router.get('/logout', (req, res) => {
             console.error("Error al cerrar sesión:", err);
             return res.status(500).render('error500', { mensaje: "No se pudo cerrar la sesión", pila: err.stack });
         }
-        
+
         res.clearCookie('connect.sid');
-        
+
         res.redirect('/login');
     });
 });
@@ -162,7 +163,7 @@ router.post('/accessibility', (req, res) => {
     if (req.session.usuarioId) {
         const prefs = JSON.stringify(req.session.accessibility);
         const sql = "UPDATE Usuarios SET preferencias_accesibilidad = ? WHERE id_usuario = ?";
-        
+
         pool.query(sql, [prefs, req.session.usuarioId], (err) => {
             if (err) console.error("Error guardando preferencias en BD:", err);
         });
@@ -184,7 +185,7 @@ router.post('/api/accessibility', (req, res) => {
     if (req.session.usuarioId) {
         const prefs = JSON.stringify(req.session.accessibility);
         const sql = "UPDATE Usuarios SET preferencias_accesibilidad = ? WHERE id_usuario = ?";
-        
+
         pool.query(sql, [prefs, req.session.usuarioId], (err) => {
             if (err) console.error("Error guardando preferencias en BD:", err);
         });
