@@ -3,6 +3,7 @@
 const express = require('express');
 const router = express.Router();
 const pool = require('../config/db');
+const dao = require('../config/dao');
 const { checkAdmin } = require('../middleware/auth');
 
 router.use(checkAdmin);
@@ -328,88 +329,16 @@ router.post('/carga-datos/preview', (req, res) => {
 
 router.post('/carga-datos/confirm', (req, res) => {
     const nuevos = JSON.parse(req.body.jsonNuevos || '[]');
-    const aActualizarMatriculas = req.body.actualizar_matriculas || [];
     const existentesTotal = JSON.parse(req.body.jsonExistentes || '[]');
-
-    const concesionariosNuevos = JSON.parse(req.body.jsonConcesionarios || '[]');
-    const matriculasSet = new Set(Array.isArray(aActualizarMatriculas) ? aActualizarMatriculas : [aActualizarMatriculas]);
-    const aActualizar = existentesTotal.filter(v => matriculasSet.has(v.matricula));
-
+    const matriculasAActualizar = new Set([].concat(req.body.actualizar_matriculas || []));
+    
+    const aActualizar = existentesTotal.filter(v => matriculasAActualizar.has(v.matricula));
+    
+    const todosLosVehiculos = [...nuevos, ...aActualizar];
     const logs = [];
 
-    const procesarConcesionarios = (lista, index, callback) => {
-        if (index >= lista.length) return callback();
-
-        const c = lista[index];
-        pool.query("SELECT id_concesionario FROM Concesionarios WHERE nombre = ?", [c.nombre], (err, rows) => {
-            if (rows && rows.length > 0) {
-                procesarConcesionarios(lista, index + 1, callback);
-            } else {
-                const sql = "INSERT INTO Concesionarios (nombre, ciudad, direccion, telefono_contacto) VALUES (?, ?, ?, ?)";
-                pool.query(sql, [c.nombre, c.ciudad, c.direccion, c.telefono_contacto], (err) => {
-                    if (!err) logs.push(`Sede creada: ${c.nombre}`);
-                    else logs.push(`Error sede ${c.nombre}: ${err.message}`);
-                    procesarConcesionarios(lista, index + 1, callback);
-                });
-            }
-        });
-    };
-
-    const getConcesionarioId = (nombre, cb) => {
-        pool.query("SELECT id_concesionario FROM Concesionarios WHERE nombre = ?", [nombre], (err, res) => {
-            if (err || res.length === 0) return cb(null);
-            cb(res[0].id_concesionario);
-        });
-    };
-
-    const procesarNuevos = (lista, index, callback) => {
-        if (index >= lista.length) return callback();
-
-        const v = lista[index];
-        getConcesionarioId(v.concesionario_nombre, (cId) => {
-            if (!cId) {
-                logs.push(`Error al insertar ${v.matricula}: Concesionario '${v.concesionario_nombre}' no existe.`);
-                return procesarNuevos(lista, index + 1, callback);
-            }
-
-            const sql = "INSERT INTO Vehiculos (matricula, marca, modelo, año_matriculacion, numero_plazas, autonomia_km, color, imagen, estado, id_concesionario) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-            const params = [v.matricula, v.marca, v.modelo, v.año_matriculacion, v.numero_plazas, v.autonomia_km, v.color, v.imagen, v.estado || 'disponible', cId];
-
-            pool.query(sql, params, (err) => {
-                if (err) logs.push(`Error insertando ${v.matricula}: ${err.message}`);
-                else logs.push(`Vehículo NUEVO insertado: ${v.matricula} (${v.marca} ${v.modelo})`);
-                procesarNuevos(lista, index + 1, callback);
-            });
-        });
-    };
-
-    const procesarActualizaciones = (lista, index, callback) => {
-        if (index >= lista.length) return callback();
-
-        const v = lista[index];
-        getConcesionarioId(v.concesionario_nombre, (cId) => {
-            if (!cId) {
-                logs.push(`⚠️ No se actualizó ${v.matricula}: Concesionario nuevo no encontrado.`);
-                return procesarActualizaciones(lista, index + 1, callback);
-            }
-
-            const sql = "UPDATE Vehiculos SET marca=?, modelo=?, año_matriculacion=?, numero_plazas=?, autonomia_km=?, color=?, imagen=?, estado=?, id_concesionario=? WHERE matricula=?";
-            const params = [v.marca, v.modelo, v.año_matriculacion, v.numero_plazas, v.autonomia_km, v.color, v.imagen, v.estado || 'disponible', cId, v.matricula];
-
-            pool.query(sql, params, (err) => {
-                if (err) logs.push(`Error actualizando ${v.matricula}: ${err.message}`);
-                else logs.push(`Vehículo ACTUALIZADO: ${v.matricula}`);
-                procesarActualizaciones(lista, index + 1, callback);
-            });
-        });
-    };
-
-    procesarConcesionarios(concesionariosNuevos, 0, () => {
-        procesarNuevos(nuevos, 0, () => {
-            procesarActualizaciones(aActualizar, 0, () => {
-                res.render('admin_carga_result', { logs: logs });
-            });
-        });
+    dao.procesarListaVehiculos(todosLosVehiculos, logs, () => {
+        res.render('admin_carga_result', { logs: logs });
     });
 });
 

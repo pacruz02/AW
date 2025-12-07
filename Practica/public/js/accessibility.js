@@ -1,6 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
     
-    // Función para enviar preferencias al servidor
     const savePreferences = (settings) => {
         fetch('/api/accessibility', {
             method: 'POST',
@@ -11,7 +10,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }).catch(err => console.error('Error guardando preferencias:', err));
     };
 
-    // Botones de Contraste
     document.getElementById('btn-contrast-normal').addEventListener('click', () => {
         document.body.classList.remove('high-contrast');
         savePreferences({ contrast: 'normal' });
@@ -22,7 +20,6 @@ document.addEventListener('DOMContentLoaded', () => {
         savePreferences({ contrast: 'high' });
     });
 
-    // Botones de Fuente
     document.getElementById('btn-font-small').addEventListener('click', () => {
         document.body.classList.remove('font-large');
         document.body.classList.add('font-small');

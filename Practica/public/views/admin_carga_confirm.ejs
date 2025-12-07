@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <title>Confirmar Carga</title>
@@ -9,80 +10,93 @@
     <link rel="stylesheet" href="/css/accessibility.css">
     <link rel="stylesheet" href="/css/style.css">
 </head>
+
 <body class="<%= typeof bodyClass !== 'undefined' ? bodyClass : '' %>">
     <%- include('partials/navbar') %>
 
-    <div class="container mt-4">
-        <h1>Confirmación de Carga</h1>
-        
-        <form action="/admin/carga-datos/confirm" method="POST">
-            <input type="hidden" name="jsonNuevos" value='<%= jsonNuevos %>'>
-            <input type="hidden" name="jsonExistentes" value='<%= jsonExistentes %>'>
-            <input type="hidden" name="jsonConcesionarios" value='<%= jsonConcesionarios %>'>
-            
-            <div class="card mb-4 border-success">
-                <div class="card-header bg-success text-white">
-                    Vehículos Nuevos (<%= nuevos.length %>)
-                </div>
-                <div class="card-body">
-                    <% if (nuevos.length === 0) { %>
-                        <p>No se han detectado vehículos nuevos.</p>
-                    <% } else { %>
-                        <p>Estos vehículos se insertarán automáticamente:</p>
-                        <ul>
-                            <% nuevos.forEach(v => { %>
-                                <li><strong><%= v.matricula %></strong> - <%= v.marca %> <%= v.modelo %></li>
-                            <% }); %>
-                        </ul>
-                    <% } %>
-                </div>
-            </div>
+        <div class="container mt-4">
+            <h1>Confirmación de Carga</h1>
 
-            <div class="card mb-4 border-warning">
-                <div class="card-header bg-warning text-dark">
-                    Conflictos: Vehículos ya existentes (<%= existentes.length %>)
-                </div>
-                <div class="card-body">
-                    <% if (existentes.length === 0) { %>
-                        <p>No hay coincidencias de matrícula.</p>
-                    <% } else { %>
-                        <div class="alert alert-warning">
-                            ⚠ Las siguientes matrículas ya existen en la BD. Selecciona las que quieras <strong>SOBREESCRIBIR</strong> con los datos del JSON.
-                        </div>
-                        <div class="table-responsive">
-                            <table class="table table-sm">
-                                <thead>
-                                    <tr>
-                                        <th>Actualizar</th>
-                                        <th>Matrícula</th>
-                                        <th>Datos Nuevos (JSON)</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <% existentes.forEach(v => { %>
-                                        <tr>
-                                            <td class="text-center">
-                                                <input class="form-check-input" type="checkbox" name="actualizar_matriculas" value="<%= v.matricula %>">
-                                            </td>
-                                            <td><%= v.matricula %></td>
-                                            <td><%= v.marca %> <%= v.modelo %> (<%= v.concesionario_nombre %>)</td>
-                                        </tr>
-                                    <% }); %>
-                                </tbody>
-                            </table>
-                        </div>
-                    <% } %>
-                </div>
-            </div>
+            <form action="/admin/carga-datos/confirm" method="POST">
+                <input type="hidden" name="jsonNuevos" value='<%= jsonNuevos %>'>
+                <input type="hidden" name="jsonExistentes" value='<%= jsonExistentes %>'>
+                <input type="hidden" name="jsonConcesionarios" value='<%= jsonConcesionarios %>'>
 
-            <button type="submit" class="btn btn-success btn-lg">Procesar Carga</button>
-            <a href="/admin/carga-datos" class="btn btn-secondary">Volver</a>
-        </form>
-    </div>
+                <div class="card mb-4 border-success">
+                    <div class="card-header bg-success text-white">
+                        Vehículos Nuevos (<%= nuevos.length %>)
+                    </div>
+                    <div class="card-body">
+                        <% if (nuevos.length===0) { %>
+                            <p>No se han detectado vehículos nuevos.</p>
+                            <% } else { %>
+                                <p>Estos vehículos se insertarán automáticamente:</p>
+                                <ul>
+                                    <% nuevos.forEach(v=> { %>
+                                        <li><strong>
+                                                <%= v.matricula %>
+                                            </strong> - <%= v.marca %>
+                                                <%= v.modelo %>
+                                        </li>
+                                        <% }); %>
+                                </ul>
+                                <% } %>
+                    </div>
+                </div>
 
-    <%- include('partials/footer') %>
-    <%- include('partials/accessibility_modal') %>
-    <script src="/js/bootstrap.bundle.min.js"></script>
-    <script src="/js/accessibility.js"></script>
+                <div class="card mb-4 border-warning">
+                    <div class="card-header bg-warning text-dark">
+                        Conflictos: Vehículos ya existentes (<%= existentes.length %>)
+                    </div>
+                    <div class="card-body">
+                        <% if (existentes.length===0) { %>
+                            <p>No hay coincidencias de matrícula.</p>
+                            <% } else { %>
+                                <div class="alert alert-warning">
+                                    ⚠ Las siguientes matrículas ya existen en la BD. Selecciona las que quieras
+                                    <strong>SOBREESCRIBIR</strong> con los datos del JSON.
+                                </div>
+                                <div class="table-responsive">
+                                    <table class="table table-sm">
+                                        <thead>
+                                            <tr>
+                                                <th>Actualizar</th>
+                                                <th>Matrícula</th>
+                                                <th>Datos Nuevos (JSON)</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <% existentes.forEach(v=> { %>
+                                                <tr>
+                                                    <td class="text-center">
+                                                        <input class="form-check-input" type="checkbox"
+                                                            name="actualizar_matriculas" value="<%= v.matricula %>">
+                                                    </td>
+                                                    <td>
+                                                        <%= v.matricula %>
+                                                    </td>
+                                                    <td>
+                                                        <%= v.marca %>
+                                                            <%= v.modelo %> (<%= v.concesionario_nombre %>)
+                                                    </td>
+                                                </tr>
+                                                <% }); %>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <% } %>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-success btn-lg">Procesar Carga</button>
+                <a href="/admin/carga-datos" class="btn btn-secondary">Volver</a>
+            </form>
+        </div>
+        <br>
+        <%- include('partials/footer') %>
+            <%- include('partials/accessibility_modal') %>
+                <script src="/js/bootstrap.bundle.min.js"></script>
+                <script src="/js/accessibility.js"></script>
 </body>
+
 </html>

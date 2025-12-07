@@ -6,15 +6,12 @@ const morgan = require('morgan');
 const session = require('express-session');
 const cookieParser = require('cookie-parser');
 
-// Importamos configuraciones
 const { cargarDatosIniciales } = require('./config/dataLoader');
 
-// Importamos Rutas
 const mainRoutes = require('./routes/mainRoutes');
 const adminRoutes = require('./routes/adminRoutes');
 const empleadoRoutes = require('./routes/empleadoRoutes');
 
-// Importamos Middlewares (¡Aquí está el cambio!)
 const { loadUser, loadAccessibility } = require('./middleware/global');
 const { notFoundHandler, errorHandler } = require('./middleware/errors');
 
@@ -25,7 +22,7 @@ const PORT = 3000;
 app.set("views", path.join(__dirname, "public", "views"));
 app.set("view engine", "ejs");
 
-// --- MIDDLEWARES GLOBALES (Librerías) ---
+// --- MIDDLEWARES GLOBALES ---
 app.use(morgan("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -37,9 +34,9 @@ app.use(session({
     saveUninitialized: false
 }));
 
-// --- MIDDLEWARES PROPIOS (Lógica de Negocio) ---
-app.use(loadUser);          // Carga el usuario en res.locals
-app.use(loadAccessibility); // Carga preferencias visuales
+// --- MIDDLEWARES PROPIOS ---
+app.use(loadUser);
+app.use(loadAccessibility);
 
 // --- RUTAS ---
 app.use('/', mainRoutes);
@@ -47,8 +44,8 @@ app.use('/admin', adminRoutes);
 app.use('/empleado', empleadoRoutes);
 
 // --- GESTIÓN DE ERRORES ---
-app.use(notFoundHandler);   // Manejador 404
-app.use(errorHandler);      // Manejador 500
+app.use(notFoundHandler);
+app.use(errorHandler);  
 
 // --- ARRANQUE ---
 app.listen(PORT, () => {

@@ -3,9 +3,9 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Panel de Empleado</title>
-    <link rel="icon" type="image/svg" href="../img/icon.svg">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel de Empleado</title>
+    <link rel="icon" type="image/svg" href="/img/icon.svg">
     <link rel="stylesheet" href="/css/bootstrap.min.css">
     <link rel="stylesheet" href="/css/accessibility.css">
     <link rel="stylesheet" href="/css/style.css">
@@ -14,88 +14,95 @@
 <body class="<%= typeof bodyClass !== 'undefined' ? bodyClass : '' %>">
 
     <%- include('partials/navbar') %>
-        <div class="card">
-            <div class="dashboard-card">
-                <div>
-                    <h1>¡Bienvenido, <%= user.name %>!</h1>
-                    <em>Empleado</em>
-                </div>
-                <div class="imagen-contenedor">
-                    <img src="../img/planceholder.png" alt="Foto del empleado">
+
+        <div class="container mt-4">
+
+            <div class="card shadow-sm mb-4">
+                <div class="card-body">
+                    <div class="row align-items-center">
+                        <div class="col-md-7 text-center text-md-start mb-3 mb-md-0">
+                            <h1 class="display-5">¡Bienvenido, <%= user.name %>!</h1>
+                            <span class="badge bg-success fs-6">Empleado</span>
+                        </div>
+
+                        <div class="col-md-4 imagen-contenedor">
+                            <img src="/img/planceholder.png" alt="Foto del empleado"
+                                class="img-fluid">
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="card-body">
 
-                <hr class="mb-4">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h3 class="card-title mb-0">Mis Reservas</h3>
+                    </div>
 
-                <h3 class="mb-3">Mis Reservas Recientes</h3>
+                    <hr>
 
-                <% if (reservas.length===0) { %>
-                        <p>¡Aún no tienes reservas!</p>
-                    <% } else { %>
-                        <div class="card">
-                            <div class="card-body p-0">
-                                <div class="table-responsive">
-                                    <table class="table align-middle">
-                                        <thead>
-                                            <tr>
-                                                <th class="ps-4">Vehículo</th>
-                                                <th>Fechas</th>
-                                                <th>Estado</th>
-                                                <th>Kms</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <% reservas.forEach(r=> { %>
-                                                <tr>
-                                                    <td class="ps-4">
-                                                        <div class="d-flex align-items-center">
-                                                            <% if (r.imagen) { %>
-                                                                <img src="<%= r.imagen %>" class="rounded me-3"
-                                                                    style="width: 40px; height: 40px; object-fit: cover;">
-                                                                <% } %>
-                                                                    <div>
-                                                                        <div class="fw-bold">
-                                                                            <%= r.marca %>
-                                                                                <%= r.modelo %>
-                                                                        </div>
-                                                                        <div class="text-muted small">
-                                                                            <%= r.matricula %>
-                                                                        </div>
-                                                                    </div>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="small">
-                                                            <strong>Salida:</strong>
-                                                            <%= new Date(r.fecha_inicio).toLocaleString('es-ES') %><br>
-                                                                <strong>Llegada:</strong>
-                                                                <%= new Date(r.fecha_fin).toLocaleString('es-ES') %>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <% let badgeClass='bg-secondary' ; if (r.estado==='activa' )
-                                                            badgeClass='bg-success' ; if (r.estado==='cancelada' )
-                                                            badgeClass='bg-danger' ; if (r.estado==='finalizada' )
-                                                            badgeClass='bg-primary' ; %>
-                                                            <span class="badge <%= badgeClass %> rounded-pill">
-                                                                <%= r.estado.toUpperCase() %>
-                                                            </span>
-                                                    </td>
-                                                    <td>
-                                                        <%= r.kilometros_recorridos ? r.kilometros_recorridos + ' km'
-                                                            : '-' %>
-                                                    </td>
-                                                </tr>
-                                                <% }); %>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
+                    <% if (reservas.length===0) { %>
+                        <div class="alert alert-info" role="alert">
+                            ¡Aún no tienes reservas! <a href="/empleado/vehiculos" class="alert-link">Haz tu primera
+                                reserva aquí</a>.
                         </div>
-                        <% } %>
+                        <% } else { %>
+                            <div class="table-responsive">
+                                <table class="table table-hover align-middle">
+                                    <thead class="table-light">
+                                        <tr>
+                                            <th class="ps-3">Vehículo</th>
+                                            <th>Fechas</th>
+                                            <th>Estado</th>
+                                            <th>Kms</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <% reservas.forEach(r=> { %>
+                                            <tr>
+                                                <td class="ps-3">
+                                                    <div class="d-flex align-items-center">
+                                                        <img src="<%= r.imagen %>"
+                                                            class="rounded me-3 d-none d-sm-block"
+                                                            style="width: 50px; height: 35px; object-fit: cover;">
+                                                        <div>
+                                                            <div class="fw-bold">
+                                                                <%= r.marca %>
+                                                                    <%= r.modelo %>
+                                                            </div>
+                                                            <small class="text-muted">
+                                                                <%= r.matricula %>
+                                                            </small>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="small">
+                                                        <span class="d-block">In: <%= new
+                                                                Date(r.fecha_inicio).toLocaleDateString() %></span>
+                                                        <span class="d-block text-muted">Out: <%= new
+                                                                Date(r.fecha_fin).toLocaleDateString() %></span>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <span>
+                                                        <%= r.estado.toUpperCase() %>
+                                                    </span>
+                                                </td>
+                                                <td>
+                                                    <%= r.kilometros_recorridos ? r.kilometros_recorridos + ' km' : '-'
+                                                        %>
+                                                </td>
+                                            </tr>
+                                            <% }); %>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <% } %>
+                </div>
             </div>
         </div>
+        <br>
         <%- include('partials/footer') %>
             <%- include('partials/accessibility_modal') %>
                 <script src="/js/bootstrap.bundle.min.js"></script>
