@@ -36,7 +36,7 @@
       "color": "Gris",
       "imagen": "../img/vehiculos/A-BYD-seal.png",
       "estado": "disponible",
-      "concesionario_nombre": "Campus de Somosaguas"
+      "concesionario_nombre": "Sede Central - Ciudad Universitaria"
     },
     {
       "matricula": "0373NLJ",
@@ -47,7 +47,7 @@
       "autonomia_km": 280,
       "color": "Gris",
       "imagen": "../img/vehiculos/A-nissan-leaf.png",
-      "estado": "mantenimiento",
+      "estado": "disponible",
       "concesionario_nombre": "Sede Central - Ciudad Universitaria"
     },
     {
@@ -59,8 +59,8 @@
       "autonomia_km": 480,
       "color": "Acero",
       "imagen": "../img/vehiculos/A-tesla-cybertruck.png",
-      "estado": "mantenimiento",
-      "concesionario_nombre": "Campus de Somosaguas"
+      "estado": "disponible",
+      "concesionario_nombre": "Sede Central - Ciudad Universitaria"
     },
     {
       "matricula": "6599JHL",
@@ -72,7 +72,43 @@
       "color": "Gris",
       "imagen": "../img/vehiculos/A-honda-e.png",
       "estado": "disponible",
-      "concesionario_nombre": "Campus de Somosaguas"
+      "concesionario_nombre": "Sede Central - Ciudad Universitaria"
+    },
+    {
+      "matricula": "9685LPM",
+      "marca": "Audi",
+      "modelo": "e-Tron",
+      "año_matriculacion": 2023,
+      "numero_plazas": 7,
+      "autonomia_km": 410,
+      "color": "Gris",
+      "imagen": "../img/vehiculos/A-audi-e-tron.png",
+      "estado": "disponible",
+      "concesionario_nombre": "Sede Central - Ciudad Universitaria"
+    },
+    {
+      "matricula": "7896HXU",
+      "marca": "BMW",
+      "modelo": "i3",
+      "año_matriculacion": 2019,
+      "numero_plazas": 4,
+      "autonomia_km": 200,
+      "color": "Blanco",
+      "imagen": "../img/vehiculos/A-bmw-i3.png",
+      "estado": "disponible",
+      "concesionario_nombre": "Sede Central - Ciudad Universitaria"
+    },
+    {
+      "matricula": "1512LPP",
+      "marca": "Citröen",
+      "modelo": "Ami",
+      "año_matriculacion": 2025,
+      "numero_plazas": 2,
+      "autonomia_km": 100,
+      "color": "Azul",
+      "imagen": "../img/vehiculos/A-citroen-ami.png",
+      "estado": "disponible",
+      "concesionario_nombre": "Sede Central - Ciudad Universitaria"
     }
   ]
 }
